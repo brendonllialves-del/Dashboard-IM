@@ -1,0 +1,12 @@
+{
+  "name": "imdigital-dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard operacional IM Digital - Prosperidade FB",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'Para testar localmente, abra public/index.html no navegador'"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

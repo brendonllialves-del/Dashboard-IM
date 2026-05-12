@@ -1,0 +1,2178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IM Digital · Análise FB · Prosperidade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================
+   IM DIGITAL · ANÁLISE FB
+   Direção: Trading Floor Editorial
+   ============================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* INK SCALE */
+  --ink: #06070a;
+  --ink-2: #0b0d12;
+  --ink-3: #12151c;
+  --ink-4: #1a1e27;
+  --ink-5: #252934;
+  --ink-6: #353a47;
+
+  /* PAPER */
+  --paper: #f5f2eb;
+  --paper-2: #e0dcd2;
+  --text: #f5f2eb;
+  --text-2: #b8b4a8;
+  --text-3: #6e6a5e;
+  --text-4: #45433d;
+  --rule: rgba(245, 242, 235, 0.06);
+  --rule-2: rgba(245, 242, 235, 0.12);
+  --rule-3: rgba(245, 242, 235, 0.22);
+
+  /* GOLD — acento principal */
+  --gold: #d4a857;
+  --gold-2: #e8c684;
+  --gold-3: #b88a3d;
+  --gold-soft: rgba(212, 168, 87, 0.14);
+  --gold-glow: rgba(212, 168, 87, 0.4);
+
+  /* MARKET COLORS */
+  --bull: #5eb87b;
+  --bull-2: #7ed09a;
+  --bull-soft: rgba(94, 184, 123, 0.14);
+  --bull-glow: rgba(94, 184, 123, 0.4);
+
+  --bear: #e36b5a;
+  --bear-2: #ff8a76;
+  --bear-soft: rgba(227, 107, 90, 0.14);
+  --bear-glow: rgba(227, 107, 90, 0.4);
+
+  --warn: #e8a857;
+  --warn-soft: rgba(232, 168, 87, 0.12);
+
+  --ice: #6c9bd1;
+  --ice-soft: rgba(108, 155, 209, 0.12);
+
+  --violet: #a98cc7;
+  --violet-soft: rgba(169, 140, 199, 0.12);
+
+  --serif: 'Fraunces', 'Times New Roman', serif;
+  --mono: 'JetBrains Mono', 'SF Mono', monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--serif);
+  font-weight: 400;
+  font-feature-settings: "ss01", "kern", "tnum";
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(212, 168, 87, 0.07), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 30%, rgba(108, 155, 209, 0.04), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 10% 80%, rgba(169, 140, 199, 0.04), transparent 60%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+
+/* Tabular numbers everywhere */
+.mono, .num, [class*="-value"], [class*="-num"], td, th {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+header {
+  position: relative;
+  z-index: 10;
+  padding: 22px 36px 20px;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  background: rgba(6, 7, 10, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 19px;
+  color: var(--gold);
+  letter-spacing: -0.04em;
+  position: relative;
+  background: radial-gradient(circle at 30% 30%, rgba(212, 168, 87, 0.15), transparent 70%);
+}
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  opacity: 0.3;
+}
+
+.brand-text { display: flex; flex-direction: column; gap: 3px; }
+.brand-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+  line-height: 1;
+}
+.brand-name em { font-style: italic; color: var(--gold); }
+.brand-meta {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.head-status {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+}
+
+.live-pulse {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--bull);
+}
+.live-pulse::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--bull);
+  animation: pulse 1.8s var(--ease) infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--bull-glow); }
+  50% { box-shadow: 0 0 0 6px transparent; opacity: 0.7; }
+}
+
+.head-clock {
+  font-feature-settings: "tnum";
+  letter-spacing: 0.08em;
+}
+
+/* ============================================
+   TICKER STRIP — barra de cotação topo
+   ============================================ */
+.ticker {
+  background: var(--ink-2);
+  border-bottom: 1px solid var(--rule);
+  overflow: hidden;
+  position: relative;
+  height: 38px;
+}
+.ticker-track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  white-space: nowrap;
+  animation: tickerScroll 60s linear infinite;
+  gap: 36px;
+  padding-left: 36px;
+}
+.ticker-track:hover { animation-play-state: paused; }
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.tick {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.tick-label { color: var(--text-3); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; }
+.tick-value { color: var(--paper); font-weight: 600; }
+.tick-value.bull { color: var(--bull); }
+.tick-value.bear { color: var(--bear); }
+.tick-value.gold { color: var(--gold); }
+.tick-arrow { font-size: 9px; }
+.tick-sep { color: var(--ink-5); }
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  position: relative;
+  z-index: 5;
+  padding: 64px 36px 36px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.hero-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.34em;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(38px, 5.5vw, 64px);
+  font-weight: 300;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  color: var(--paper);
+  max-width: 900px;
+}
+.hero-title em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold);
+  position: relative;
+}
+
+.hero-period {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: right;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+.period-label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.24em;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+.period-dates {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--paper-2);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.period-dates strong { color: var(--gold); font-weight: 500; }
+.period-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border: 1px solid var(--gold);
+  background: var(--gold-soft);
+  color: var(--gold);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.period-pill::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: pulse 1.8s ease infinite;
+}
+
+/* ============================================
+   STATS BAND — números do mercado
+   ============================================ */
+.stats-band {
+  position: relative;
+  z-index: 5;
+  max-width: 1500px;
+  margin: 32px auto 0;
+  padding: 0 36px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid var(--rule-2);
+  border-bottom: 1px solid var(--rule-2);
+}
+.stat {
+  padding: 26px 24px;
+  border-right: 1px solid var(--rule);
+  position: relative;
+  transition: background 0.4s var(--ease);
+  cursor: default;
+}
+.stat:last-child { border-right: none; }
+.stat:hover { background: rgba(245, 242, 235, 0.02); }
+.stat-headline { display: flex; align-items: baseline; gap: 8px; }
+.stat-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.stat-value {
+  font-family: var(--serif);
+  font-size: 38px;
+  font-weight: 300;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  color: var(--paper);
+  font-variant-numeric: tabular-nums;
+}
+.stat-value.bull { color: var(--bull); }
+.stat-value.bear { color: var(--bear); }
+.stat-value.gold { color: var(--gold); }
+.stat-value sup {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  margin-left: 4px;
+  vertical-align: super;
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+  opacity: 0.85;
+}
+.stat-trend {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.stat-trend.up { color: var(--bull); }
+.stat-trend.down { color: var(--bear); }
+.stat-trend-arrow { font-size: 9px; }
+
+/* destaque do stat principal */
+.stat.featured {
+  background: linear-gradient(135deg, rgba(212, 168, 87, 0.04) 0%, transparent 60%);
+}
+.stat.featured .stat-label { color: var(--gold); opacity: 0.8; }
+
+/* ============================================
+   TAB BAR
+   ============================================ */
+.tab-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(6, 7, 10, 0.92);
+  backdrop-filter: blur(28px) saturate(140%);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
+  border-bottom: 1px solid var(--rule);
+  margin-top: 36px;
+}
+.tab-bar-inner {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 36px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-bar-inner::-webkit-scrollbar { display: none; }
+
+.tab {
+  padding: 18px 24px;
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--text-3);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  position: relative;
+  transition: color 0.3s var(--ease);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 400;
+}
+.tab .tab-num {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text-3);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+.tab:hover { color: var(--text-2); }
+.tab.active { color: var(--paper); font-style: italic; }
+.tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 24px;
+  right: 24px;
+  height: 1px;
+  background: var(--gold);
+}
+.tab.active .tab-num { color: var(--gold); }
+
+.tab.priority {
+  color: var(--gold);
+  padding-left: 30px;
+  position: relative;
+}
+.tab.priority::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--bear);
+  box-shadow: 0 0 0 0 var(--bear-glow);
+  animation: alertPulse 2s ease infinite;
+}
+@keyframes alertPulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--bear-glow); }
+  50% { box-shadow: 0 0 0 6px transparent; }
+}
+.tab.priority.active::after { background: var(--bear); }
+
+/* ============================================
+   MAIN
+   ============================================ */
+main {
+  position: relative;
+  z-index: 5;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 36px 36px 100px;
+}
+.tab-panel { display: none; animation: fadeUp 0.6s var(--ease-out); }
+.tab-panel.active { display: block; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--rule-2);
+}
+.section-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: 38px;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  color: var(--paper);
+}
+.section-title em { font-style: italic; color: var(--gold); }
+.section-meta {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--text-3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.subhead {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin: 32px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.subhead::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+.subhead strong { color: var(--paper); font-weight: 600; }
+
+/* ============================================
+   INSIGHT CARDS — Tomada de Decisão
+   ============================================ */
+.priority-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 36px;
+}
+.priority-grid.full { grid-template-columns: 1fr; }
+
+.insight {
+  background: linear-gradient(135deg, var(--ink-2) 0%, var(--ink-3) 100%);
+  border: 1px solid var(--rule-2);
+  border-left: 3px solid var(--accent, var(--gold));
+  border-radius: 14px;
+  padding: 26px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s var(--ease);
+}
+.insight::before {
+  content: "";
+  position: absolute;
+  top: -50px; right: -50px;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, var(--accent-soft, var(--gold-soft)), transparent 60%);
+  opacity: 0.7;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+.insight:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+  border-left-width: 4px;
+}
+.insight:hover::before { opacity: 1; }
+
+.insight.fire   { --accent: #ff8a4c; --accent-soft: rgba(255, 138, 76, 0.14); }
+.insight.bull   { --accent: var(--bull); --accent-soft: var(--bull-soft); }
+.insight.bear   { --accent: var(--bear); --accent-soft: var(--bear-soft); }
+.insight.ice    { --accent: var(--ice); --accent-soft: var(--ice-soft); }
+.insight.gold   { --accent: var(--gold); --accent-soft: var(--gold-soft); }
+
+.insight-tag {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.insight-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.018em;
+  color: var(--paper);
+  margin-bottom: 12px;
+  line-height: 1.25;
+}
+.insight-title em { font-style: italic; color: var(--accent); }
+.insight-body {
+  font-family: var(--serif);
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text-2);
+  margin-bottom: 16px;
+}
+.insight-body strong { color: var(--paper); font-weight: 600; }
+.insight-body code {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  background: var(--ink-4);
+  padding: 1.5px 7px;
+  border-radius: 4px;
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  font-weight: 500;
+}
+
+.insight-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 14px 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 14px;
+}
+.istat { display: flex; flex-direction: column; }
+.istat-label {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.istat-value {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--paper);
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.istat-value.bull { color: var(--bull); }
+.istat-value.bear { color: var(--bear); }
+.istat-value.gold { color: var(--gold); }
+
+.insight-action {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-transform: uppercase;
+}
+.insight-action::before {
+  content: "→";
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/* ============================================
+   DASHBOARD — daily strip + KPIs
+   ============================================ */
+
+/* Daily strip — interativo, clicável */
+.day-strip {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 32px;
+}
+
+.day {
+  background: var(--ink-2);
+  border: 1px solid var(--rule-2);
+  border-radius: 12px;
+  padding: 18px 14px 16px;
+  position: relative;
+  transition: all 0.3s var(--ease);
+  cursor: pointer;
+  text-align: center;
+  overflow: hidden;
+}
+.day::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--day-gradient, transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.day:hover { transform: translateY(-4px); border-color: var(--gold); }
+.day:hover::before { opacity: 1; }
+
+.day.bull { --day-gradient: linear-gradient(180deg, var(--bull-soft), transparent 70%); }
+.day.bear { --day-gradient: linear-gradient(180deg, var(--bear-soft), transparent 70%); }
+.day.warn { --day-gradient: linear-gradient(180deg, var(--warn-soft), transparent 70%); }
+.day.live {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, var(--gold-soft), var(--ink-2) 70%);
+  box-shadow: 0 0 0 1px var(--gold-soft), 0 12px 32px rgba(212, 168, 87, 0.08);
+}
+
+.day.selected {
+  border-color: var(--paper) !important;
+  box-shadow: 0 0 0 2px var(--gold), 0 12px 32px rgba(212, 168, 87, 0.18);
+  transform: translateY(-4px);
+}
+
+.day-date {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-2);
+  margin-bottom: 2px;
+  position: relative;
+  z-index: 2;
+}
+.day.live .day-date { color: var(--gold); }
+.day.selected .day-date { color: var(--paper); }
+.day-dow {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 2;
+}
+.day-roi {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
+  position: relative;
+  z-index: 2;
+}
+.day.bull .day-roi { color: var(--bull); }
+.day.bear .day-roi { color: var(--bear); }
+.day.warn .day-roi { color: var(--warn); }
+.day.live .day-roi { color: var(--bull); }
+.day-sales {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  color: var(--text-3);
+  letter-spacing: 0.06em;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 10px;
+}
+.day-sales strong { color: var(--paper); font-weight: 600; }
+
+.day-bar-track {
+  height: 4px;
+  background: var(--ink-4);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.day-bar-fill {
+  position: absolute;
+  inset: 0;
+  width: var(--bar, 0%);
+  background: var(--bar-color, var(--bull));
+  border-radius: 2px;
+  transition: width 0.6s var(--ease-out);
+}
+
+.day-tooltip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: var(--ink-4);
+  border: 1px solid var(--rule-3);
+  border-radius: 10px;
+  padding: 14px 18px;
+  width: 230px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s var(--ease);
+  z-index: 30;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.5);
+  text-align: left;
+}
+.day:hover .day-tooltip { opacity: 1; transform: translateX(-50%) translateY(0); }
+.day-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--ink-4);
+}
+.tip-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  padding: 3px 0;
+  font-variant-numeric: tabular-nums;
+}
+.tip-row .tip-label { color: var(--text-3); letter-spacing: 0.04em; }
+.tip-row .tip-value { color: var(--paper); font-weight: 600; }
+.tip-row .tip-value.bull { color: var(--bull); }
+.tip-row .tip-value.bear { color: var(--bear); }
+.tip-divider { height: 1px; background: var(--rule); margin: 6px 0; }
+
+/* KPI cards */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+.kpi {
+  background: var(--ink-2);
+  border: 1px solid var(--rule-2);
+  border-radius: 14px;
+  padding: 24px 24px 20px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s var(--ease);
+}
+.kpi:hover { border-color: var(--gold); transform: translateY(-2px); }
+.kpi::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent, var(--gold)), transparent);
+  opacity: 0.4;
+}
+.kpi.featured {
+  background: linear-gradient(135deg, var(--ink-2) 0%, rgba(212, 168, 87, 0.05) 100%);
+  border-color: var(--gold);
+}
+.kpi.featured::before {
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 1;
+}
+
+.kpi-label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.24em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.kpi-flag {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent, var(--gold));
+}
+
+.kpi-value-row { display: flex; align-items: baseline; gap: 10px; }
+.kpi-value {
+  font-family: var(--serif);
+  font-size: 44px;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--paper);
+  font-variant-numeric: tabular-nums;
+}
+.kpi.featured .kpi-value { color: var(--gold); font-size: 50px; }
+.kpi-value.bull { color: var(--bull) !important; }
+.kpi-value.bear { color: var(--bear) !important; }
+
+.kpi-unit {
+  font-family: var(--mono);
+  font-size: 16px;
+  color: var(--text-3);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.kpi-meta {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--text-3);
+  margin-top: 8px;
+  letter-spacing: 0.04em;
+}
+
+.kpi-divider {
+  height: 1px;
+  background: var(--rule);
+  margin: 14px 0 12px;
+}
+
+.kpi-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.kpi-detail {
+  display: flex;
+  flex-direction: column;
+}
+.kpi-detail-label {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.kpi-detail-value {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--paper);
+  font-variant-numeric: tabular-nums;
+}
+.kpi-detail-value.bull { color: var(--bull); }
+.kpi-detail-value.bear { color: var(--bear); }
+.kpi-detail-value.gold { color: var(--gold); }
+
+/* Range selector */
+.range-pills {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 4px;
+  background: var(--ink-2);
+  border: 1px solid var(--rule-2);
+  border-radius: 999px;
+}
+.range-pill {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  color: var(--text-3);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s var(--ease);
+}
+.range-pill:hover { color: var(--text-2); }
+.range-pill.active {
+  background: var(--gold);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* ============================================
+   DAY DETAIL PANEL — lazy reveal
+   ============================================ */
+.day-detail {
+  background: linear-gradient(135deg, var(--ink-2) 0%, var(--ink-3) 100%);
+  border: 1px solid var(--rule-2);
+  border-radius: 14px;
+  padding: 32px 32px 28px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+  display: none;
+}
+.day-detail.active { display: block; animation: fadeUp 0.5s var(--ease-out); }
+
+.day-detail-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--rule);
+}
+.day-detail-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+}
+.day-detail-title strong { font-style: normal; color: var(--gold); font-weight: 600; }
+.day-detail-close {
+  background: transparent;
+  border: 1px solid var(--rule-2);
+  color: var(--text-2);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.day-detail-close:hover { border-color: var(--paper); color: var(--paper); }
+
+.day-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 18px;
+}
+.dm {
+  display: flex;
+  flex-direction: column;
+}
+.dm-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.dm-value {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--paper);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.015em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.dm-value.bull { color: var(--bull); }
+.dm-value.bear { color: var(--bear); }
+.dm-value.gold { color: var(--gold); }
+.dm-meta {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================
+   CRIATIVOS — datatable refinada
+   ============================================ */
+.crv-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.crv-info {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text-2);
+}
+.crv-info strong { color: var(--paper); font-weight: 600; }
+
+.sort-hint {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+.sort-hint kbd {
+  display: inline-block;
+  padding: 2px 7px;
+  background: var(--ink-3);
+  border: 1px solid var(--rule-2);
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  color: var(--paper);
+  margin: 0 2px;
+}
+
+.crv-table {
+  background: var(--ink-2);
+  border: 1px solid var(--rule-2);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.crv-head {
+  display: grid;
+  grid-template-columns: 50px 1.5fr 80px 80px 100px 110px 110px 90px 110px 1fr;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule-2);
+  background: rgba(245, 242, 235, 0.015);
+}
+.crv-head > div {
+  padding: 0 14px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s;
+}
+.crv-head > div:hover { color: var(--paper); }
+.crv-head > div.sortable::after {
+  content: "▼";
+  font-size: 7px;
+  color: var(--text-4);
+  transition: all 0.2s;
+}
+.crv-head > div.sort-asc::after { content: "▲"; color: var(--gold); }
+.crv-head > div.sort-desc::after { content: "▼"; color: var(--gold); }
+.crv-head > div.sortable:hover::after { color: var(--text-2); }
+
+.crv-row {
+  display: grid;
+  grid-template-columns: 50px 1.5fr 80px 80px 100px 110px 110px 90px 110px 1fr;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: center;
+  transition: all 0.25s var(--ease);
+  position: relative;
+}
+.crv-row:last-child { border-bottom: none; }
+.crv-row:hover { background: rgba(245, 242, 235, 0.025); }
+.crv-row > div { padding: 0 14px; }
+
+.crv-rank {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-3);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.crv-name {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--paper);
+  letter-spacing: -0.012em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.crv-name-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  padding: 3px 7px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  background: var(--tag-bg, var(--ink-4));
+  color: var(--tag-color, var(--text-3));
+  border: 1px solid var(--tag-border, transparent);
+}
+.crv-name-tag.gold { --tag-bg: var(--gold-soft); --tag-color: var(--gold); --tag-border: rgba(212, 168, 87, 0.3); }
+.crv-name-tag.bull { --tag-bg: var(--bull-soft); --tag-color: var(--bull); --tag-border: rgba(94, 184, 123, 0.3); }
+.crv-name-tag.bear { --tag-bg: var(--bear-soft); --tag-color: var(--bear); --tag-border: rgba(227, 107, 90, 0.3); }
+.crv-name-tag.fire { --tag-bg: rgba(255, 138, 76, 0.14); --tag-color: #ff8a4c; --tag-border: rgba(255, 138, 76, 0.3); }
+.crv-name-tag.ice { --tag-bg: var(--ice-soft); --tag-color: var(--ice); --tag-border: rgba(108, 155, 209, 0.3); }
+.crv-name-tag.dust { --tag-bg: var(--ink-4); --tag-color: var(--text-3); }
+
+.crv-num {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--paper);
+  text-align: right;
+  letter-spacing: -0.005em;
+  font-variant-numeric: tabular-nums;
+}
+.crv-num.bull { color: var(--bull); }
+.crv-num.bear { color: var(--bear); }
+.crv-num.muted { color: var(--text-3); }
+.crv-num.gold { color: var(--gold); }
+
+.crv-roi-bar {
+  position: relative;
+  height: 28px;
+  display: flex;
+  align-items: center;
+}
+.crv-roi-track {
+  position: absolute;
+  inset: 8px 14px;
+  background: var(--ink-4);
+  border-radius: 2px;
+  height: 12px;
+  overflow: hidden;
+}
+.crv-roi-fill {
+  position: absolute;
+  height: 100%;
+  background: var(--roi-color, var(--bull));
+  border-radius: 2px;
+  transition: width 0.6s var(--ease-out);
+}
+.crv-roi-line {
+  position: absolute;
+  left: var(--breakeven, 25%);
+  top: 0; bottom: 0;
+  width: 1px;
+  background: var(--gold);
+  z-index: 2;
+}
+.crv-roi-line::after {
+  content: "1×";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+}
+.crv-roi-num {
+  position: absolute;
+  right: 14px;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  z-index: 3;
+  text-shadow: 0 0 4px var(--ink-2);
+}
+.crv-roi-num.bull { color: var(--bull); }
+.crv-roi-num.bear { color: var(--bear); }
+.crv-roi-num.warn { color: var(--warn); }
+.crv-roi-num.gold { color: var(--gold); }
+
+.crv-pitch-bar {
+  position: relative;
+  height: 6px;
+  background: var(--ink-4);
+  border-radius: 3px;
+  margin-top: 5px;
+}
+.crv-pitch-fill {
+  position: absolute;
+  inset: 0;
+  width: var(--pitch, 0%);
+  background: linear-gradient(90deg, var(--ice), var(--violet));
+  border-radius: 3px;
+}
+
+.crv-pitch-num {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--paper);
+  font-variant-numeric: tabular-nums;
+}
+.crv-pitch-num.muted { color: var(--text-3); font-size: 11px; font-style: italic; }
+
+.crv-context {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-3);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+.crv-context strong { color: var(--text-2); font-weight: 500; }
+.crv-context em { color: var(--gold); font-style: normal; }
+
+.crv-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.crv-status.scale  { color: var(--bull); border-color: var(--bull); background: var(--bull-soft); }
+.crv-status.watch  { color: var(--warn); border-color: var(--warn); background: var(--warn-soft); }
+.crv-status.alert  { color: var(--bear); border-color: var(--bear); background: var(--bear-soft); }
+.crv-status.pause  { color: var(--bear-2); border-color: var(--bear); background: var(--bear-soft); text-decoration: line-through; text-decoration-color: var(--bear); }
+.crv-status.test   { color: var(--ice); border-color: var(--ice); background: var(--ice-soft); }
+.crv-status.dust   { color: var(--text-3); border-color: var(--rule-3); background: var(--ink-3); opacity: 0.7; }
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  position: relative;
+  z-index: 5;
+  padding: 40px 36px;
+  border-top: 1px solid var(--rule);
+  margin-top: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-mark {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text-3);
+}
+.footer-mark strong { color: var(--gold); font-weight: 500; }
+.footer-meta {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1200px) {
+  .stats-band { grid-template-columns: 1fr 1fr 1fr; }
+  .stats-band .stat:nth-child(4),
+  .stats-band .stat:nth-child(5) { border-top: 1px solid var(--rule); }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .day-strip { grid-template-columns: repeat(4, 1fr); }
+  .day-metric-grid { grid-template-columns: repeat(3, 1fr); }
+  .crv-head, .crv-row {
+    grid-template-columns: 40px 1.5fr 80px 100px 110px 90px 1fr;
+  }
+  .crv-head > div:nth-child(4),
+  .crv-head > div:nth-child(5),
+  .crv-head > div:nth-child(8),
+  .crv-row > div:nth-child(4),
+  .crv-row > div:nth-child(5),
+  .crv-row > div:nth-child(8) { display: none; }
+}
+@media (max-width: 768px) {
+  .priority-grid { grid-template-columns: 1fr; }
+  .stats-band { grid-template-columns: 1fr 1fr; }
+  .stats-band .stat:nth-child(3) { border-right: none; border-bottom: 1px solid var(--rule); }
+  .kpi-grid { grid-template-columns: 1fr; }
+  .day-strip { grid-template-columns: repeat(2, 1fr); }
+  .day-metric-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero { padding: 40px 24px 28px; }
+  .hero-top { flex-direction: column; align-items: flex-start; }
+  .hero-period { text-align: left; align-items: flex-start; }
+  main { padding: 28px 20px 80px; }
+  header { padding: 16px 24px; }
+  .tab-bar-inner { padding: 0 24px; }
+  .tab { padding: 16px 16px; font-size: 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="brand">
+    <div class="brand-mark">IM</div>
+    <div class="brand-text">
+      <div class="brand-name">IM Digital · <em>Análise FB</em></div>
+      <div class="brand-meta">Prosperidade · Trading Floor</div>
+    </div>
+  </div>
+  <div class="head-status">
+    <span class="live-pulse">DADOS AO VIVO</span>
+    <span class="head-clock" id="liveClock">14:33:02 BRT</span>
+  </div>
+</header>
+
+<!-- ============ TICKER ============ -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="tick"><span class="tick-label">VENDAS 7D</span><span class="tick-value">203</span><span class="tick-arrow tick-value bull">▲ +14%</span></span>
+    <span class="tick-sep">·</span>
+    <span class="tick"><span class="tick-label">FAT 7D</span><span class="tick-value gold">R$ 34.115</span></span>
+    <span class="tick-sep">·</span>
+    <span class="tick"><span class="tick-label">LUCRO</span><span class="tick-value bull">+R$ 1.453</span></span>
+    <span class="tick-sep">·</span>
+    <span class="tick"><span class="tick-label">ROI</span><span class="tick-value bull">1,04×</span></span>
+    <span class="tick-sep">·</span>
+    <span class="tick"><span class="tick-label">CPIC MED</span><span class="tick-value">R$ 104</span></span>
+    <span class="tick-sep">·</span>
+    <span class="tick"><span class="tick-label">CP0020</span><span class="tick-value bull">ROI 3,98×</span><span class="tick-arrow tick-value bull">🔥</span></span>
+    <span class="tick-sep">·</span>
+    <span class="tick"><span class="tick-label">CP0020-RT</span><span class="tick-value bull">ROI 6,04×</span><span class="tick-arrow tick-value bull">🔥</span></span>
+    <span class="tick-sep">·</span>
+    <span class="tick"><span class="tick-label">VSL2 NEW</span><span class="tick-value bull">+208 vis</span></span>
+    <span class="tick-sep">·</span>
+    <span class="tick"><span class="tick-label">CP0008</span><span class="tick-value bear">ROI 0,20×</span><span class="tick-arrow tick-value bear">▼</span></span>
+    <span class="tick-sep">·</span>
+
+    <!-- duplicado pra loop -->
+    <span class="tick"><span class="tick-label">VENDAS 7D</span><span class="tick-value">203</span><span class="tick-arrow tick-value bull">▲ +14%</span></span>
+    <span class="tick-sep">·</span>
+    <span class="tick"><span class="tick-label">FAT 7D</span><span class="tick-value gold">R$ 34.115</span></span>
+    <span class="tick-sep">·</span>
+    <span class="tick"><span class="tick-label">LUCRO</span><span class="tick-value bull">+R$ 1.453</span></span>
+    <span class="tick-sep">·</span>
+    <span class="tick"><span class="tick-label">ROI</span><span class="tick-value bull">1,04×</span></span>
+    <span class="tick-sep">·</span>
+    <span class="tick"><span class="tick-label">CPIC MED</span><span class="tick-value">R$ 104</span></span>
+    <span class="tick-sep">·</span>
+    <span class="tick"><span class="tick-label">CP0020</span><span class="tick-value bull">ROI 3,98×</span><span class="tick-arrow tick-value bull">🔥</span></span>
+    <span class="tick-sep">·</span>
+    <span class="tick"><span class="tick-label">CP0020-RT</span><span class="tick-value bull">ROI 6,04×</span><span class="tick-arrow tick-value bull">🔥</span></span>
+    <span class="tick-sep">·</span>
+    <span class="tick"><span class="tick-label">VSL2 NEW</span><span class="tick-value bull">+208 vis</span></span>
+    <span class="tick-sep">·</span>
+    <span class="tick"><span class="tick-label">CP0008</span><span class="tick-value bear">ROI 0,20×</span><span class="tick-arrow tick-value bear">▼</span></span>
+    <span class="tick-sep">·</span>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-top">
+    <div>
+      <div class="hero-eyebrow">Painel de tomada de decisão</div>
+      <h1 class="hero-title">
+        Decidir com <em>dados</em>,<br>
+        não com <em>esperança</em>.
+      </h1>
+    </div>
+    <div class="hero-period">
+      <div class="period-label">Período em análise</div>
+      <div class="period-dates"><strong>30 abr</strong> → <strong>06 mai</strong> 2026</div>
+      <div class="period-pill">7 dias · hoje em curso</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS BAND ============ -->
+<div class="stats-band">
+  <div class="stat featured">
+    <div class="stat-label">Lucro líquido · 7 dias</div>
+    <div class="stat-value bull">+R$ 1.453</div>
+    <div class="stat-trend up"><span class="stat-trend-arrow">▲</span>positivo · ROI 1,04×</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Vendas no período</div>
+    <div class="stat-value">203</div>
+    <div class="stat-trend up"><span class="stat-trend-arrow">▲</span>+14% vs últimos 7d</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Faturamento</div>
+    <div class="stat-value gold">R$ 34,1<sup>k</sup></div>
+    <div class="stat-trend">consolidado</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Investimento</div>
+    <div class="stat-value">R$ 32,7<sup>k</sup></div>
+    <div class="stat-trend">CPIC R$ 104</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">313 IC · 244 ICs<br>geraram</div>
+    <div class="stat-value">203<sup>vendas</sup></div>
+    <div class="stat-trend up"><span class="stat-trend-arrow">▲</span>taxa 64,8%</div>
+  </div>
+</div>
+
+<!-- ============ TAB BAR ============ -->
+<nav class="tab-bar">
+  <div class="tab-bar-inner">
+    <button class="tab priority active" data-tab="decisao">
+      <span class="tab-num">00</span>
+      <span>Tomada de Decisão</span>
+    </button>
+    <button class="tab" data-tab="dashboard">
+      <span class="tab-num">01</span>
+      <span>Dashboard</span>
+    </button>
+    <button class="tab" data-tab="criativos">
+      <span class="tab-num">02</span>
+      <span>Criativos</span>
+    </button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ============ TOMADA DE DECISÃO ============ -->
+  <section class="tab-panel active" id="tab-decisao">
+
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">06 maio · 14:33 BRT</div>
+        <h2 class="section-title">Tomada de <em>Decisão</em></h2>
+      </div>
+      <div class="section-meta">5 ações · gerado agora</div>
+    </div>
+
+    <!-- PRIORIDADE MÁXIMA -->
+    <div class="subhead">
+      <strong>🚨 Prioridade máxima</strong> · agir hoje
+    </div>
+
+    <div class="priority-grid">
+
+      <!-- INSIGHT 1: CP0020 -->
+      <div class="insight fire">
+        <div class="insight-tag">🔥 NOVO CAMPEÃO · ESCALAR JÁ</div>
+        <h3 class="insight-title">
+          CP0020 (Emily C7 · 1-1-2 · COSTCAP 47) <em>explodiu</em>
+        </h3>
+        <p class="insight-body">
+          Aquele criativo G4 que tava prometendo ontem virou ouro. <strong>15 vendas em um dia</strong>, ROI <code>3,98×</code> com gasto baixo (<code>R$ 622</code>). Anteontem era a 3ª melhor estrutura, hoje é a #1 da operação. Subir o orçamento dessa CP em <strong>+50% agora</strong>, antes que perca o momento.
+        </p>
+        <div class="insight-stats">
+          <div class="istat">
+            <span class="istat-label">Vendas · 06/05</span>
+            <span class="istat-value bull">15</span>
+          </div>
+          <div class="istat">
+            <span class="istat-label">ROI</span>
+            <span class="istat-value bull">3,98×</span>
+          </div>
+          <div class="istat">
+            <span class="istat-label">Lucro</span>
+            <span class="istat-value bull">+R$ 1.854</span>
+          </div>
+          <div class="istat">
+            <span class="istat-label">CPIC</span>
+            <span class="istat-value gold">R$ 62</span>
+          </div>
+        </div>
+        <div class="insight-action">Subir budget +50% até amanhã</div>
+      </div>
+
+      <!-- INSIGHT 2: VSL2 -->
+      <div class="insight bull">
+        <div class="insight-tag">🎯 VSL2 ESTREOU FORTE</div>
+        <h3 class="insight-title">
+          A nova VSL <em>converte mais</em> que a antiga
+        </h3>
+        <p class="insight-body">
+          <strong>CP0020-RT (A5)</strong> primeiro dia rodando: 5 vendas, ROI <code>6,04×</code>, R$ 151 gasto. NEW EMILY VSL2 teve <strong>16 cliques no botão CTA</strong> (taxa pitch→clique de 41%). Retenção até o pitch igual à VSL1 (21%), mas conversão depois <strong>explodiu</strong>.
+        </p>
+        <div class="insight-stats">
+          <div class="istat">
+            <span class="istat-label">ROI estreia</span>
+            <span class="istat-value bull">6,04×</span>
+          </div>
+          <div class="istat">
+            <span class="istat-label">Cliques CTA</span>
+            <span class="istat-value gold">16</span>
+          </div>
+          <div class="istat">
+            <span class="istat-label">Pitch→Clique</span>
+            <span class="istat-value bull">41%</span>
+          </div>
+          <div class="istat">
+            <span class="istat-label">Vendas</span>
+            <span class="istat-value bull">5</span>
+          </div>
+        </div>
+        <div class="insight-action">Ativar mais campanhas -RT amanhã</div>
+      </div>
+
+    </div>
+
+    <!-- ATENÇÃO -->
+    <div class="subhead">
+      <strong>⚠ Pontos de atenção</strong> · monitorar e revisar
+    </div>
+
+    <div class="priority-grid">
+
+      <!-- INSIGHT 3: ADS30 -->
+      <div class="insight ice">
+        <div class="insight-tag">📊 INSIGHT REVELADO</div>
+        <h3 class="insight-title">
+          ADS30 dá <em>mais lucro</em> que ADS35 (apesar do volume)
+        </h3>
+        <p class="insight-body">
+          ADS35: 69 vendas, ROI <code>1,03×</code> (empata) · ADS30: <strong>68 vendas, ROI 1,29×</strong>. Antes parecia que ADS30 tinha problema de tracking — não tem. <strong>É um criativo melhor.</strong> Considerar isolar ele em CBO dedicado pra ver onde chega o ROI.
+        </p>
+        <div class="insight-stats">
+          <div class="istat">
+            <span class="istat-label">ADS30 ROI</span>
+            <span class="istat-value bull">1,29×</span>
+          </div>
+          <div class="istat">
+            <span class="istat-label">ADS30 lucro</span>
+            <span class="istat-value bull">+R$ 2.588</span>
+          </div>
+          <div class="istat">
+            <span class="istat-label">ADS35 lucro</span>
+            <span class="istat-value gold">+R$ 389</span>
+          </div>
+          <div class="istat">
+            <span class="istat-label">Diferença</span>
+            <span class="istat-value bull">+R$ 2.199</span>
+          </div>
+        </div>
+        <div class="insight-action">Testar ADS30 em CBO dedicado</div>
+      </div>
+
+      <!-- INSIGHT 4: Funil -->
+      <div class="insight bear">
+        <div class="insight-tag">📉 PROBLEMA NO FUNIL</div>
+        <h3 class="insight-title">
+          70% da audiência <em>perdida</em> em 3 minutos
+        </h3>
+        <p class="insight-body">
+          Em todos os 3 players (Emily/Victoria/Emily VSL2), retenção cai de <strong>~24%</strong> no pitch para <strong>~7%</strong> entre <code>26:40</code> e <code>30:00</code>. O problema não é a oferta — é a <strong>transição</strong>. Revisar a virada do pitch: novo loop, bullet rápido, gancho.
+        </p>
+        <div class="insight-stats">
+          <div class="istat">
+            <span class="istat-label">Pitch (26:40)</span>
+            <span class="istat-value gold">22-24%</span>
+          </div>
+          <div class="istat">
+            <span class="istat-label">3min depois</span>
+            <span class="istat-value bear">~7%</span>
+          </div>
+          <div class="istat">
+            <span class="istat-label">Queda</span>
+            <span class="istat-value bear">−70%</span>
+          </div>
+        </div>
+        <div class="insight-action">Revisar transição pós-pitch (26:40-30:00)</div>
+      </div>
+
+    </div>
+
+    <!-- VISÃO GERAL -->
+    <div class="subhead">
+      <strong>📈 Contexto do período</strong> · panorama geral
+    </div>
+
+    <div class="priority-grid full">
+
+      <div class="insight gold">
+        <div class="insight-tag">✦ STATUS DO PERÍODO</div>
+        <h3 class="insight-title">
+          7 dias fechando em <em>positivo</em>: +R$ 1.453 de lucro
+        </h3>
+        <p class="insight-body">
+          Apesar do <strong>02/05 ter sido o pior dia</strong> (−R$ 1.774), os dois últimos viraram o jogo: <strong>05/05 ROI 1,31×</strong> e <strong>06/05 ROI 1,29×</strong>. Tendência de fechamento positiva. CP0008 (1-1-5) caiu de ROI 1,11 (05/05) para 0,20 (06/05) — ficar de olho. Mas as duas novidades (CP0020 + VSL2) compensaram com folga. <strong>Operação saudável, mas com ponto frágil em CP0008.</strong>
+        </p>
+        <div class="insight-stats">
+          <div class="istat">
+            <span class="istat-label">Vendas</span>
+            <span class="istat-value">203</span>
+          </div>
+          <div class="istat">
+            <span class="istat-label">Faturamento</span>
+            <span class="istat-value gold">R$ 34,1k</span>
+          </div>
+          <div class="istat">
+            <span class="istat-label">Gasto</span>
+            <span class="istat-value">R$ 32,7k</span>
+          </div>
+          <div class="istat">
+            <span class="istat-label">Lucro</span>
+            <span class="istat-value bull">+R$ 1.453</span>
+          </div>
+          <div class="istat">
+            <span class="istat-label">ROI</span>
+            <span class="istat-value gold">1,04×</span>
+          </div>
+          <div class="istat">
+            <span class="istat-label">CPIC</span>
+            <span class="istat-value">R$ 104</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ============ DASHBOARD ============ -->
+  <section class="tab-panel" id="tab-dashboard">
+
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">7 dias · evolução diária interativa</div>
+        <h2 class="section-title">Pulso <em>diário</em></h2>
+      </div>
+      <div class="section-meta">clique num dia para detalhar</div>
+    </div>
+
+    <!-- DAILY STRIP — clicável -->
+    <div class="day-strip" id="dayStrip"></div>
+
+    <!-- DAY DETAIL PANEL -->
+    <div class="day-detail" id="dayDetail">
+      <div class="day-detail-head">
+        <h3 class="day-detail-title" id="ddTitle">Detalhe do dia</h3>
+        <button class="day-detail-close" onclick="closeDayDetail()">fechar ✕</button>
+      </div>
+      <div class="day-metric-grid" id="ddMetrics"></div>
+    </div>
+
+    <!-- KPI cards -->
+    <div class="subhead">
+      <strong>📊 Indicadores agregados</strong> · período total
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi featured">
+        <div class="kpi-label">
+          <span class="kpi-flag" style="background:var(--gold)"></span>
+          Lucro líquido · 7 dias
+        </div>
+        <div class="kpi-value-row">
+          <span class="kpi-value bull">+R$ 1.453</span>
+        </div>
+        <div class="kpi-meta">após R$ 32.662 investidos</div>
+        <div class="kpi-divider"></div>
+        <div class="kpi-detail-grid">
+          <div class="kpi-detail">
+            <span class="kpi-detail-label">ROI</span>
+            <span class="kpi-detail-value bull">1,04×</span>
+          </div>
+          <div class="kpi-detail">
+            <span class="kpi-detail-label">CPIC</span>
+            <span class="kpi-detail-value">R$ 104</span>
+          </div>
+          <div class="kpi-detail">
+            <span class="kpi-detail-label">Margem</span>
+            <span class="kpi-detail-value bull">+4,4%</span>
+          </div>
+          <div class="kpi-detail">
+            <span class="kpi-detail-label">Status</span>
+            <span class="kpi-detail-value gold">positivo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kpi" style="--accent: var(--bull)">
+        <div class="kpi-label">
+          <span class="kpi-flag"></span>
+          Vendas totais
+        </div>
+        <div class="kpi-value-row">
+          <span class="kpi-value">203</span>
+          <span class="kpi-unit">vendas</span>
+        </div>
+        <div class="kpi-meta">313 IC · taxa 64,8%</div>
+        <div class="kpi-divider"></div>
+        <div class="kpi-detail-grid">
+          <div class="kpi-detail">
+            <span class="kpi-detail-label">Hoje</span>
+            <span class="kpi-detail-value">39</span>
+          </div>
+          <div class="kpi-detail">
+            <span class="kpi-detail-label">Ontem</span>
+            <span class="kpi-detail-value">62</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kpi" style="--accent: var(--bull)">
+        <div class="kpi-label">
+          <span class="kpi-flag"></span>
+          ROI hoje
+        </div>
+        <div class="kpi-value-row">
+          <span class="kpi-value bull">1,29</span>
+          <span class="kpi-unit">×</span>
+        </div>
+        <div class="kpi-meta">39v · R$ 4.897 gasto</div>
+        <div class="kpi-divider"></div>
+        <div class="kpi-detail-grid">
+          <div class="kpi-detail">
+            <span class="kpi-detail-label">Lucro hoje</span>
+            <span class="kpi-detail-value bull">+R$ 1.430</span>
+          </div>
+          <div class="kpi-detail">
+            <span class="kpi-detail-label">CTR</span>
+            <span class="kpi-detail-value">10,1%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kpi" style="--accent: var(--ice)">
+        <div class="kpi-label">
+          <span class="kpi-flag"></span>
+          Eficiência média
+        </div>
+        <div class="kpi-value-row">
+          <span class="kpi-value">10,9</span>
+          <span class="kpi-unit">% CTR</span>
+        </div>
+        <div class="kpi-meta">7.473 cliques · CPC R$ 4,37</div>
+        <div class="kpi-divider"></div>
+        <div class="kpi-detail-grid">
+          <div class="kpi-detail">
+            <span class="kpi-detail-label">CPM</span>
+            <span class="kpi-detail-value">R$ 480</span>
+          </div>
+          <div class="kpi-detail">
+            <span class="kpi-detail-label">Hook</span>
+            <span class="kpi-detail-value gold">~55%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============ CRIATIVOS ============ -->
+  <section class="tab-panel" id="tab-criativos">
+
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Período agregado · 30/04 → 06/05</div>
+        <h2 class="section-title">Ranking de <em>criativos</em></h2>
+      </div>
+      <div class="section-meta">14 criativos analisados</div>
+    </div>
+
+    <div class="crv-toolbar">
+      <div class="crv-info">
+        Cada criativo aparece <strong>uma vez</strong> · ordenado por <strong>gasto</strong> (decrescente).<br>
+        <span style="color:var(--text-3); font-size: 13px">Inclui retenção até o pitch (cruzamento UTMify × VTurb).</span>
+      </div>
+      <div class="sort-hint">
+        <kbd>clique</kbd> no header da coluna pra ordenar
+      </div>
+    </div>
+
+    <div class="crv-table">
+      <div class="crv-head">
+        <div>#</div>
+        <div class="sortable" data-sort="name">Criativo</div>
+        <div class="sortable" data-sort="vendas" style="text-align:right">Vendas</div>
+        <div class="sortable" data-sort="ic" style="text-align:right">IC</div>
+        <div class="sortable" data-sort="cpic" style="text-align:right">CPIC</div>
+        <div class="sortable sort-desc" data-sort="gasto" style="text-align:right">Gasto</div>
+        <div class="sortable" data-sort="lucro" style="text-align:right">Lucro</div>
+        <div class="sortable" data-sort="roi">ROI</div>
+        <div class="sortable" data-sort="pitch">Ret. Pitch</div>
+        <div>Contexto</div>
+      </div>
+      <div id="crvBody"></div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-mark">— IM Digital · <strong>Análise FB · Trading Floor</strong></div>
+  <div class="footer-meta">v_b · 06 mai 2026 · 14:33 BRT</div>
+</footer>
+
+<script>
+// ===========================================
+// DATA — period 30/04 → 06/05
+// ===========================================
+const DAYS = [
+  { date: '30/04', dow: 'qua', sales: 19, ic: 27, cpic: 122.90, spent: 3318.23, rev: 3301.05, profit: -17.18, roi: 0.99, clicks: 766, cpc: 4.33, cpm: 324.30, ctr: 7.49 },
+  { date: '01/05', dow: 'qui', sales: 16, ic: 31, cpic: 58.46, spent: 1812.32, rev: 2713.25, profit: 900.93, roi: 1.50, clicks: 429, cpc: 4.22, cpm: 327.25, ctr: 7.75 },
+  { date: '02/05', dow: 'sex', sales: 6, ic: 31, cpic: 90.70, spent: 2811.66, rev: 1037.23, profit: -1774.43, roi: 0.37, clicks: 561, cpc: 5.01, cpm: 561.77, ctr: 11.21 },
+  { date: '03/05', dow: 'sáb', sales: 28, ic: 49, cpic: 111.32, spent: 5454.81, rev: 4784.91, profit: -669.90, roi: 0.88, clicks: 1077, cpc: 5.06, cpm: 686.40, ctr: 13.55 },
+  { date: '04/05', dow: 'dom', sales: 33, ic: 41, cpic: 159.41, spent: 6535.99, rev: 5662.31, profit: -873.68, roi: 0.87, clicks: 1498, cpc: 4.36, cpm: 502.03, ctr: 11.51 },
+  { date: '05/05', dow: 'seg', sales: 62, ic: 79, cpic: 99.14, spent: 7831.67, rev: 10288.44, profit: 2456.77, roi: 1.31, clicks: 1911, cpc: 4.10, cpm: 478.36, ctr: 11.67 },
+  { date: '06/05', dow: 'ter', sales: 39, ic: 55, cpic: 89.04, spent: 4897.40, rev: 6327.68, profit: 1430.28, roi: 1.29, clicks: 1231, cpc: 3.98, cpm: 402.55, ctr: 10.12, live: true }
+];
+
+const CRIATIVOS = [
+  { name: 'ADS35',  tag: 'gold', tagText: 'volume',     vendas: 69, ic: 103, cpic: 108.08, gasto: 11132, fat: 11521, lucro: 389,    roi: 1.03, pitch: 22.5, status: 'watch', statusText: 'monitorar', context: '<strong>Maior gastador</strong> · roda em CP0008 (1-1-5) e CP0007 (1-1-8) · Emily C6' },
+  { name: 'ADS30',  tag: 'bull', tagText: 'rentável',   vendas: 68, ic: 79,  cpic: 113.27, gasto: 8948,  fat: 11536, lucro: 2588,   roi: 1.29, pitch: 23.6, status: 'scale', statusText: 'escalar', context: '<em>Underrated</em> · ROI maior que ADS35 com volume similar · CP0007 + CP0008' },
+  { name: 'G4',     tag: 'fire', tagText: 'novo',       vendas: 10, ic: 8,   cpic: 182.13, gasto: 1457,  fat: 1504,  lucro: 47,     roi: 1.03, pitch: 18.0, status: 'test',  statusText: 'testar mais', context: 'Estreia em <strong>CP0020</strong> · acabou de explodir hoje (15v · ROI 3,98×)' },
+  { name: 'A5',     tag: 'bull', tagText: 'eficiente',  vendas: 22, ic: 19,  cpic: 66.58,  gasto: 1265,  fat: 3709,  lucro: 2444,   roi: 2.93, pitch: 25.5, status: 'scale', statusText: 'escalar', context: '<strong>Melhor ROI</strong> · roda em Victoria S3 e Emily C6 (1-50-1, 1-100-1)' },
+  { name: 'G4.1',   tag: 'fire', tagText: 'variação',   vendas: 8,  ic: 5,   cpic: 150.40, gasto: 752,   fat: 1494,  lucro: 742,    roi: 1.99, pitch: null,  status: 'scale', statusText: 'manter', context: 'Variação do G4 com retenção sólida · CP0008' },
+  { name: 'A4.1',   tag: 'bear', tagText: 'queimou',    vendas: 0,  ic: 3,   cpic: 213.33, gasto: 640,   fat: 0,     lucro: -640,   roi: 0.00, pitch: null,  status: 'pause', statusText: 'pausar', context: '<strong>Sem conversão</strong> · variação que não engatou · CP0008' },
+  { name: 'ADS10',  tag: 'bear', tagText: 'fraco',      vendas: 2,  ic: 7,   cpic: 79.14,  gasto: 554,   fat: 360,   lucro: -194,   roi: 0.65, pitch: null,  status: 'alert', statusText: 'cuidado', context: 'CPIC bom mas ROI baixo · CP0008' },
+  { name: 'A4',     tag: 'bull', tagText: 'campeão',    vendas: 7,  ic: 7,   cpic: 45.00,  gasto: 315,   fat: 1198,  lucro: 883,    roi: 3.80, pitch: 25.8, status: 'scale', statusText: 'escalar', context: '<strong>ROI mais alto</strong> · roda em todas as contas · 1-50-1 e 1-100-1' },
+  { name: 'ADS32',  tag: 'ice',  tagText: 'breakeven',  vendas: 2,  ic: 2,   cpic: 136.50, gasto: 273,   fat: 254,   lucro: -19,    roi: 0.93, pitch: null,  status: 'watch', statusText: 'monitorar', context: 'Quase no breakeven · pouco volume · CP0008' },
+  { name: 'A1.1',   tag: 'dust', tagText: 'inativo',    vendas: 0,  ic: 0,   cpic: null,   gasto: 160,   fat: 0,     lucro: -160,   roi: 0.00, pitch: null,  status: 'pause', statusText: 'pausar', context: 'Variação A1 sem conversão · CP0008' },
+  { name: 'A5.1',   tag: 'dust', tagText: 'inativo',    vendas: 0,  ic: 3,   cpic: 47.00,  gasto: 141,   fat: 0,     lucro: -141,   roi: 0.00, pitch: null,  status: 'pause', statusText: 'pausar', context: 'Variação A5 sem conversão (apesar de IC) · CP0008' },
+  { name: 'A8',     tag: 'bull', tagText: 'pequeno',    vendas: 1,  ic: 4,   cpic: 7.75,   gasto: 31,    fat: 72,    lucro: 41,     roi: 2.37, pitch: null,  status: 'test',  statusText: 'testar', context: 'Pouco gasto mas eficiente · Tatiane C1' },
+  { name: 'A1',     tag: 'dust', tagText: 'inativo',    vendas: 0,  ic: 1,   cpic: 40.00,  gasto: 40,    fat: 0,     lucro: -40,    roi: 0.00, pitch: null,  status: 'pause', statusText: 'pausar', context: 'Sem conversão' },
+  { name: 'ADS31/34', tag: 'dust', tagText: 'residual', vendas: 0, ic: 0,   cpic: null,   gasto: 27,    fat: 0,     lucro: -27,    roi: 0.00, pitch: null,  status: 'dust', statusText: 'arquivado', context: 'Spend residual · sem atividade' }
+];
+
+// ===========================================
+// LIVE CLOCK
+// ===========================================
+function tickClock() {
+  const d = new Date();
+  const hh = String(d.getHours()).padStart(2, '0');
+  const mm = String(d.getMinutes()).padStart(2, '0');
+  const ss = String(d.getSeconds()).padStart(2, '0');
+  document.getElementById('liveClock').textContent = `${hh}:${mm}:${ss} BRT`;
+}
+setInterval(tickClock, 1000);
+tickClock();
+
+// ===========================================
+// TABS
+// ===========================================
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('tab-' + t.dataset.tab).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// ===========================================
+// DAY STRIP
+// ===========================================
+const maxSpent = Math.max(...DAYS.map(d => d.spent));
+function classifyDay(d) {
+  if (d.roi >= 1.2) return 'bull';
+  if (d.roi >= 0.95) return 'warn';
+  return 'bear';
+}
+function fmtBRL(n, dec=0) { return 'R$ ' + n.toLocaleString('pt-BR', { minimumFractionDigits: dec, maximumFractionDigits: dec }); }
+function fmtBRLk(n) { return 'R$ ' + (n/1000).toFixed(1) + 'k'; }
+
+function renderDayStrip() {
+  const strip = document.getElementById('dayStrip');
+  strip.innerHTML = DAYS.map((d, idx) => {
+    const cls = classifyDay(d);
+    const liveCls = d.live ? 'live' : '';
+    const barColor = cls === 'bull' ? 'var(--bull)' : cls === 'bear' ? 'var(--bear)' : 'var(--warn)';
+    const bar = (d.spent / maxSpent) * 100;
+    return `
+    <div class="day ${cls} ${liveCls}" data-idx="${idx}" onclick="selectDay(${idx})">
+      <div class="day-date">${d.date}</div>
+      <div class="day-dow">${d.dow}${d.live ? ' · ao vivo' : ''}</div>
+      <div class="day-roi">${d.roi.toFixed(2)}×</div>
+      <div class="day-sales"><strong>${d.sales}v</strong> · ${fmtBRLk(d.spent)}</div>
+      <div class="day-bar-track"><div class="day-bar-fill" style="--bar:${bar}%; --bar-color:${barColor}"></div></div>
+
+      <div class="day-tooltip">
+        <div class="tip-row"><span class="tip-label">Vendas</span><span class="tip-value">${d.sales}</span></div>
+        <div class="tip-row"><span class="tip-label">IC</span><span class="tip-value">${d.ic}</span></div>
+        <div class="tip-row"><span class="tip-label">CPIC</span><span class="tip-value">${fmtBRL(d.cpic, 2)}</span></div>
+        <div class="tip-divider"></div>
+        <div class="tip-row"><span class="tip-label">Gasto</span><span class="tip-value">${fmtBRL(d.spent, 0)}</span></div>
+        <div class="tip-row"><span class="tip-label">Faturado</span><span class="tip-value">${fmtBRL(d.rev, 0)}</span></div>
+        <div class="tip-row"><span class="tip-label">Lucro</span><span class="tip-value ${d.profit>=0?'bull':'bear'}">${d.profit>=0?'+':''}${fmtBRL(d.profit, 0)}</span></div>
+        <div class="tip-divider"></div>
+        <div class="tip-row"><span class="tip-label">CTR</span><span class="tip-value">${d.ctr.toFixed(2)}%</span></div>
+        <div class="tip-row"><span class="tip-label">CPM</span><span class="tip-value">${fmtBRL(d.cpm, 2)}</span></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function selectDay(idx) {
+  document.querySelectorAll('.day').forEach((el, i) => {
+    el.classList.toggle('selected', i === idx);
+  });
+  const d = DAYS[idx];
+  const detail = document.getElementById('dayDetail');
+  document.getElementById('ddTitle').innerHTML =
+    `Detalhe · <strong>${d.date}</strong> <span style="color:var(--text-3); font-size:18px; font-style:normal">(${d.dow}${d.live ? ' · ao vivo' : ''})</span>`;
+  document.getElementById('ddMetrics').innerHTML = `
+    <div class="dm">
+      <div class="dm-label">Vendas</div>
+      <div class="dm-value">${d.sales}</div>
+      <div class="dm-meta">${d.ic} IC · taxa ${(d.sales/d.ic*100).toFixed(0)}%</div>
+    </div>
+    <div class="dm">
+      <div class="dm-label">CPIC</div>
+      <div class="dm-value gold">${fmtBRL(d.cpic, 2)}</div>
+      <div class="dm-meta">por initiate checkout</div>
+    </div>
+    <div class="dm">
+      <div class="dm-label">ROI</div>
+      <div class="dm-value ${d.roi>=1?'bull':'bear'}">${d.roi.toFixed(2)}×</div>
+      <div class="dm-meta">${d.roi>=1?'positivo':'negativo'}</div>
+    </div>
+    <div class="dm">
+      <div class="dm-label">Gasto</div>
+      <div class="dm-value">${fmtBRL(d.spent, 0)}</div>
+      <div class="dm-meta">CPM ${fmtBRL(d.cpm, 0)}</div>
+    </div>
+    <div class="dm">
+      <div class="dm-label">Faturamento</div>
+      <div class="dm-value gold">${fmtBRL(d.rev, 0)}</div>
+      <div class="dm-meta">${d.sales} vendas registradas</div>
+    </div>
+    <div class="dm">
+      <div class="dm-label">Lucro</div>
+      <div class="dm-value ${d.profit>=0?'bull':'bear'}">${d.profit>=0?'+':''}${fmtBRL(d.profit, 0)}</div>
+      <div class="dm-meta">margem ${(d.profit/d.spent*100).toFixed(1)}%</div>
+    </div>
+    <div class="dm">
+      <div class="dm-label">Cliques</div>
+      <div class="dm-value">${d.clicks.toLocaleString('pt-BR')}</div>
+      <div class="dm-meta">CPC ${fmtBRL(d.cpc, 2)}</div>
+    </div>
+    <div class="dm">
+      <div class="dm-label">CTR</div>
+      <div class="dm-value">${d.ctr.toFixed(2)}%</div>
+      <div class="dm-meta">click-through rate</div>
+    </div>
+    <div class="dm">
+      <div class="dm-label">Hook rate</div>
+      <div class="dm-value">~${(d.ctr * 5).toFixed(0)}%</div>
+      <div class="dm-meta">primeiros 3s</div>
+    </div>
+  `;
+  detail.classList.add('active');
+  setTimeout(() => detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+}
+
+function closeDayDetail() {
+  document.getElementById('dayDetail').classList.remove('active');
+  document.querySelectorAll('.day').forEach(el => el.classList.remove('selected'));
+}
+
+// ===========================================
+// CRIATIVOS — sortable table
+// ===========================================
+let crvSortKey = 'gasto';
+let crvSortDir = 'desc';
+
+function classifyROI(roi) {
+  if (roi >= 2) return 'bull';
+  if (roi >= 1) return 'bull';
+  if (roi >= 0.5) return 'warn';
+  return 'bear';
+}
+function roiBarPct(roi) {
+  // breakeven at 25% (roi=1), max at 100% (roi=4)
+  return Math.min(100, (roi / 4) * 100);
+}
+
+function renderCrv() {
+  const sorted = [...CRIATIVOS].sort((a, b) => {
+    let av = a[crvSortKey];
+    let bv = b[crvSortKey];
+    if (crvSortKey === 'name') {
+      av = a.name; bv = b.name;
+      return crvSortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+    }
+    if (av === null) av = -Infinity;
+    if (bv === null) bv = -Infinity;
+    return crvSortDir === 'asc' ? av - bv : bv - av;
+  });
+
+  document.getElementById('crvBody').innerHTML = sorted.map((c, idx) => {
+    const roiCls = c.roi >= 1.2 ? 'bull' : c.roi >= 0.95 ? 'warn' : c.roi > 0 ? 'bear' : 'muted';
+    const roiPct = roiBarPct(c.roi);
+    const profitCls = c.lucro >= 0 ? 'bull' : 'bear';
+    const cpicTxt = c.cpic === null ? '—' : fmtBRL(c.cpic, 0);
+    return `
+    <div class="crv-row">
+      <div class="crv-rank">${String(idx+1).padStart(2, '0')}</div>
+      <div class="crv-name">
+        <span>${c.name}</span>
+        <span class="crv-name-tag ${c.tag}">${c.tagText}</span>
+      </div>
+      <div class="crv-num ${c.vendas>0?'':'muted'}">${c.vendas}</div>
+      <div class="crv-num ${c.ic>0?'':'muted'}">${c.ic}</div>
+      <div class="crv-num ${c.cpic===null?'muted':''}">${cpicTxt}</div>
+      <div class="crv-num">${fmtBRL(c.gasto, 0)}</div>
+      <div class="crv-num ${profitCls}">${c.lucro>=0?'+':''}${fmtBRL(c.lucro, 0)}</div>
+      <div class="crv-roi-bar">
+        <div class="crv-roi-track">
+          <div class="crv-roi-fill" style="width:${roiPct}%; --roi-color:var(--${roiCls === 'bull' ? 'bull' : roiCls === 'warn' ? 'warn' : 'bear'})"></div>
+        </div>
+        <div class="crv-roi-line"></div>
+        <div class="crv-roi-num ${roiCls}">${c.roi.toFixed(2)}×</div>
+      </div>
+      <div>
+        ${c.pitch !== null ? `
+          <div class="crv-pitch-num">${c.pitch.toFixed(1)}%</div>
+          <div class="crv-pitch-bar"><div class="crv-pitch-fill" style="--pitch:${c.pitch * 4}%"></div></div>
+        ` : '<div class="crv-pitch-num muted">sem dados</div>'}
+      </div>
+      <div class="crv-context">
+        ${c.context}
+        <br><span class="crv-status ${c.status}" style="margin-top:6px; display:inline-flex">${c.statusText}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+document.querySelectorAll('.crv-head .sortable').forEach(h => {
+  h.addEventListener('click', () => {
+    const key = h.dataset.sort;
+    if (crvSortKey === key) {
+      crvSortDir = crvSortDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      crvSortKey = key;
+      crvSortDir = key === 'name' ? 'asc' : 'desc';
+    }
+    document.querySelectorAll('.crv-head > div').forEach(x => {
+      x.classList.remove('sort-asc', 'sort-desc');
+    });
+    h.classList.add('sort-' + crvSortDir);
+    renderCrv();
+  });
+});
+
+// ===========================================
+// INIT
+// ===========================================
+renderDayStrip();
+renderCrv();
+</script>
+
+</body>
+</html>

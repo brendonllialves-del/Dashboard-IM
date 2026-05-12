@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · IM Digital · Operação Prosperidade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #06070a;
+  --ink-2: #0c0e13;
+  --ink-3: #14171f;
+  --ink-4: #1d2129;
+  --ink-5: #292d37;
+  --paper: #f5f2eb;
+  --text-2: #b8b4a8;
+  --text-3: #6e6a5e;
+  --text-4: #45433d;
+  --rule: rgba(245, 242, 235, 0.06);
+  --rule-2: rgba(245, 242, 235, 0.12);
+  --rule-3: rgba(245, 242, 235, 0.22);
+
+  --gold: #d4a857;
+  --gold-2: #e8c684;
+  --gold-soft: rgba(212, 168, 87, 0.14);
+  --gold-glow: rgba(212, 168, 87, 0.4);
+  --bull: #5eb87b;
+  --bull-2: #7ed09a;
+  --bull-soft: rgba(94, 184, 123, 0.14);
+  --bull-glow: rgba(94, 184, 123, 0.4);
+  --bear: #e36b5a;
+  --bear-soft: rgba(227, 107, 90, 0.14);
+  --bear-glow: rgba(227, 107, 90, 0.4);
+  --warn: #e8a857;
+  --warn-soft: rgba(232, 168, 87, 0.12);
+  --ice: #6c9bd1;
+  --ice-2: #8db8e0;
+  --ice-soft: rgba(108, 155, 209, 0.12);
+  --violet: #a98cc7;
+  --violet-2: #c0a8d8;
+  --violet-soft: rgba(169, 140, 199, 0.12);
+
+  --serif: 'Fraunces', serif;
+  --mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --sidebar-w: 264px;
+  --topbar-h: 56px;
+  --ticker-h: 32px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--serif);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(212, 168, 87, 0.06), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 30%, rgba(108, 155, 209, 0.04), transparent 60%);
+}
+
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+
+/* ============ LAYOUT ============ */
+.layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  min-height: 100vh;
+  position: relative;
+  z-index: 5;
+}
+
+/* ============ SIDEBAR ============ */
+.sidebar {
+  background: rgba(12, 14, 19, 0.92);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid var(--rule-2);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--rule-2); border-radius: 2px; }
+
+.sidebar-head {
+  padding: 22px 22px 18px;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-mark {
+  width: 38px; height: 38px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif);
+  font-style: italic; font-weight: 500;
+  font-size: 18px; color: var(--gold);
+  letter-spacing: -0.03em;
+  background: radial-gradient(circle at 30% 30%, rgba(212, 168, 87, 0.15), transparent);
+  flex-shrink: 0;
+}
+.brand-name { font-family: var(--serif); font-size: 16px; font-weight: 500; color: var(--paper); line-height: 1.1; }
+.brand-name em { font-style: italic; color: var(--gold); }
+.brand-meta { font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.22em; color: var(--text-3); text-transform: uppercase; margin-top: 3px; }
+
+.sidebar-nav { flex: 1; padding: 14px 12px; display: flex; flex-direction: column; gap: 2px; }
+.nav-section-label { font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.24em; color: var(--text-3); text-transform: uppercase; font-weight: 600; padding: 14px 12px 6px; }
+
+.nav-item {
+  display: flex; align-items: center; gap: 11px;
+  padding: 10px 12px; border-radius: 8px;
+  font-family: var(--serif); font-size: 14.5px;
+  color: var(--text-2); cursor: pointer;
+  transition: all 0.2s var(--ease);
+  border: 1px solid transparent;
+  background: transparent;
+  width: 100%; text-align: left; position: relative;
+}
+.nav-item .nav-icon { width: 16px; flex-shrink: 0; opacity: 0.7; font-size: 14px; }
+.nav-item:hover { background: rgba(245, 242, 235, 0.04); color: var(--paper); }
+.nav-item:hover .nav-icon { opacity: 1; }
+.nav-item.active {
+  background: linear-gradient(90deg, var(--gold-soft), transparent);
+  color: var(--paper);
+  border-color: var(--gold);
+  border-left: 2px solid var(--gold);
+  font-style: italic;
+}
+.nav-item.active .nav-icon { opacity: 1; }
+
+.nav-item.priority { color: var(--gold); }
+.nav-item.priority::after {
+  content: ""; position: absolute;
+  right: 14px; top: 50%; transform: translateY(-50%);
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--bear);
+  box-shadow: 0 0 0 0 var(--bear-glow);
+  animation: pulseDot 2s ease infinite;
+}
+@keyframes pulseDot {
+  0%, 100% { box-shadow: 0 0 0 0 var(--bear-glow); }
+  50% { box-shadow: 0 0 0 6px transparent; }
+}
+
+.nav-item .nav-badge {
+  margin-left: auto;
+  font-family: var(--mono); font-size: 9px;
+  background: var(--ink-4); color: var(--text-2);
+  padding: 2px 7px; border-radius: 999px; font-weight: 600;
+}
+.nav-item.active .nav-badge { background: var(--gold); color: var(--ink); }
+
+.sidebar-foot {
+  padding: 14px 22px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono); font-size: 9px;
+  color: var(--text-3); letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+/* ============ MAIN ============ */
+.main { display: flex; flex-direction: column; min-width: 0; min-height: 100vh; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 30;
+  background: rgba(6, 7, 10, 0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--rule);
+  padding: 14px 32px;
+  height: var(--topbar-h);
+  display: flex; align-items: center; gap: 16px;
+}
+.topbar-title { font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--paper); letter-spacing: -0.01em; }
+.topbar-title strong { font-style: normal; color: var(--gold); font-weight: 500; }
+
+.topbar-status {
+  margin-left: auto; display: flex; align-items: center;
+  gap: 18px; font-family: var(--mono); font-size: 10.5px; color: var(--text-3);
+}
+.live-pulse { display: inline-flex; align-items: center; gap: 7px; color: var(--bull); font-weight: 600; }
+.live-pulse::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--bull);
+  animation: livePulse 1.8s var(--ease) infinite;
+}
+@keyframes livePulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--bull-glow); }
+  50% { box-shadow: 0 0 0 6px transparent; opacity: 0.7; }
+}
+
+/* ============ TICKER ============ */
+.ticker { background: var(--ink-2); border-bottom: 1px solid var(--rule); overflow: hidden; height: var(--ticker-h); position: relative; }
+.ticker-track { display: flex; align-items: center; height: 100%; white-space: nowrap; animation: scroll 70s linear infinite; gap: 32px; padding-left: 32px; }
+.ticker-track:hover { animation-play-state: paused; }
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.tick { font-family: var(--mono); font-size: 10.5px; display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.tick-label { color: var(--text-3); letter-spacing: 0.18em; text-transform: uppercase; font-size: 9px; }
+.tick-value { color: var(--paper); font-weight: 600; }
+.tick-value.bull { color: var(--bull); }
+.tick-value.bear { color: var(--bear); }
+.tick-value.gold { color: var(--gold); }
+.tick-sep { color: var(--ink-5); }
+
+/* ============ CONTENT ============ */
+.content { flex: 1; padding: 28px 32px 60px; max-width: 1500px; width: 100%; }
+.tab-panel { display: none; animation: fadeIn 0.4s var(--ease); }
+.tab-panel.active { display: block; }
+.tab-panel.fullbleed { padding: 0; margin: 0; width: 100%; max-width: none; }
+.tab-panel.fullbleed.active { display: flex; flex-direction: column; }
+.content.no-pad { padding: 0; max-width: none; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.section-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+  margin-bottom: 22px; padding-bottom: 18px;
+  border-bottom: 1px solid var(--rule-2);
+}
+.section-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.28em; color: var(--text-3); text-transform: uppercase; margin-bottom: 8px; }
+.section-title { font-family: var(--serif); font-size: clamp(28px, 3.5vw, 42px); font-weight: 400; letter-spacing: -0.025em; line-height: 1.05; }
+.section-title em { font-style: italic; color: var(--gold); }
+.section-meta { font-family: var(--mono); font-size: 10px; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; }
+
+.subhead {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--text-3);
+  margin: 26px 0 14px;
+  display: flex; align-items: center; gap: 12px;
+}
+.subhead::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+.subhead strong { color: var(--paper); font-weight: 600; }
+
+/* ============ DATE FILTER PILLS ============ */
+.date-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.date-filter {
+  display: inline-flex;
+  align-items: center;
+  background: var(--ink-2);
+  border: 1px solid var(--rule-2);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 2px;
+}
+.date-pill {
+  font-family: var(--mono); font-size: 10.5px;
+  letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600;
+  padding: 8px 16px;
+  border: none; background: transparent;
+  color: var(--text-3); border-radius: 999px;
+  cursor: pointer; transition: all 0.2s var(--ease);
+}
+.date-pill:hover { color: var(--text-2); }
+.date-pill.active { background: var(--gold); color: var(--ink); font-weight: 700; }
+
+.date-filter-info {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+.date-filter-info strong { color: var(--gold); font-weight: 600; }
+
+/* ============ STATS BAND ============ */
+.stats-band {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+  background: var(--ink-2);
+  border: 1px solid var(--rule-2);
+  border-radius: 12px;
+  margin-bottom: 22px;
+  overflow: hidden;
+}
+.stat { padding: 22px 22px; border-right: 1px solid var(--rule); }
+.stat:last-child { border-right: none; }
+.stat.featured { background: linear-gradient(135deg, rgba(212, 168, 87, 0.05) 0%, transparent 60%); }
+.stat.featured .stat-label { color: var(--gold); opacity: 0.85; }
+.stat-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; color: var(--text-3); text-transform: uppercase; margin-bottom: 9px; }
+.stat-value { font-family: var(--serif); font-size: 32px; font-weight: 300; letter-spacing: -0.02em; line-height: 1; }
+.stat-value.bull { color: var(--bull); }
+.stat-value.bear { color: var(--bear); }
+.stat-value.gold { color: var(--gold); }
+.stat-value.warn { color: var(--warn); }
+.stat-value sup { font-family: var(--mono); font-size: 11px; font-weight: 500; margin-left: 3px; vertical-align: super; color: var(--text-3); }
+.stat-trend { font-family: var(--mono); font-size: 10px; color: var(--text-3); margin-top: 6px; }
+.stat-trend.up { color: var(--bull); }
+.stat-trend.down { color: var(--bear); }
+
+/* ============ FUNIL HORIZONTAL (estilo etapas) ============ */
+.funil-h {
+  background: var(--ink-2);
+  border: 1px solid var(--rule-2);
+  border-radius: 14px;
+  padding: 26px 28px 20px;
+  margin-bottom: 26px;
+}
+
+.funil-h-row {
+  display: grid;
+  grid-template-columns: 220px 1fr 110px;
+  align-items: center;
+  gap: 16px;
+  padding: 6px 0;
+}
+
+.funil-h-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.funil-h-step-num {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--ink-3);
+  border: 1px solid var(--rule-3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-2);
+  flex-shrink: 0;
+}
+.funil-h-row.gold .funil-h-step-num { color: var(--gold); border-color: var(--gold); }
+.funil-h-row.bull .funil-h-step-num { color: var(--bull); border-color: var(--bull); }
+.funil-h-row.warn .funil-h-step-num { color: var(--warn); border-color: var(--warn); }
+.funil-h-row.ice .funil-h-step-num { color: var(--ice); border-color: var(--ice); }
+.funil-h-row.violet .funil-h-step-num { color: var(--violet); border-color: var(--violet); }
+.funil-h-row.bear .funil-h-step-num { color: var(--bear); border-color: var(--bear); }
+
+.funil-h-step-name {
+  font-family: var(--serif);
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--paper);
+  letter-spacing: -0.01em;
+}
+.funil-h-step-meta {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.funil-h-bar-wrap {
+  position: relative;
+  height: 36px;
+  background: var(--ink-3);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+}
+.funil-h-bar {
+  height: 100%;
+  width: var(--w, 0%);
+  border-radius: 8px;
+  transition: width 0.7s var(--ease);
+  background: linear-gradient(90deg, var(--c1, var(--gold)), var(--c2, var(--gold-2)));
+  position: relative;
+  overflow: hidden;
+}
+.funil-h-bar::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+  pointer-events: none;
+}
+.funil-h-row.ice .funil-h-bar { --c1: var(--ice); --c2: var(--ice-2); }
+.funil-h-row.gold .funil-h-bar { --c1: var(--gold); --c2: var(--gold-2); }
+.funil-h-row.violet .funil-h-bar { --c1: var(--violet); --c2: var(--violet-2); }
+.funil-h-row.warn .funil-h-bar { --c1: var(--warn); --c2: #f0c074; }
+.funil-h-row.bull .funil-h-bar { --c1: var(--bull); --c2: var(--bull-2); }
+.funil-h-row.bear .funil-h-bar { --c1: var(--bear); --c2: #f08672; }
+
+.funil-h-value {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  text-shadow: 0 0 8px rgba(255,255,255,0.4);
+}
+
+.funil-h-side {
+  text-align: right;
+  font-family: var(--mono);
+}
+.funil-h-side-pct {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--paper);
+}
+.funil-h-side-meta {
+  font-size: 9px;
+  color: var(--text-3);
+  letter-spacing: 0.06em;
+  margin-top: 3px;
+  text-transform: uppercase;
+}
+
+.funil-h-drop {
+  display: grid;
+  grid-template-columns: 220px 1fr 110px;
+  gap: 16px;
+  padding: 4px 0;
+  align-items: center;
+}
+.funil-h-drop-line {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  color: var(--text-3);
+  letter-spacing: 0.05em;
+}
+.funil-h-drop-arrow {
+  width: 1px;
+  height: 14px;
+  background: var(--rule-2);
+  margin-left: 8px;
+}
+.funil-h-drop-pct.bear { color: var(--bear); font-weight: 700; }
+.funil-h-drop-pct.bull { color: var(--bull); font-weight: 700; }
+.funil-h-drop-pct.warn { color: var(--warn); font-weight: 700; }
+
+/* ============ FUNIL EXTRA INFO ============ */
+.funil-h-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+}
+.fhsm-item {
+  display: flex; flex-direction: column;
+}
+.fhsm-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+.fhsm-value {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--paper);
+}
+.fhsm-value.bull { color: var(--bull); }
+.fhsm-value.bear { color: var(--bear); }
+.fhsm-value.gold { color: var(--gold); }
+.fhsm-value.warn { color: var(--warn); }
+
+/* ============ INSIGHT CARDS ============ */
+.priority-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 26px; }
+.priority-grid.full { grid-template-columns: 1fr; }
+.priority-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+.insight {
+  background: linear-gradient(135deg, var(--ink-2) 0%, var(--ink-3) 100%);
+  border: 1px solid var(--rule-2);
+  border-left: 3px solid var(--accent, var(--gold));
+  border-radius: 12px;
+  padding: 22px 24px;
+  position: relative; overflow: hidden;
+  transition: all 0.3s var(--ease);
+}
+.insight::before {
+  content: ""; position: absolute;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, var(--accent-soft, var(--gold-soft)), transparent 60%);
+  opacity: 0.7; pointer-events: none;
+}
+.insight:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(0,0,0,0.4); }
+
+.insight.fire { --accent: #ff8a4c; --accent-soft: rgba(255, 138, 76, 0.14); }
+.insight.bull { --accent: var(--bull); --accent-soft: var(--bull-soft); }
+.insight.bear { --accent: var(--bear); --accent-soft: var(--bear-soft); }
+.insight.ice  { --accent: var(--ice); --accent-soft: var(--ice-soft); }
+.insight.gold { --accent: var(--gold); --accent-soft: var(--gold-soft); }
+.insight.warn { --accent: var(--warn); --accent-soft: var(--warn-soft); }
+
+.insight-tag { font-family: var(--mono); font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; }
+.insight-title { font-family: var(--serif); font-size: 19px; font-weight: 500; letter-spacing: -0.018em; margin-bottom: 10px; line-height: 1.25; }
+.insight-title em { font-style: italic; color: var(--accent); }
+.insight-body { font-family: var(--serif); font-size: 13.5px; line-height: 1.55; color: var(--text-2); margin-bottom: 12px; }
+.insight-body strong { color: var(--paper); font-weight: 600; }
+.insight-body code { font-family: var(--mono); font-size: 11.5px; background: var(--ink-4); padding: 1.5px 7px; border-radius: 4px; color: var(--accent); border: 1px solid var(--rule); }
+
+.insight-stats { display: flex; flex-wrap: wrap; gap: 16px; padding: 11px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 12px; }
+.istat { display: flex; flex-direction: column; }
+.istat-label { font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.2em; color: var(--text-3); text-transform: uppercase; margin-bottom: 3px; }
+.istat-value { font-family: var(--mono); font-size: 14px; font-weight: 700; color: var(--paper); }
+.istat-value.bull { color: var(--bull); }
+.istat-value.bear { color: var(--bear); }
+.istat-value.gold { color: var(--gold); }
+.istat-value.warn { color: var(--warn); }
+
+.insight-action { font-family: var(--mono); font-size: 9.5px; font-weight: 600; letter-spacing: 0.1em; color: var(--paper); text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+.insight-action::before { content: "→"; color: var(--accent); font-size: 14px; font-weight: 800; }
+
+/* ============ EDITABLE FIELDS ============ */
+[data-editable] { outline: none; transition: background 0.2s, padding 0.2s; border-radius: 4px; position: relative; }
+[data-editable]:hover { background: rgba(212, 168, 87, 0.04); padding: 0 4px; margin: 0 -4px; cursor: text; }
+[data-editable]:focus { background: rgba(212, 168, 87, 0.08); padding: 2px 6px; margin: -2px -6px; outline: 1px solid var(--gold); }
+
+.edit-hint { font-family: var(--mono); font-size: 9px; letter-spacing: 0.16em; color: var(--text-4); text-transform: uppercase; margin-top: 14px; text-align: right; font-weight: 500; }
+.edit-hint::before { content: "✏️ "; margin-right: 4px; }
+
+/* ============ TABLES (sortable) ============ */
+.strat-table { background: var(--ink-2); border: 1px solid var(--rule-2); border-radius: 12px; overflow: hidden; margin-bottom: 22px; }
+.strat-table-head { padding: 13px 22px; background: rgba(245, 242, 235, 0.02); border-bottom: 1px solid var(--rule-2); display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.strat-table-title { font-family: var(--serif); font-size: 17px; font-weight: 500; }
+.strat-table-title em { font-style: italic; color: var(--gold); }
+.strat-table-meta { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; color: var(--text-3); text-transform: uppercase; }
+.strat-table-wrap { overflow-x: auto; }
+.strat-table table { width: 100%; border-collapse: collapse; min-width: 720px; }
+.strat-table th, .strat-table td { padding: 11px 18px; text-align: left; border-bottom: 1px solid var(--rule); }
+.strat-table tr:last-child td { border-bottom: none; }
+.strat-table th {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.18em;
+  color: var(--text-3); text-transform: uppercase; font-weight: 600;
+  background: rgba(245, 242, 235, 0.015);
+  cursor: pointer; user-select: none; white-space: nowrap;
+  transition: color 0.2s;
+}
+.strat-table th:hover { color: var(--paper); }
+.strat-table th .sort-arrow { display: inline-block; margin-left: 5px; font-size: 8px; color: var(--text-4); transition: color 0.2s; }
+.strat-table th.sort-asc .sort-arrow,
+.strat-table th.sort-desc .sort-arrow { color: var(--gold); }
+.strat-table th.sort-asc .sort-arrow::before { content: "▲"; }
+.strat-table th.sort-desc .sort-arrow::before { content: "▼"; }
+.strat-table th .sort-arrow::before { content: "↕"; opacity: 0.4; }
+
+.strat-table td { font-family: var(--mono); font-size: 12.5px; color: var(--paper); }
+.strat-table td.serif { font-family: var(--serif); font-size: 13.5px; font-weight: 500; }
+.strat-table td.right { text-align: right; }
+.strat-table td.bull { color: var(--bull); font-weight: 600; }
+.strat-table td.bear { color: var(--bear); font-weight: 600; }
+.strat-table td.gold { color: var(--gold); font-weight: 600; }
+.strat-table td.warn { color: var(--warn); font-weight: 600; }
+.strat-table td.muted { color: var(--text-3); font-style: italic; }
+.strat-table tr:hover td { background: rgba(245, 242, 235, 0.02); }
+.strat-table tr.highlight td { background: rgba(212, 168, 87, 0.04); }
+
+.ret-pitch-bar { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; font-weight: 600; }
+.ret-pitch-bar .bar-track { width: 60px; height: 5px; background: var(--ink-4); border-radius: 3px; overflow: hidden; }
+.ret-pitch-bar .bar-fill { height: 100%; background: linear-gradient(90deg, var(--ice), var(--violet)); border-radius: 3px; }
+.ret-pitch-bar .num.muted { color: var(--text-3); font-style: italic; font-size: 10.5px; }
+
+/* ============ VEREDITO + WARNINGS ============ */
+.veredito {
+  font-family: var(--serif); font-size: 13.5px; color: var(--text-2);
+  margin: 0 0 22px; line-height: 1.6;
+  padding: 14px 18px;
+  background: var(--ink-2);
+  border-left: 2px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+}
+.veredito strong { color: var(--paper); font-weight: 600; }
+.veredito code { font-family: var(--mono); background: var(--ink-4); padding: 2px 7px; border-radius: 4px; color: var(--gold); font-size: 11.5px; }
+
+.warn-banner {
+  background: linear-gradient(135deg, var(--warn-soft), transparent 60%);
+  border: 1px solid var(--warn);
+  border-left: 3px solid var(--warn);
+  border-radius: 12px;
+  padding: 14px 22px;
+  margin-bottom: 22px;
+  font-family: var(--serif); font-size: 13.5px;
+  color: var(--text-2); line-height: 1.55;
+}
+.warn-banner strong { color: var(--warn); font-weight: 600; }
+.warn-banner code { font-family: var(--mono); font-size: 11.5px; color: var(--paper); background: var(--ink-4); padding: 1px 6px; border-radius: 4px; }
+
+/* ============ CHECKLIST ============ */
+.checklist {
+  background: linear-gradient(135deg, var(--ink-2) 0%, var(--ink-3) 100%);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 24px 26px;
+  position: relative; overflow: hidden;
+  margin-bottom: 22px;
+}
+.checklist.bull-border { border-color: var(--bull); }
+.checklist::before { content: ""; position: absolute; top: -40px; right: -40px; width: 220px; height: 220px; background: radial-gradient(circle, var(--gold-soft), transparent 60%); opacity: 0.5; pointer-events: none; }
+.checklist.bull-border::before { background: radial-gradient(circle, var(--bull-soft), transparent 60%); }
+.checklist-title { font-family: var(--serif); font-size: 20px; font-weight: 500; letter-spacing: -0.018em; margin-bottom: 18px; }
+.checklist-title em { font-style: italic; color: var(--gold); }
+.checklist.bull-border .checklist-title em { color: var(--bull); }
+
+.checklist-item {
+  display: flex; gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--serif); font-size: 14px;
+  color: var(--text-2); line-height: 1.5;
+  align-items: flex-start;
+  transition: color 0.2s;
+  position: relative;
+}
+.checklist-item:last-child { border-bottom: none; }
+.checklist-item:hover { color: var(--paper); }
+.checklist-item input[type="checkbox"] {
+  appearance: none;
+  width: 17px; height: 17px;
+  flex-shrink: 0;
+  border: 1.5px solid var(--rule-3);
+  border-radius: 4px;
+  background: var(--ink-3);
+  cursor: pointer;
+  margin-top: 2px;
+  position: relative;
+  transition: all 0.2s;
+}
+.checklist-item input[type="checkbox"]:checked { background: var(--gold); border-color: var(--gold); }
+.checklist-item input[type="checkbox"]:checked::after { content: "✓"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--ink); font-weight: 700; font-size: 13px; }
+.checklist-item.done .check-text { color: var(--text-3); text-decoration: line-through; }
+.checklist-item .check-text { flex: 1; outline: none; }
+.checklist-item .check-text:focus { background: rgba(212, 168, 87, 0.08); padding: 2px 6px; margin: -2px -6px; border-radius: 4px; outline: 1px solid var(--gold); }
+.checklist-item .check-text strong { color: var(--paper); font-weight: 600; }
+.checklist-item .check-text code { font-family: var(--mono); font-size: 11.5px; background: var(--ink-4); padding: 1px 6px; border-radius: 4px; color: var(--gold); }
+.checklist-item .remove-btn {
+  background: transparent; border: 1px solid var(--rule-2);
+  color: var(--text-3);
+  width: 22px; height: 22px;
+  border-radius: 50%; cursor: pointer; font-size: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  opacity: 0;
+}
+.checklist-item:hover .remove-btn { opacity: 1; }
+.checklist-item .remove-btn:hover { border-color: var(--bear); color: var(--bear); }
+
+.add-item-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 14px;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  font-weight: 600;
+  background: transparent;
+  border: 1px dashed var(--rule-3);
+  border-radius: 999px;
+  color: var(--text-3); cursor: pointer;
+  transition: all 0.2s; margin-top: 14px;
+}
+.add-item-btn:hover { border-color: var(--gold); color: var(--gold); border-style: solid; }
+
+/* ============ BUDGET CARDS ============ */
+.budget-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 22px; }
+.budget-card { background: var(--ink-2); border: 1px solid var(--rule-2); border-radius: 12px; padding: 20px 22px; }
+.budget-card.now { border-left: 3px solid var(--text-3); }
+.budget-card.next { border-left: 3px solid var(--gold); }
+.budget-card-title { font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; color: var(--text-3); text-transform: uppercase; font-weight: 600; margin-bottom: 14px; }
+.budget-card.next .budget-card-title { color: var(--gold); }
+.budget-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-size: 11.5px; align-items: center; }
+.budget-row:last-child { border-bottom: none; }
+.budget-row .label { font-family: var(--serif); font-size: 13px; color: var(--text-2); flex: 1; }
+.budget-row .value { color: var(--paper); font-weight: 600; }
+.budget-row .pct { color: var(--text-3); font-size: 9.5px; margin-left: 7px; }
+.budget-row.alert .label { color: var(--bear); }
+.budget-row.scale .label { color: var(--bull); }
+.budget-row.new .label { color: var(--gold); }
+.budget-row.new .value { color: var(--gold); }
+.budget-row.total { margin-top: 6px; padding-top: 11px; border-top: 1px solid var(--rule-2); }
+.budget-row.total .label { color: var(--paper); font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; }
+
+/* ============ IFRAME PURO ============ */
+.iframe-pure {
+  width: 100%;
+  height: calc(100vh - var(--topbar-h) - var(--ticker-h));
+  border: 0; display: block;
+  background: var(--ink);
+}
+.iframe-fallback {
+  display: none;
+  padding: 60px 32px;
+  text-align: center;
+  font-family: var(--serif);
+  color: var(--text-2);
+  font-size: 14px; line-height: 1.6;
+}
+.iframe-fallback strong { color: var(--paper); }
+.iframe-fallback code { font-family: var(--mono); font-size: 12px; background: var(--ink-3); padding: 2px 8px; border-radius: 4px; color: var(--gold); }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1100px) {
+  :root { --sidebar-w: 220px; }
+  .priority-grid, .priority-grid.cols-3 { grid-template-columns: 1fr 1fr; }
+  .stats-band { grid-template-columns: 1fr 1fr 1fr; }
+  .stats-band .stat:nth-child(4),
+  .stats-band .stat:nth-child(5) { border-top: 1px solid var(--rule); }
+  .budget-grid { grid-template-columns: 1fr; }
+  .funil-h-row, .funil-h-drop { grid-template-columns: 160px 1fr 90px; }
+  .funil-h-summary { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 800px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: fixed; left: -260px; width: 260px; z-index: 100; transition: left 0.3s; }
+  .sidebar.open { left: 0; }
+  .menu-toggle { display: inline-flex !important; }
+  .priority-grid, .priority-grid.cols-3 { grid-template-columns: 1fr; }
+  .stats-band { grid-template-columns: 1fr 1fr; }
+  .topbar { padding: 12px 16px; }
+  .content { padding: 24px 18px 60px; }
+  .funil-h-row, .funil-h-drop { grid-template-columns: 130px 1fr 80px; gap: 10px; }
+  .funil-h-step-name { font-size: 13px; }
+}
+.menu-toggle { display: none; background: var(--ink-3); border: 1px solid var(--rule-2); color: var(--paper); padding: 6px 12px; border-radius: 7px; font-family: var(--mono); font-size: 11px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="brand-mark">IM</div>
+      <div>
+        <div class="brand-name">IM <em>Digital</em></div>
+        <div class="brand-meta">Op. Prosperidade</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <div class="nav-section-label">Operacional</div>
+      <button class="nav-item priority active" data-tab="decisao">
+        <span class="nav-icon">📌</span><span>Tomada de Decisão</span>
+      </button>
+      <button class="nav-item" data-tab="checklist">
+        <span class="nav-icon">✓</span><span>Checklist</span>
+      </button>
+
+      <div class="nav-section-label">Análises</div>
+      <button class="nav-item" data-tab="analise-fb">
+        <span class="nav-icon">📊</span><span>Análise Facebook</span>
+      </button>
+      <button class="nav-item" data-tab="funil-trafego">
+        <span class="nav-icon">🔍</span><span>Funil de Tráfego</span>
+      </button>
+      <button class="nav-item" data-tab="funil-conversao">
+        <span class="nav-icon">📈</span><span>Funil de Conversão</span>
+      </button>
+
+      <div class="nav-section-label">Criativos</div>
+      <button class="nav-item" data-tab="subidas">
+        <span class="nav-icon">🚀</span><span>Subidas</span><span class="nav-badge">121</span>
+      </button>
+      <button class="nav-item" data-tab="test-ads">
+        <span class="nav-icon">🧪</span><span>Test Ads</span><span class="nav-badge">19</span>
+      </button>
+
+      <div class="nav-section-label">Estratégia</div>
+      <button class="nav-item" data-tab="estrategia">
+        <span class="nav-icon">⚙️</span><span>BIDCAP × COSTCAP</span>
+      </button>
+      <button class="nav-item" data-tab="orcamento">
+        <span class="nav-icon">💰</span><span>Redistribuição</span>
+      </button>
+
+    </nav>
+
+    <div class="sidebar-foot">v4 · 09 mai 2026</div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <div class="topbar">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <div class="topbar-title">Dashboard · <strong>Prosperidade</strong></div>
+      <div class="topbar-status">
+        <span class="live-pulse">AO VIVO</span>
+        <span id="liveClock">00:00:00 BRT</span>
+      </div>
+    </div>
+
+    <div class="ticker">
+      <div class="ticker-track">
+        <span class="tick"><span class="tick-label">VENDAS 7D</span><span class="tick-value">220</span><span class="tick-value bull">▲ +14%</span></span>
+        <span class="tick-sep">·</span>
+        <span class="tick"><span class="tick-label">FATURAMENTO</span><span class="tick-value gold">R$ 37.337</span></span>
+        <span class="tick-sep">·</span>
+        <span class="tick"><span class="tick-label">LUCRO</span><span class="tick-value bull">+R$ 9.737</span></span>
+        <span class="tick-sep">·</span>
+        <span class="tick"><span class="tick-label">ROI</span><span class="tick-value bull">1,35×</span></span>
+        <span class="tick-sep">·</span>
+        <span class="tick"><span class="tick-label">EMILY C6 · CP0020-RT</span><span class="tick-value bull">ROI 3,84× 🔥</span></span>
+        <span class="tick-sep">·</span>
+        <span class="tick"><span class="tick-label">TATIANE C1 · CP0051</span><span class="tick-value gold">ROI 10,42× ⚠</span></span>
+        <span class="tick-sep">·</span>
+        <span class="tick"><span class="tick-label">EMILY C6 · CP0008</span><span class="tick-value bear">PAUSADA</span></span>
+        <span class="tick-sep">·</span>
+        <span class="tick"><span class="tick-label">EMILY C6 · CP0007</span><span class="tick-value bear">REDUZIR</span></span>
+        <span class="tick-sep">·</span>
+
+        <span class="tick"><span class="tick-label">VENDAS 7D</span><span class="tick-value">220</span><span class="tick-value bull">▲ +14%</span></span>
+        <span class="tick-sep">·</span>
+        <span class="tick"><span class="tick-label">FATURAMENTO</span><span class="tick-value gold">R$ 37.337</span></span>
+        <span class="tick-sep">·</span>
+        <span class="tick"><span class="tick-label">LUCRO</span><span class="tick-value bull">+R$ 9.737</span></span>
+        <span class="tick-sep">·</span>
+        <span class="tick"><span class="tick-label">ROI</span><span class="tick-value bull">1,35×</span></span>
+        <span class="tick-sep">·</span>
+      </div>
+    </div>
+
+    <div class="content" id="contentArea">
+
+      <!-- ===================== TOMADA DE DECISÃO ===================== -->
+      <section class="tab-panel active" id="tab-decisao">
+
+        <div class="section-head">
+          <div>
+            <div class="section-eyebrow">Período: 03/05 → 09/05 (7 dias)</div>
+            <h1 class="section-title">Tomada de <em>Decisão</em></h1>
+          </div>
+          <div class="section-meta">5 ações · pra hoje à noite</div>
+        </div>
+
+        <div class="stats-band">
+          <div class="stat featured"><div class="stat-label">Lucro · 7 dias</div><div class="stat-value bull">+R$ 9.737</div><div class="stat-trend up">▲ ROI 1,35× · saudável</div></div>
+          <div class="stat"><div class="stat-label">Vendas</div><div class="stat-value">220</div><div class="stat-trend up">▲ +14%</div></div>
+          <div class="stat"><div class="stat-label">Faturamento</div><div class="stat-value gold">R$ 37,3<sup>k</sup></div><div class="stat-trend">consolidado</div></div>
+          <div class="stat"><div class="stat-label">Investimento</div><div class="stat-value">R$ 27,6<sup>k</sup></div><div class="stat-trend">CPC R$ 4,17</div></div>
+          <div class="stat"><div class="stat-label">Concentração</div><div class="stat-value warn">82<sup>%</sup></div><div class="stat-trend">top 4 · diversificar</div></div>
+        </div>
+
+        <div class="subhead"><strong>🚨 Prioridade máxima</strong> · agir hoje</div>
+
+        <div class="priority-grid">
+          <div class="insight fire">
+            <div class="insight-tag" data-editable="dec1-tag">🔥 ESCALAR</div>
+            <h3 class="insight-title" data-editable="dec1-title">EMILY C6 · CP0020-RT virou a <em>estrela</em></h3>
+            <p class="insight-body" data-editable="dec1-body">
+              Estrutura <code>1-50-1 · COSTCAP · A5 (RT)</code> entregou <strong>26 vendas</strong> em 7 dias com R$ 1.228 gasto. Lucro de <strong>R$ 3.492</strong> com retenção até o pitch de 36,66%. Tá sub-orçada — bota mais combustível.
+            </p>
+            <div class="insight-stats">
+              <div class="istat"><span class="istat-label">ROI 7d</span><span class="istat-value bull">3,84×</span></div>
+              <div class="istat"><span class="istat-label">Vendas</span><span class="istat-value">26</span></div>
+              <div class="istat"><span class="istat-label">Lucro</span><span class="istat-value bull">+R$ 3.492</span></div>
+              <div class="istat"><span class="istat-label">Ret. Pitch</span><span class="istat-value gold">36,66%</span></div>
+            </div>
+            <div class="insight-action" data-editable="dec1-action">Subir budget R$ 600 → R$ 1.200/dia</div>
+          </div>
+
+          <div class="insight warn">
+            <div class="insight-tag" data-editable="dec2-tag">🔍 INVESTIGAR</div>
+            <h3 class="insight-title" data-editable="dec2-title">TATIANE C1 · CP0051 — ROI <em>10,42×</em> mas só 3% do orçamento</h3>
+            <p class="insight-body" data-editable="dec2-body">
+              Em 7 dias gastou só <code>R$ 128</code> de R$ 4.200 disponíveis. Combinação <strong>BIDCAP 47 + CJ Limitado</strong> tá restritiva. Não mexer hoje. Investigar amanhã cedo.
+            </p>
+            <div class="insight-stats">
+              <div class="istat"><span class="istat-label">Aproveitamento</span><span class="istat-value bear">3%</span></div>
+              <div class="istat"><span class="istat-label">ROI 7d</span><span class="istat-value gold">10,42×</span></div>
+              <div class="istat"><span class="istat-label">Vendas hoje</span><span class="istat-value bull">6</span></div>
+            </div>
+            <div class="insight-action" data-editable="dec2-action">Investigar amanhã 09h</div>
+          </div>
+        </div>
+
+        <div class="subhead"><strong>⚠ Pausar e reduzir</strong> · queimando dinheiro</div>
+
+        <div class="priority-grid">
+          <div class="insight bear">
+            <div class="insight-tag" data-editable="dec3-tag">🚨 MANTER PAUSADA</div>
+            <h3 class="insight-title" data-editable="dec3-title">EMILY C6 · CP0008 já <em>pausada</em></h3>
+            <p class="insight-body" data-editable="dec3-body">
+              Você fez bem em pausar 07/05. Em 7 dias consumiu <strong>27% do gasto total</strong> (R$ 9.873) com prejuízo de <code>-R$ 1.343</code>. Estrutura <code>1-1-5 · COSTCAP</code> saturou.
+            </p>
+            <div class="insight-stats">
+              <div class="istat"><span class="istat-label">Gasto 7d</span><span class="istat-value">R$ 9.873</span></div>
+              <div class="istat"><span class="istat-label">ROI</span><span class="istat-value bear">0,86×</span></div>
+              <div class="istat"><span class="istat-label">Lucro</span><span class="istat-value bear">-R$ 1.343</span></div>
+            </div>
+            <div class="insight-action" data-editable="dec3-action">Manter pausada</div>
+          </div>
+
+          <div class="insight bear">
+            <div class="insight-tag" data-editable="dec4-tag">🔻 REDUZIR</div>
+            <h3 class="insight-title" data-editable="dec4-title">EMILY C6 · CP0007 tá <em>empatando</em></h3>
+            <p class="insight-body" data-editable="dec4-body">
+              ROI 1,05× é positivo mas já tá em zona perigosa. Reduzir budget de <code>R$ 2.000 → R$ 700/dia</code> e migrar pra CP0020-RT (ROI 3,84×).
+            </p>
+            <div class="insight-stats">
+              <div class="istat"><span class="istat-label">ROI 7d</span><span class="istat-value warn">1,05×</span></div>
+              <div class="istat"><span class="istat-label">Lucro</span><span class="istat-value warn">+R$ 355</span></div>
+              <div class="istat"><span class="istat-label">Status</span><span class="istat-value bear">próximo break</span></div>
+            </div>
+            <div class="insight-action" data-editable="dec4-action">Reduzir R$ 2.000 → R$ 700/dia</div>
+          </div>
+        </div>
+
+        <div class="subhead"><strong>🆕 Subir amanhã</strong> · novas apostas</div>
+
+        <div class="priority-grid full">
+          <div class="insight gold">
+            <div class="insight-tag" data-editable="dec5-tag">✦ TATIANE C1 · 4 NOVAS CAMPANHAS</div>
+            <h3 class="insight-title" data-editable="dec5-title">Replicar criativos vencedores em <em>Tatiane</em></h3>
+            <p class="insight-body" data-editable="dec5-body">
+              Pegar A5, ADS30, G4, G4.1 e subir em estrutura <strong>1-50-1</strong> (a mais rentável do agregado, ROI 2,76× médio). Otimização: <strong>3× COSTCAP $45</strong> + <strong>1× BIDCAP $60</strong>. Total <code>$200/dia</code>.
+            </p>
+            <div class="strat-table" style="margin: 0;">
+              <div class="strat-table-wrap">
+              <table data-sortable>
+                <thead><tr><th>#<span class="sort-arrow"></span></th><th>Estrutura<span class="sort-arrow"></span></th><th>Otimização<span class="sort-arrow"></span></th><th>Criativo<span class="sort-arrow"></span></th><th class="right">Budget<span class="sort-arrow"></span></th></tr></thead>
+                <tbody>
+                  <tr><td class="gold">1</td><td>1-50-1 · CJ Lim</td><td><strong>COSTCAP $45</strong></td><td class="serif">A5</td><td class="right gold" data-sort="50">$50</td></tr>
+                  <tr><td class="gold">2</td><td>1-50-1 · CJ Lim</td><td><strong>COSTCAP $45</strong></td><td class="serif">ADS30</td><td class="right gold" data-sort="50">$50</td></tr>
+                  <tr><td class="gold">3</td><td>1-50-1 · CJ Lim</td><td><strong>COSTCAP $45</strong></td><td class="serif">G4.1</td><td class="right gold" data-sort="50">$50</td></tr>
+                  <tr><td class="gold">4</td><td>1-50-1 · CJ Lim</td><td><strong>BIDCAP $60</strong></td><td class="serif">G4</td><td class="right gold" data-sort="50">$50</td></tr>
+                </tbody>
+              </table>
+              </div>
+            </div>
+            <div class="insight-action" data-editable="dec5-action" style="margin-top:14px;">Subir amanhã cedo · $200/dia total</div>
+          </div>
+        </div>
+
+        <div class="edit-hint">Clique em qualquer texto pra editar · suas mudanças ficam salvas</div>
+      </section>
+
+      <!-- ===================== CHECKLIST ===================== -->
+      <section class="tab-panel" id="tab-checklist">
+        <div class="section-head">
+          <div>
+            <div class="section-eyebrow">Hoje à noite + amanhã cedo</div>
+            <h1 class="section-title">Checklist <em>operacional</em></h1>
+          </div>
+          <div class="section-meta">edita · adiciona · marca</div>
+        </div>
+
+        <div class="checklist" data-list="hoje">
+          <div class="checklist-title">🌙 Hoje à <em>noite</em> (após 21h)</div>
+          <div class="check-items"></div>
+          <button class="add-item-btn" onclick="addItem('hoje')">+ Adicionar item</button>
+        </div>
+
+        <div class="checklist bull-border" data-list="amanha">
+          <div class="checklist-title">🌅 Amanhã <em>cedo</em> (8h-9h)</div>
+          <div class="check-items"></div>
+          <button class="add-item-btn" onclick="addItem('amanha')">+ Adicionar item</button>
+        </div>
+
+        <div class="edit-hint">Clique no texto pra editar · X pra remover · marque com check</div>
+      </section>
+
+      <!-- ===================== ANÁLISE FB ===================== -->
+      <section class="tab-panel fullbleed" id="tab-analise-fb">
+        <iframe class="iframe-pure" src="/analise-fb/" title="Análise Facebook"
+                onerror="this.style.display='none';this.nextElementSibling.style.display='block';"></iframe>
+        <div class="iframe-fallback">
+          <strong>⚠️ Análise Facebook só carrega quando o projeto estiver no Vercel.</strong><br><br>
+          Esse iframe carrega <code>/analise-fb/</code> — caminho que só existe quando o projeto for hospedado.<br>
+          No preview standalone (HTML local), o caminho não existe = browser bloqueia.<br><br>
+          Quando você subir o projeto no Vercel via GitHub, esse espaço carrega o site Trading Floor v_b inteiro.
+        </div>
+      </section>
+
+      <!-- ===================== FUNIL DE TRÁFEGO ===================== -->
+      <section class="tab-panel" id="tab-funil-trafego">
+        <div class="section-head">
+          <div>
+            <div class="section-eyebrow">Soma dos 6 players VTurb · Black + RedTrack · sem WHITE</div>
+            <h1 class="section-title">Funil de <em>Tráfego</em></h1>
+          </div>
+          <div class="section-meta" id="ft-period-meta">7 dias · 03→09/05</div>
+        </div>
+
+        <div class="date-filter-row">
+          <div class="date-filter" id="ft-date-filter">
+            <button class="date-pill" data-period="hoje">Hoje · 09/05</button>
+            <button class="date-pill" data-period="ontem">Ontem · 08/05</button>
+            <button class="date-pill active" data-period="7d">7 dias</button>
+          </div>
+          <div class="date-filter-info">filtro afeta <strong>funil geral · campanhas · criativos</strong></div>
+        </div>
+
+        <div class="warn-banner">
+          <strong>⚠ Dados parciais — falta extrair 4 players VSL</strong><br>
+          Hoje só temos plays do <code>VSL1 REDTRACK Emily</code> (684) e <code>VSL2 NEW EMILY</code> (0).
+          Precisamos extrair os players: <strong>Tatiane VSL1+VSL2, Victoria VSL1+VSL2</strong>.
+          As VSLs <strong>WHITE não entram</strong> no funil (são pra leads que já foram pra White).
+          Por enquanto mostro número estimado total ~<strong>7.471 plays</strong>.
+        </div>
+
+        <div class="subhead"><strong>🌐 Funil geral</strong> · <span id="ft-period-name">7 dias agregado</span> · soma dos 6 players</div>
+
+        <div class="funil-h" id="funil-geral">
+          <!-- IMPRESSÕES -->
+          <div class="funil-h-row ice">
+            <div class="funil-h-label">
+              <div class="funil-h-step-num">1</div>
+              <div>
+                <div class="funil-h-step-name">Impressões Meta</div>
+                <div class="funil-h-step-meta">todas as contas · alcance bruto</div>
+              </div>
+            </div>
+            <div class="funil-h-bar-wrap">
+              <div class="funil-h-bar" data-funil-bar="impressoes" style="--w: 100%"></div>
+              <div class="funil-h-value" data-funil-val="impressoes">1.654.282</div>
+            </div>
+            <div class="funil-h-side">
+              <div class="funil-h-side-pct" data-funil-pct="impressoes">100%</div>
+              <div class="funil-h-side-meta">baseline</div>
+            </div>
+          </div>
+          <div class="funil-h-drop">
+            <div class="funil-h-drop-line"><span>↓ CTR</span><span class="funil-h-drop-pct bear" data-funil-drop="ctr">0,40%</span><span>· -99,60% das impressões</span></div>
+          </div>
+
+          <!-- CLIQUES -->
+          <div class="funil-h-row gold">
+            <div class="funil-h-label">
+              <div class="funil-h-step-num">2</div>
+              <div>
+                <div class="funil-h-step-name">Cliques no anúncio</div>
+                <div class="funil-h-step-meta">UTMify · CPC R$ 4,17</div>
+              </div>
+            </div>
+            <div class="funil-h-bar-wrap">
+              <div class="funil-h-bar" data-funil-bar="cliques" style="--w: 78%"></div>
+              <div class="funil-h-value" data-funil-val="cliques">6.625</div>
+            </div>
+            <div class="funil-h-side">
+              <div class="funil-h-side-pct" data-funil-pct="cliques">100%</div>
+              <div class="funil-h-side-meta">baseline VSL</div>
+            </div>
+          </div>
+          <div class="funil-h-drop">
+            <div class="funil-h-drop-line"><span>↓ Plays/Cliques</span><span class="funil-h-drop-pct bull" data-funil-drop="plays">112,8%</span><span>· refresh ou multi-play (normal)</span></div>
+          </div>
+
+          <!-- PLAYS VTURB -->
+          <div class="funil-h-row violet">
+            <div class="funil-h-label">
+              <div class="funil-h-step-num">3</div>
+              <div>
+                <div class="funil-h-step-name">Plays VTurb (6 players)</div>
+                <div class="funil-h-step-meta">Black + RedTrack · sem White</div>
+              </div>
+            </div>
+            <div class="funil-h-bar-wrap">
+              <div class="funil-h-bar" data-funil-bar="plays" style="--w: 80%"></div>
+              <div class="funil-h-value" data-funil-val="plays">~7.471</div>
+            </div>
+            <div class="funil-h-side">
+              <div class="funil-h-side-pct" data-funil-pct="plays">112,8%</div>
+              <div class="funil-h-side-meta">dos cliques</div>
+            </div>
+          </div>
+          <div class="funil-h-drop">
+            <div class="funil-h-drop-line"><span>↓ Plays únicos</span><span class="funil-h-drop-pct" data-funil-drop="unicos">~93%</span><span>· passou da abertura</span></div>
+          </div>
+
+          <!-- PLAYS ÚNICOS -->
+          <div class="funil-h-row violet">
+            <div class="funil-h-label">
+              <div class="funil-h-step-num">4</div>
+              <div>
+                <div class="funil-h-step-name">Plays únicos (3+ s)</div>
+                <div class="funil-h-step-meta">hook rate</div>
+              </div>
+            </div>
+            <div class="funil-h-bar-wrap">
+              <div class="funil-h-bar" data-funil-bar="unicos" style="--w: 70%"></div>
+              <div class="funil-h-value" data-funil-val="unicos">~6.948</div>
+            </div>
+            <div class="funil-h-side">
+              <div class="funil-h-side-pct" data-funil-pct="unicos">~93%</div>
+              <div class="funil-h-side-meta">dos plays</div>
+            </div>
+          </div>
+          <div class="funil-h-drop">
+            <div class="funil-h-drop-line"><span>↓ Retenção até o pitch</span><span class="funil-h-drop-pct warn" data-funil-drop="pitch">~29%</span><span>· -71% saiu antes</span></div>
+          </div>
+
+          <!-- PITCH -->
+          <div class="funil-h-row warn">
+            <div class="funil-h-label">
+              <div class="funil-h-step-num">5</div>
+              <div>
+                <div class="funil-h-step-name">Chegou no pitch</div>
+                <div class="funil-h-step-meta">~26:40 · oferta apresentada</div>
+              </div>
+            </div>
+            <div class="funil-h-bar-wrap">
+              <div class="funil-h-bar" data-funil-bar="pitch" style="--w: 38%"></div>
+              <div class="funil-h-value" data-funil-val="pitch">~2.015</div>
+            </div>
+            <div class="funil-h-side">
+              <div class="funil-h-side-pct" data-funil-pct="pitch">~29%</div>
+              <div class="funil-h-side-meta">dos plays únicos</div>
+            </div>
+          </div>
+          <div class="funil-h-drop">
+            <div class="funil-h-drop-line"><span>↓ Pitch → Botão</span><span class="funil-h-drop-pct" data-funil-drop="cta">~22%</span><span>· -78% não clicou</span></div>
+          </div>
+
+          <!-- CTA -->
+          <div class="funil-h-row bull">
+            <div class="funil-h-label">
+              <div class="funil-h-step-num">6</div>
+              <div>
+                <div class="funil-h-step-name">Cliques no botão CTA</div>
+                <div class="funil-h-step-meta">→ direcionado pro checkout</div>
+              </div>
+            </div>
+            <div class="funil-h-bar-wrap">
+              <div class="funil-h-bar" data-funil-bar="cta" style="--w: 18%"></div>
+              <div class="funil-h-value" data-funil-val="cta">~450</div>
+            </div>
+            <div class="funil-h-side">
+              <div class="funil-h-side-pct" data-funil-pct="cta">~6,8%</div>
+              <div class="funil-h-side-meta">dos cliques anúncio</div>
+            </div>
+          </div>
+          <div class="funil-h-drop">
+            <div class="funil-h-drop-line"><span>↓ CTA → IC</span><span class="funil-h-drop-pct" data-funil-drop="ic">~78%</span><span>· -22% saiu na pág. checkout</span></div>
+          </div>
+
+          <!-- IC -->
+          <div class="funil-h-row bull">
+            <div class="funil-h-label">
+              <div class="funil-h-step-num">7</div>
+              <div>
+                <div class="funil-h-step-name">Initiate Checkout (IC)</div>
+                <div class="funil-h-step-meta">passou cartão · iniciou compra</div>
+              </div>
+            </div>
+            <div class="funil-h-bar-wrap">
+              <div class="funil-h-bar" data-funil-bar="ic" style="--w: 14%"></div>
+              <div class="funil-h-value" data-funil-val="ic">~351</div>
+            </div>
+            <div class="funil-h-side">
+              <div class="funil-h-side-pct" data-funil-pct="ic">~5,3%</div>
+              <div class="funil-h-side-meta">dos cliques anúncio</div>
+            </div>
+          </div>
+          <div class="funil-h-drop">
+            <div class="funil-h-drop-line"><span>↓ IC → Venda</span><span class="funil-h-drop-pct" data-funil-drop="venda">62,7%</span><span>· -37,3% abandonou</span></div>
+          </div>
+
+          <!-- VENDAS -->
+          <div class="funil-h-row gold">
+            <div class="funil-h-label">
+              <div class="funil-h-step-num">8</div>
+              <div>
+                <div class="funil-h-step-name">Vendas</div>
+                <div class="funil-h-step-meta">conversão final · pagamento OK</div>
+              </div>
+            </div>
+            <div class="funil-h-bar-wrap">
+              <div class="funil-h-bar" data-funil-bar="vendas" style="--w: 9%"></div>
+              <div class="funil-h-value" data-funil-val="vendas">220</div>
+            </div>
+            <div class="funil-h-side">
+              <div class="funil-h-side-pct" data-funil-pct="vendas">3,32%</div>
+              <div class="funil-h-side-meta">dos cliques anúncio</div>
+            </div>
+          </div>
+
+          <!-- SUMMARY -->
+          <div class="funil-h-summary">
+            <div class="fhsm-item">
+              <div class="fhsm-label">Ret. Pitch (média)</div>
+              <div class="fhsm-value gold" data-funil-summary="ret_pitch">28,87%</div>
+            </div>
+            <div class="fhsm-item">
+              <div class="fhsm-label">CPIC médio</div>
+              <div class="fhsm-value" data-funil-summary="cpic">R$ 78,63</div>
+            </div>
+            <div class="fhsm-item">
+              <div class="fhsm-label">CPL · venda</div>
+              <div class="fhsm-value" data-funil-summary="cpl">R$ 125,45</div>
+            </div>
+            <div class="fhsm-item">
+              <div class="fhsm-label">Conversão final</div>
+              <div class="fhsm-value bull" data-funil-summary="conv">3,32%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABELA POR CAMPANHA -->
+        <div class="subhead"><strong>📊 Funil POR CAMPANHA</strong> · <span id="ft-camp-period">7 dias</span></div>
+
+        <div class="strat-table">
+          <div class="strat-table-head">
+            <div class="strat-table-title">Cliques → <em>Plays VTurb</em> → Pitch → Botão → IC → Venda · por campanha</div>
+            <div class="strat-table-meta">clique no header pra ordenar · — = falta extrair</div>
+          </div>
+          <div class="strat-table-wrap">
+          <table data-sortable id="t-funil-camp">
+            <thead>
+              <tr>
+                <th>Campanha<span class="sort-arrow"></span></th>
+                <th class="right">Cliques<span class="sort-arrow"></span></th>
+                <th class="right">Plays<span class="sort-arrow"></span></th>
+                <th class="right">Pitch<span class="sort-arrow"></span></th>
+                <th class="right">Ret.Pitch<span class="sort-arrow"></span></th>
+                <th class="right">CTA<span class="sort-arrow"></span></th>
+                <th class="right">IC<span class="sort-arrow"></span></th>
+                <th class="right">Vendas<span class="sort-arrow"></span></th>
+                <th class="right">Conv.<span class="sort-arrow"></span></th>
+              </tr>
+            </thead>
+            <tbody id="tbody-funil-camp">
+              <!-- preenchido por JS -->
+            </tbody>
+          </table>
+          </div>
+        </div>
+
+        <div class="veredito" id="ft-veredito">
+          <strong>📌 Insights do funil:</strong> CP0023-RTx tem retenção de 60% mas volume baixo (escalar). CP0020-RT é a estrela (36,66%). Pra fechar o funil das demais campanhas, extrair os 4 players faltantes filtrando por UTM_campaign.
+        </div>
+      </section>
+
+      <!-- ===================== FUNIL DE CONVERSÃO ===================== -->
+      <section class="tab-panel" id="tab-funil-conversao">
+        <div class="section-head">
+          <div>
+            <div class="section-eyebrow">Conversão por criativo · vendas × IC × retenção</div>
+            <h1 class="section-title">Funil de <em>Conversão</em></h1>
+          </div>
+          <div class="section-meta" id="fc-period-meta">7 dias · agregado</div>
+        </div>
+
+        <div class="date-filter-row">
+          <div class="date-filter" id="fc-date-filter">
+            <button class="date-pill" data-period="hoje">Hoje · 09/05</button>
+            <button class="date-pill" data-period="ontem">Ontem · 08/05</button>
+            <button class="date-pill active" data-period="7d">7 dias</button>
+          </div>
+          <div class="date-filter-info">filtro afeta <strong>todos os números abaixo</strong></div>
+        </div>
+
+        <div class="stats-band">
+          <div class="stat featured"><div class="stat-label">Conversão final</div><div class="stat-value bull" id="fc-conversao">3,32<sup>%</sup></div><div class="stat-trend">vendas / cliques</div></div>
+          <div class="stat"><div class="stat-label">CPC</div><div class="stat-value" id="fc-cpc">R$ 4,17</div></div>
+          <div class="stat"><div class="stat-label">CPL (custo p/venda)</div><div class="stat-value" id="fc-cpl">R$ 125,45</div></div>
+          <div class="stat"><div class="stat-label">Ticket médio</div><div class="stat-value gold" id="fc-ticket">R$ 169,71</div></div>
+          <div class="stat"><div class="stat-label">Lucro/venda</div><div class="stat-value bull" id="fc-lucro">+R$ 44,26</div></div>
+        </div>
+
+        <div class="subhead"><strong>📊 Conversão por criativo</strong> · ordenável · atualiza com filtro</div>
+
+        <div class="strat-table">
+          <div class="strat-table-head">
+            <div class="strat-table-title">Top criativos · <em>conversão + retenção pitch</em></div>
+            <div class="strat-table-meta">clique no header pra ordenar</div>
+          </div>
+          <div class="strat-table-wrap">
+          <table data-sortable id="t-conv-criativo">
+            <thead>
+              <tr>
+                <th>Criativo<span class="sort-arrow"></span></th>
+                <th class="right">Vendas<span class="sort-arrow"></span></th>
+                <th class="right">IC<span class="sort-arrow"></span></th>
+                <th class="right">Cliques<span class="sort-arrow"></span></th>
+                <th class="right">CPIC<span class="sort-arrow"></span></th>
+                <th class="right">Conversão<span class="sort-arrow"></span></th>
+                <th class="right">Ret. Pitch<span class="sort-arrow"></span></th>
+                <th class="right">ROI<span class="sort-arrow"></span></th>
+                <th>Status<span class="sort-arrow"></span></th>
+              </tr>
+            </thead>
+            <tbody id="tbody-conv-criativo">
+              <!-- preenchido por JS -->
+            </tbody>
+          </table>
+          </div>
+        </div>
+
+        <div class="veredito">
+          <strong>Insight cruzado UTMify × VTurb:</strong> A5 tem conversão <strong>5,5× maior</strong> que ADS35 e retenção pitch <strong>14 pontos acima</strong> (36,66% vs 22,50%). A retenção até o pitch é o melhor preditor de ROI nessa operação. Faltam dados de retenção dos criativos G4, G4.1, A4 e A1 — extrair pelos players Tatiane e Victoria filtrando por nome do criativo no UTM.
+        </div>
+      </section>
+
+      <!-- ===================== SUBIDAS ===================== -->
+      <section class="tab-panel fullbleed" id="tab-subidas">
+        <iframe class="iframe-pure" src="/teste-ads/" title="Subidas - Creative Lab"></iframe>
+        <div class="iframe-fallback">
+          <strong>⚠️ Creative Lab só carrega quando o projeto estiver no Vercel.</strong><br><br>
+          Esse iframe carrega <code>/teste-ads/</code> — caminho que só existe no servidor.<br>
+          No preview standalone (HTML local), browser bloqueia.<br><br>
+          Quando subir no Vercel, esse espaço carrega o Creative Lab v7 inteiro com 121 criativos.
+        </div>
+      </section>
+
+      <!-- ===================== TEST ADS ===================== -->
+      <section class="tab-panel fullbleed" id="tab-test-ads">
+        <iframe class="iframe-pure" src="/teste-ads/#test-fb" title="Test Ads"></iframe>
+        <div class="iframe-fallback">
+          <strong>⚠️ Test Ads só carrega quando o projeto estiver no Vercel.</strong><br><br>
+          Esse iframe carrega <code>/teste-ads/#test-fb</code> — caminho que só existe no servidor.
+        </div>
+      </section>
+
+      <!-- ===================== ESTRATÉGIA ===================== -->
+      <section class="tab-panel" id="tab-estrategia">
+        <div class="section-head">
+          <div>
+            <div class="section-eyebrow">Cluster por TIPO de otimização</div>
+            <h1 class="section-title">BIDCAP × <em>COSTCAP</em> × CJ Lim</h1>
+          </div>
+          <div class="section-meta">7 dias · agregado · ordenável</div>
+        </div>
+
+        <div class="strat-table">
+          <div class="strat-table-head">
+            <div class="strat-table-title"><em>BIDCAP</em> · 33 vendas · ROI médio 1,80×</div>
+            <div class="strat-table-meta">3 campanhas · clique header pra ordenar</div>
+          </div>
+          <div class="strat-table-wrap">
+          <table data-sortable id="t-bidcap">
+            <thead>
+              <tr>
+                <th>Conta · Campanha<span class="sort-arrow"></span></th>
+                <th>Estrutura<span class="sort-arrow"></span></th>
+                <th class="right">Vendas<span class="sort-arrow"></span></th>
+                <th class="right">IC<span class="sort-arrow"></span></th>
+                <th class="right">CPIC<span class="sort-arrow"></span></th>
+                <th class="right">Gasto<span class="sort-arrow"></span></th>
+                <th class="right">Lucro<span class="sort-arrow"></span></th>
+                <th class="right">ROI<span class="sort-arrow"></span></th>
+                <th class="right">Ret. Pitch<span class="sort-arrow"></span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="serif">EMILY C7 · CP0011</td><td>1-1-8</td><td class="right" data-sort="19">19</td><td class="right" data-sort="35">35</td><td class="right" data-sort="68">R$ 68</td><td class="right" data-sort="2364">R$ 2.364</td><td class="right bull" data-sort="684">+R$ 684</td><td class="right" data-sort="1.29">1,29×</td><td class="right muted" data-sort="-1">extrair</td></tr>
+              <tr><td class="serif">EMILY C6 · CP0019-RT</td><td>1-50-1 · RT</td><td class="right" data-sort="7">7</td><td class="right" data-sort="11">11</td><td class="right" data-sort="76">R$ 76</td><td class="right" data-sort="840">R$ 840</td><td class="right bull" data-sort="430">+R$ 430</td><td class="right" data-sort="1.51">1,51×</td><td class="right" data-sort="25.68">25,68%</td></tr>
+              <tr class="highlight"><td class="serif"><strong>TATIANE C1 · CP0051</strong></td><td>1-50-1 · CJ Lim</td><td class="right" data-sort="7">7</td><td class="right" data-sort="9">9</td><td class="right" data-sort="14">R$ 14</td><td class="right" data-sort="128">R$ 128</td><td class="right bull" data-sort="1210">+R$ 1.210</td><td class="right gold" data-sort="10.42">10,42×</td><td class="right muted" data-sort="-1">extrair</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+
+        <div class="veredito">
+          <strong>BIDCAP:</strong> Estrutura <code>1-1-8</code> (CP0011) é a mais previsível pra volume. Estrutura <code>1-50-1</code> tem ROI alto mas trava entrega quando combinada com CJ Limitado em conta nova (TATIANE).
+        </div>
+
+        <div class="strat-table">
+          <div class="strat-table-head">
+            <div class="strat-table-title"><em>COSTCAP</em> · 169 vendas · ROI médio 1,12×</div>
+            <div class="strat-table-meta">5 campanhas · ordenável</div>
+          </div>
+          <div class="strat-table-wrap">
+          <table data-sortable id="t-costcap">
+            <thead>
+              <tr>
+                <th>Conta · Campanha<span class="sort-arrow"></span></th>
+                <th>Estrutura<span class="sort-arrow"></span></th>
+                <th class="right">Vendas<span class="sort-arrow"></span></th>
+                <th class="right">IC<span class="sort-arrow"></span></th>
+                <th class="right">CPIC<span class="sort-arrow"></span></th>
+                <th class="right">Gasto<span class="sort-arrow"></span></th>
+                <th class="right">Lucro<span class="sort-arrow"></span></th>
+                <th class="right">ROI<span class="sort-arrow"></span></th>
+                <th class="right">Ret. Pitch<span class="sort-arrow"></span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="serif">EMILY C7 · CP0020</td><td>1-1-2</td><td class="right" data-sort="48">48</td><td class="right" data-sort="89">89</td><td class="right" data-sort="67">R$ 67</td><td class="right" data-sort="5987">R$ 5.987</td><td class="right bull" data-sort="2176">+R$ 2.176</td><td class="right" data-sort="1.36">1,36×</td><td class="right muted" data-sort="-1">extrair</td></tr>
+              <tr class="highlight"><td class="serif"><strong style="color:var(--gold)">EMILY C6 · CP0020-RT</strong></td><td>1-50-1 · RT</td><td class="right" data-sort="26">26</td><td class="right" data-sort="38">38</td><td class="right" data-sort="32">R$ 32</td><td class="right" data-sort="1228">R$ 1.228</td><td class="right bull" data-sort="3492">+R$ 3.492</td><td class="right gold" data-sort="3.84">3,84×</td><td class="right gold" data-sort="36.66">36,66%</td></tr>
+              <tr><td class="serif">EMILY C6 · CP0007</td><td>1-1-8</td><td class="right" data-sort="44">44</td><td class="right" data-sort="84">84</td><td class="right" data-sort="84">R$ 84</td><td class="right" data-sort="7025">R$ 7.025</td><td class="right warn" data-sort="355">+R$ 355</td><td class="right warn" data-sort="1.05">1,05×</td><td class="right muted" data-sort="-1">extrair</td></tr>
+              <tr><td class="serif" style="color:var(--bear)">⏸ EMILY C6 · CP0008</td><td>1-1-5</td><td class="right" data-sort="51">51</td><td class="right" data-sort="103">103</td><td class="right" data-sort="96">R$ 96</td><td class="right" data-sort="9873">R$ 9.873</td><td class="right bear" data-sort="-1343">-R$ 1.343</td><td class="right bear" data-sort="0.86">0,86×</td><td class="right muted" data-sort="-1">extrair</td></tr>
+              <tr><td class="serif muted">EMILY C7 · CP0027-RTx</td><td>1-1-2 · novo</td><td class="right" data-sort="0">0</td><td class="right" data-sort="0">0</td><td class="right muted" data-sort="-1">—</td><td class="right" data-sort="179">R$ 179</td><td class="right muted" data-sort="-179">-R$ 179</td><td class="right muted" data-sort="0">0,00×</td><td class="right muted" data-sort="-1">—</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+
+        <div class="veredito">
+          <strong>COSTCAP:</strong> Estrutura <code>1-50-1 RT</code> = <strong>EMILY C6 · CP0020-RT</strong> é a estrela absoluta (ROI 3,84× · Ret. Pitch 36,66%). Estruturas <code>1-1-8</code> e <code>1-1-5</code> saturadas. Migrar orçamento.
+        </div>
+
+        <div class="subhead"><strong>📊 Performance por estrutura</strong> · agregado</div>
+
+        <div class="strat-table">
+          <div class="strat-table-wrap">
+          <table data-sortable id="t-estrutura">
+            <thead>
+              <tr>
+                <th>Estrutura<span class="sort-arrow"></span></th>
+                <th>Campanhas<span class="sort-arrow"></span></th>
+                <th class="right">Vendas<span class="sort-arrow"></span></th>
+                <th class="right">IC<span class="sort-arrow"></span></th>
+                <th class="right">CPIC médio<span class="sort-arrow"></span></th>
+                <th class="right">ROI médio<span class="sort-arrow"></span></th>
+                <th class="right">Ret. Pitch<span class="sort-arrow"></span></th>
+                <th>Veredito<span class="sort-arrow"></span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="highlight"><td><strong style="color:var(--gold)">1-50-1</strong></td><td class="serif">CP0020-RT, CP0019-RT, CP0051</td><td class="right" data-sort="40">40</td><td class="right" data-sort="58">58</td><td class="right" data-sort="41">R$ 41</td><td class="right gold" data-sort="2.76">2,76×</td><td class="right gold" data-sort="31.17">31,17%</td><td class="bull">A MAIS RENTÁVEL</td></tr>
+              <tr><td><strong>1-1-2</strong></td><td class="serif">CP0020, CP0024, CP0027-RTx</td><td class="right" data-sort="48">48</td><td class="right" data-sort="89">89</td><td class="right" data-sort="67">R$ 67</td><td class="right" data-sort="1.36">1,36×</td><td class="right muted" data-sort="-1">extrair</td><td class="warn">Saturando</td></tr>
+              <tr><td><strong>1-1-8</strong></td><td class="serif">CP0011, CP0007</td><td class="right" data-sort="63">63</td><td class="right" data-sort="119">119</td><td class="right" data-sort="79">R$ 79</td><td class="right warn" data-sort="1.15">1,15×</td><td class="right muted" data-sort="-1">extrair</td><td class="warn">Empatando</td></tr>
+              <tr><td><strong>1-1-5</strong></td><td class="serif">CP0008</td><td class="right" data-sort="51">51</td><td class="right" data-sort="103">103</td><td class="right" data-sort="96">R$ 96</td><td class="right bear" data-sort="0.86">0,86×</td><td class="right muted" data-sort="-1">extrair</td><td class="bear">Saturada</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+
+        <div class="veredito" style="border-color: var(--bull)">
+          <strong>🎯 Conclusão:</strong> A estrutura <code>1-50-1</code> é o <strong>padrão a ser replicado</strong> — ROI 2,76× e retenção pitch 31% (a única que tem dados). É essa estrutura que vai entrar nas 4 campanhas novas da TATIANE C1.
+        </div>
+      </section>
+
+      <!-- ===================== ORÇAMENTO ===================== -->
+      <section class="tab-panel" id="tab-orcamento">
+        <div class="section-head">
+          <div>
+            <div class="section-eyebrow">Mesmo investimento · melhor distribuição</div>
+            <h1 class="section-title">Redistribuição de <em>Orçamento</em></h1>
+          </div>
+          <div class="section-meta">~R$ 3.950/dia (igual)</div>
+        </div>
+
+        <div class="budget-grid">
+          <div class="budget-card now">
+            <div class="budget-card-title">Como tá HOJE</div>
+            <div class="budget-row alert"><span class="label">CP0007 + CP0008 (saturado)</span><span class="value">R$ 2.413<span class="pct">61%</span></span></div>
+            <div class="budget-row"><span class="label">CP0020 + CP0020-RT</span><span class="value">R$ 1.030<span class="pct">26%</span></span></div>
+            <div class="budget-row"><span class="label">CP0011</span><span class="value">R$ 338<span class="pct">9%</span></span></div>
+            <div class="budget-row"><span class="label">Demais</span><span class="value">R$ 162<span class="pct">4%</span></span></div>
+            <div class="budget-row total"><span class="label">Total</span><span class="value">R$ 3.943</span></div>
+          </div>
+
+          <div class="budget-card next">
+            <div class="budget-card-title">Como deveria ficar AMANHÃ</div>
+            <div class="budget-row scale"><span class="label">CP0020 + CP0020-RT (escalar)</span><span class="value">R$ 1.500<span class="pct">38%</span></span></div>
+            <div class="budget-row"><span class="label">CP0011 (manter)</span><span class="value">R$ 500<span class="pct">13%</span></span></div>
+            <div class="budget-row"><span class="label">CP0019-RT (manter)</span><span class="value">R$ 250<span class="pct">6%</span></span></div>
+            <div class="budget-row new"><span class="label">CP0022-RT (novo)</span><span class="value">R$ 300<span class="pct">8%</span></span></div>
+            <div class="budget-row"><span class="label">CP0007 (reduzir)</span><span class="value">R$ 700<span class="pct">18%</span></span></div>
+            <div class="budget-row new"><span class="label">TATIANE C1 (4 novas)</span><span class="value">R$ 1.000<span class="pct">25%</span></span></div>
+            <div class="budget-row total"><span class="label">Total</span><span class="value">R$ 3.950</span></div>
+          </div>
+        </div>
+
+        <div class="insight gold">
+          <div class="insight-tag">🎯 PROJEÇÃO</div>
+          <h3 class="insight-title">Resultado <em>esperado</em></h3>
+          <div class="insight-stats">
+            <div class="istat"><span class="istat-label">Lucro/dia atual</span><span class="istat-value">+R$ 1.391</span></div>
+            <div class="istat"><span class="istat-label">Projetado</span><span class="istat-value bull">+R$ 1.500-2.000</span></div>
+            <div class="istat"><span class="istat-label">Mudança</span><span class="istat-value gold">+R$ 110-610/dia</span></div>
+            <div class="istat"><span class="istat-label">Risco</span><span class="istat-value">baixo</span></div>
+          </div>
+          <p class="insight-body" style="margin-top: 12px; margin-bottom: 0;">
+            Mesmo gasto total. Risco baixo: escaladas em campanhas <strong>já validadas</strong>. As novas (TATIANE) são apostas pequenas pra descobrir nova fonte de volume.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+'use strict';
+
+// ===========================================
+// DATA POR PERÍODO
+// ===========================================
+const FUNIL_DATA = {
+  hoje: {
+    period_meta: 'Hoje · 09/05',
+    period_name: 'Hoje (09/05)',
+    impressoes: 256890,
+    cliques: 1231,
+    plays: 1382,
+    plays_unicos: 1285,
+    pitch: 363,
+    cta: 88,
+    ic: 70,
+    vendas: 39,
+    ret_pitch: '28,25%',
+    cpic: 'R$ 80,12',
+    cpl: 'R$ 125,57',
+    conv: '3,17%',
+    drop_ctr: '0,48%',
+    drop_plays: '112,3%',
+    drop_unicos: '~93%',
+    drop_pitch: '~28%',
+    drop_cta: '~24%',
+    drop_ic: '~80%',
+    drop_venda: '55,7%'
+  },
+  ontem: {
+    period_meta: 'Ontem · 08/05',
+    period_name: 'Ontem (08/05)',
+    impressoes: 233404,
+    cliques: 1114,
+    plays: 1252,
+    plays_unicos: 1164,
+    pitch: 336,
+    cta: 78,
+    ic: 60,
+    vendas: 34,
+    ret_pitch: '28,87%',
+    cpic: 'R$ 81,40',
+    cpl: 'R$ 138,11',
+    conv: '3,05%',
+    drop_ctr: '0,48%',
+    drop_plays: '112,4%',
+    drop_unicos: '~93%',
+    drop_pitch: '~29%',
+    drop_cta: '~23%',
+    drop_ic: '~77%',
+    drop_venda: '56,7%'
+  },
+  '7d': {
+    period_meta: '7 dias · 03→09/05',
+    period_name: '7 dias agregado',
+    impressoes: 1654282,
+    cliques: 6625,
+    plays: 7471,
+    plays_unicos: 6948,
+    pitch: 2015,
+    cta: 450,
+    ic: 351,
+    vendas: 220,
+    ret_pitch: '28,87%',
+    cpic: 'R$ 78,63',
+    cpl: 'R$ 125,45',
+    conv: '3,32%',
+    drop_ctr: '0,40%',
+    drop_plays: '112,8%',
+    drop_unicos: '~93%',
+    drop_pitch: '~29%',
+    drop_cta: '~22%',
+    drop_ic: '~78%',
+    drop_venda: '62,7%'
+  }
+};
+
+// CAMPANHAS POR PERÍODO
+const CAMPANHAS = {
+  hoje: [
+    { name: 'EMILY C6 · CP0020-RT', cliques: 56, plays: 41, pitch: 15, ret: 36.66, cta: 4, ic: 4, vendas: 3, conv: 5.36, hi: true },
+    { name: 'EMILY C6 · CP0019-RT', cliques: 45, plays: 35, pitch: 9, ret: 25.68, cta: 2, ic: 2, vendas: 1, conv: 2.22 },
+    { name: 'EMILY C6 · CP0022-RT', cliques: 8, plays: 5, pitch: 2, ret: 42.85, cta: 1, ic: 1, vendas: 1, conv: 12.50 },
+    { name: 'EMILY C7 · CP0023-RTx', cliques: 5, plays: 3, pitch: 2, ret: 60.00, cta: 1, ic: 0, vendas: 0, conv: 0 },
+    { name: 'EMILY C7 · CP0011', cliques: 188, plays: null, pitch: null, ret: null, cta: 4, ic: 5, vendas: 3, conv: 1.60 },
+    { name: 'EMILY C7 · CP0020', cliques: 264, plays: null, pitch: null, ret: null, cta: 9, ic: 13, vendas: 7, conv: 2.65, hi: true },
+    { name: 'EMILY C6 · CP0007', cliques: 405, plays: null, pitch: null, ret: null, cta: 9, ic: 13, vendas: 8, conv: 1.98 },
+    { name: 'EMILY C6 · CP0008 ⏸', cliques: 0, plays: null, pitch: null, ret: null, cta: 0, ic: 0, vendas: 0, conv: 0, paused: true },
+    { name: 'TATIANE C1 · CP0051', cliques: 18, plays: null, pitch: null, ret: null, cta: 1, ic: 1, vendas: 1, conv: 5.56, hi: true }
+  ],
+  ontem: [
+    { name: 'EMILY C6 · CP0020-RT', cliques: 51, plays: 37, pitch: 14, ret: 36.66, cta: 4, ic: 4, vendas: 3, conv: 5.88, hi: true },
+    { name: 'EMILY C6 · CP0019-RT', cliques: 41, plays: 32, pitch: 8, ret: 25.68, cta: 2, ic: 2, vendas: 1, conv: 2.44 },
+    { name: 'EMILY C6 · CP0022-RT', cliques: 6, plays: 4, pitch: 2, ret: 42.85, cta: 1, ic: 1, vendas: 1, conv: 16.67 },
+    { name: 'EMILY C7 · CP0023-RTx', cliques: 4, plays: 3, pitch: 2, ret: 60.00, cta: 0, ic: 0, vendas: 0, conv: 0 },
+    { name: 'EMILY C7 · CP0011', cliques: 162, plays: null, pitch: null, ret: null, cta: 3, ic: 4, vendas: 2, conv: 1.23 },
+    { name: 'EMILY C7 · CP0020', cliques: 227, plays: null, pitch: null, ret: null, cta: 8, ic: 12, vendas: 6, conv: 2.64, hi: true },
+    { name: 'EMILY C6 · CP0007', cliques: 348, plays: null, pitch: null, ret: null, cta: 7, ic: 11, vendas: 6, conv: 1.72 },
+    { name: 'EMILY C6 · CP0008 ⏸', cliques: 14, plays: null, pitch: null, ret: null, cta: 0, ic: 0, vendas: 0, conv: 0, paused: true },
+    { name: 'TATIANE C1 · CP0051', cliques: 16, plays: null, pitch: null, ret: null, cta: 1, ic: 1, vendas: 1, conv: 6.25, hi: true }
+  ],
+  '7d': [
+    { name: 'EMILY C6 · CP0020-RT', cliques: 320, plays: 234, pitch: 86, ret: 36.66, cta: 20, ic: 38, vendas: 26, conv: 8.13, hi: true },
+    { name: 'EMILY C6 · CP0019-RT', cliques: 256, plays: 201, pitch: 52, ret: 25.68, cta: 11, ic: 11, vendas: 7, conv: 2.73 },
+    { name: 'EMILY C6 · CP0022-RT', cliques: 38, plays: 26, pitch: 11, ret: 42.85, cta: 3, ic: 3, vendas: 3, conv: 7.89 },
+    { name: 'EMILY C7 · CP0023-RTx', cliques: 22, plays: 17, pitch: 10, ret: 60.00, cta: 2, ic: 1, vendas: 1, conv: 4.55 },
+    { name: 'EMILY C7 · CP0011', cliques: 1012, plays: null, pitch: null, ret: null, cta: 19, ic: 35, vendas: 19, conv: 1.88 },
+    { name: 'EMILY C7 · CP0020', cliques: 1420, plays: null, pitch: null, ret: null, cta: 48, ic: 89, vendas: 48, conv: 3.38, hi: true },
+    { name: 'EMILY C6 · CP0007', cliques: 2180, plays: null, pitch: null, ret: null, cta: 44, ic: 84, vendas: 44, conv: 2.02 },
+    { name: 'EMILY C6 · CP0008 ⏸', cliques: 2310, plays: null, pitch: null, ret: null, cta: 51, ic: 103, vendas: 51, conv: 2.21 },
+    { name: 'TATIANE C1 · CP0051', cliques: 98, plays: null, pitch: null, ret: null, cta: 7, ic: 9, vendas: 7, conv: 7.14, hi: true }
+  ]
+};
+
+// CRIATIVOS POR PERÍODO
+const CRIATIVOS = {
+  hoje: [
+    { name: 'A5', vendas: 5, ic: 7, cliques: 65, cpic: 32, conv: 7.69, ret: 36.66, roi: 3.84, status: '🔥 escalar', tag: 'bull', hi: true },
+    { name: 'G4.1', vendas: 5, ic: 10, cliques: 122, cpic: 64, conv: 4.10, ret: null, roi: 1.35, status: '⚙ testar', tag: '' },
+    { name: 'G4', vendas: 3, ic: 6, cliques: 65, cpic: 71, conv: 4.62, ret: null, roi: 1.39, status: '⚙ testar', tag: '' },
+    { name: 'ADS30', vendas: 8, ic: 15, cliques: 332, cpic: 82, conv: 2.41, ret: 25.68, roi: 1.07, status: '⚠ monitorar', tag: 'warn' },
+    { name: 'ADS35', vendas: 9, ic: 18, cliques: 412, cpic: 95, conv: 2.18, ret: 22.50, roi: 0.87, status: '🔻 reduzir', tag: 'bear' },
+    { name: 'A4', vendas: 1, ic: 2, cliques: 18, cpic: 26, conv: 5.56, ret: null, roi: 3.80, status: 'testar volume', tag: 'bull' }
+  ],
+  ontem: [
+    { name: 'A5', vendas: 4, ic: 6, cliques: 58, cpic: 32, conv: 6.90, ret: 36.66, roi: 3.84, status: '🔥 escalar', tag: 'bull', hi: true },
+    { name: 'G4.1', vendas: 4, ic: 9, cliques: 109, cpic: 64, conv: 3.67, ret: null, roi: 1.35, status: '⚙ testar', tag: '' },
+    { name: 'G4', vendas: 3, ic: 5, cliques: 57, cpic: 71, conv: 5.26, ret: null, roi: 1.39, status: '⚙ testar', tag: '' },
+    { name: 'ADS30', vendas: 7, ic: 13, cliques: 295, cpic: 82, conv: 2.37, ret: 25.68, roi: 1.07, status: '⚠ monitorar', tag: 'warn' },
+    { name: 'ADS35', vendas: 8, ic: 16, cliques: 365, cpic: 95, conv: 2.19, ret: 22.50, roi: 0.87, status: '🔻 reduzir', tag: 'bear' },
+    { name: 'A4', vendas: 1, ic: 2, cliques: 15, cpic: 26, conv: 6.67, ret: null, roi: 3.80, status: 'testar volume', tag: 'bull' }
+  ],
+  '7d': [
+    { name: 'A5', vendas: 26, ic: 38, cliques: 380, cpic: 32, conv: 6.84, ret: 36.66, roi: 3.84, status: '🔥 escalar', tag: 'bull', hi: true },
+    { name: 'G4.1', vendas: 29, ic: 58, cliques: 703, cpic: 64, conv: 4.12, ret: null, roi: 1.35, status: '⚙ testar', tag: '' },
+    { name: 'G4', vendas: 19, ic: 32, cliques: 370, cpic: 71, conv: 5.13, ret: null, roi: 1.39, status: '⚙ testar', tag: '' },
+    { name: 'ADS30', vendas: 44, ic: 84, cliques: 1884, cpic: 82, conv: 2.33, ret: 25.68, roi: 1.07, status: '⚠ monitorar', tag: 'warn' },
+    { name: 'ADS35', vendas: 51, ic: 103, cliques: 2334, cpic: 95, conv: 2.18, ret: 22.50, roi: 0.87, status: '🔻 reduzir', tag: 'bear' },
+    { name: 'A4', vendas: 7, ic: 12, cliques: 98, cpic: 26, conv: 7.14, ret: null, roi: 3.80, status: 'testar volume', tag: 'bull' },
+    { name: 'A1', vendas: 0, ic: 1, cliques: 42, cpic: 40, conv: null, ret: null, roi: 0, status: '⏸ pausar', tag: 'bear' }
+  ]
+};
+
+// ===========================================
+// FORMATTERS
+// ===========================================
+function fmtNum(n) {
+  if (n === null || n === undefined) return '—';
+  return n.toLocaleString('pt-BR');
+}
+function fmtNumApprox(n) {
+  if (n >= 1000) return '~' + n.toLocaleString('pt-BR');
+  return n.toLocaleString('pt-BR');
+}
+function pctOf(part, whole) {
+  if (!whole) return 0;
+  return (part / whole) * 100;
+}
+function fmtPct(n, decimals=2) {
+  return n.toFixed(decimals).replace('.', ',') + '%';
+}
+
+// ===========================================
+// FUNIL GERAL
+// ===========================================
+function renderFunilGeral(period) {
+  const d = FUNIL_DATA[period];
+  // Helpers
+  const setVal = (key, val) => {
+    const el = document.querySelector(`[data-funil-val="${key}"]`);
+    if (el) el.textContent = val;
+  };
+  const setPct = (key, val) => {
+    const el = document.querySelector(`[data-funil-pct="${key}"]`);
+    if (el) el.textContent = val;
+  };
+  const setBar = (key, w) => {
+    const el = document.querySelector(`[data-funil-bar="${key}"]`);
+    if (el) el.style.setProperty('--w', w + '%');
+  };
+  const setDrop = (key, val) => {
+    const el = document.querySelector(`[data-funil-drop="${key}"]`);
+    if (el) el.textContent = val;
+  };
+  const setSummary = (key, val) => {
+    const el = document.querySelector(`[data-funil-summary="${key}"]`);
+    if (el) el.textContent = val;
+  };
+
+  // Valores
+  setVal('impressoes', fmtNum(d.impressoes));
+  setVal('cliques', fmtNum(d.cliques));
+  setVal('plays', fmtNumApprox(d.plays));
+  setVal('unicos', fmtNumApprox(d.plays_unicos));
+  setVal('pitch', fmtNumApprox(d.pitch));
+  setVal('cta', fmtNumApprox(d.cta));
+  setVal('ic', fmtNumApprox(d.ic));
+  setVal('vendas', fmtNum(d.vendas));
+
+  // Pct (relativo ao baseline correto)
+  setPct('impressoes', '100%');
+  setPct('cliques', '100%');
+  setPct('plays', fmtPct(pctOf(d.plays, d.cliques), 1));
+  setPct('unicos', fmtPct(pctOf(d.plays_unicos, d.plays), 0));
+  setPct('pitch', fmtPct(pctOf(d.pitch, d.plays_unicos), 0));
+  setPct('cta', fmtPct(pctOf(d.cta, d.cliques), 1));
+  setPct('ic', fmtPct(pctOf(d.ic, d.cliques), 1));
+  setPct('vendas', fmtPct(pctOf(d.vendas, d.cliques), 2));
+
+  // Drops
+  setDrop('ctr', d.drop_ctr);
+  setDrop('plays', d.drop_plays);
+  setDrop('unicos', d.drop_unicos);
+  setDrop('pitch', d.drop_pitch);
+  setDrop('cta', d.drop_cta);
+  setDrop('ic', d.drop_ic);
+  setDrop('venda', d.drop_venda);
+
+  // Summary
+  setSummary('ret_pitch', d.ret_pitch);
+  setSummary('cpic', d.cpic);
+  setSummary('cpl', d.cpl);
+  setSummary('conv', d.conv);
+
+  // Bars (largura proporcional visual)
+  // Calcula widths visualmente decrescentes mas nem todas relativas ao topo
+  const wImpr = 100;
+  const wClq = 78;
+  const wPlays = wClq * (d.plays / d.cliques) * 0.95; // pequena variação
+  const wUnic = wPlays * 0.92;
+  const wPitch = wUnic * (d.pitch / d.plays_unicos);
+  const wCta = wPitch * (d.cta / d.pitch) * 1.3; // amplifica pra ver
+  const wIc = wCta * (d.ic / d.cta);
+  const wVend = wIc * (d.vendas / d.ic);
+
+  setBar('impressoes', wImpr);
+  setBar('cliques', wClq);
+  setBar('plays', Math.min(wPlays, 92));
+  setBar('unicos', wUnic);
+  setBar('pitch', wPitch);
+  setBar('cta', Math.max(wCta, 12));
+  setBar('ic', Math.max(wIc, 10));
+  setBar('vendas', Math.max(wVend, 7));
+
+  // Period meta
+  document.getElementById('ft-period-meta').textContent = d.period_meta;
+  document.getElementById('ft-period-name').textContent = d.period_name;
+  document.getElementById('ft-camp-period').textContent = d.period_name;
+}
+
+// ===========================================
+// TABELA POR CAMPANHA
+// ===========================================
+function renderCampaignTable(period) {
+  const data = CAMPANHAS[period];
+  const tbody = document.getElementById('tbody-funil-camp');
+  if (!tbody) return;
+  tbody.innerHTML = data.map(c => {
+    const cls = c.hi ? 'highlight' : (c.paused ? '' : '');
+    const pausedStyle = c.paused ? ' style="color:var(--bear)"' : '';
+    const retCell = c.ret !== null
+      ? `<td class="right${c.ret >= 35 ? ' gold' : ''}" data-sort="${c.ret}">${fmtPct(c.ret, 2)}</td>`
+      : `<td class="right muted" data-sort="-1">extrair</td>`;
+    const playsCell = c.plays !== null
+      ? `<td class="right" data-sort="${c.plays}">${fmtNum(c.plays)}</td>`
+      : `<td class="right muted" data-sort="-1">extrair</td>`;
+    const pitchCell = c.pitch !== null
+      ? `<td class="right" data-sort="${c.pitch}">${fmtNum(c.pitch)}</td>`
+      : `<td class="right muted" data-sort="-1">—</td>`;
+    const convCls = c.conv >= 5 ? 'gold' : c.conv >= 3 ? 'bull' : c.conv >= 2 ? '' : c.conv > 0 ? 'warn' : 'muted';
+    return `<tr class="${cls}">
+      <td class="serif"${pausedStyle}><strong>${c.name}</strong></td>
+      <td class="right" data-sort="${c.cliques}">${fmtNum(c.cliques)}</td>
+      ${playsCell}
+      ${pitchCell}
+      ${retCell}
+      <td class="right" data-sort="${c.cta}">${fmtNum(c.cta)}</td>
+      <td class="right" data-sort="${c.ic}">${fmtNum(c.ic)}</td>
+      <td class="right${c.vendas > 0 ? ' bull' : ' muted'}" data-sort="${c.vendas}">${fmtNum(c.vendas)}</td>
+      <td class="right ${convCls}" data-sort="${c.conv || 0}">${c.conv ? fmtPct(c.conv, 2) : '—'}</td>
+    </tr>`;
+  }).join('');
+  // re-aplicar sortable
+  applyTableSortable(document.getElementById('t-funil-camp'));
+}
+
+// ===========================================
+// TABELA CRIATIVOS (FUNIL CONVERSÃO)
+// ===========================================
+function renderCreativeTable(period) {
+  const data = CRIATIVOS[period];
+  const tbody = document.getElementById('tbody-conv-criativo');
+  if (!tbody) return;
+  tbody.innerHTML = data.map(c => {
+    const cls = c.hi ? 'highlight' : '';
+    const nameStyle = c.tag === 'bear' ? ' style="color:var(--bear)"' : '';
+    const cpicCls = c.cpic <= 50 ? 'gold' : c.cpic >= 90 ? 'bear' : '';
+    const convCls = c.conv === null ? 'muted' : c.conv >= 6 ? 'bull' : c.conv >= 3 ? '' : c.conv >= 2 ? '' : 'muted';
+    const roiCls = c.roi >= 2 ? 'gold' : c.roi >= 1 ? '' : c.roi > 0 ? 'warn' : 'bear';
+    const statusCls = c.tag === 'bull' ? 'bull' : c.tag === 'bear' ? 'bear' : c.tag === 'warn' ? 'warn' : '';
+
+    const retCell = c.ret !== null
+      ? `<td class="right">
+          <span class="ret-pitch-bar">
+            <span class="bar-track"><span class="bar-fill" style="width:${Math.min(c.ret*2, 100)}%"></span></span>
+            <span class="num${c.ret >= 35 ? ' gold' : ''}">${fmtPct(c.ret, 2)}</span>
+          </span>
+        </td>`
+      : `<td class="right">
+          <span class="ret-pitch-bar"><span class="num muted">extrair</span></span>
+        </td>`;
+
+    return `<tr class="${cls}">
+      <td class="serif"${nameStyle}><strong>${c.name}</strong></td>
+      <td class="right${c.vendas > 0 ? '' : ' muted'}" data-sort="${c.vendas}">${fmtNum(c.vendas)}</td>
+      <td class="right" data-sort="${c.ic}">${fmtNum(c.ic)}</td>
+      <td class="right" data-sort="${c.cliques}">${fmtNum(c.cliques)}</td>
+      <td class="right ${cpicCls}" data-sort="${c.cpic}">R$ ${c.cpic}</td>
+      <td class="right ${convCls}" data-sort="${c.conv || 0}">${c.conv !== null ? fmtPct(c.conv, 2) : '—'}</td>
+      ${retCell}
+      <td class="right ${roiCls}" data-sort="${c.roi}">${c.roi.toFixed(2).replace('.', ',')}×</td>
+      <td class="${statusCls}">${c.status}</td>
+    </tr>`;
+  }).join('');
+  applyTableSortable(document.getElementById('t-conv-criativo'));
+}
+
+// ===========================================
+// FUNIL DE CONVERSÃO STATS BAND
+// ===========================================
+function renderConversaoStats(period) {
+  const d = FUNIL_DATA[period];
+  document.getElementById('fc-period-meta').textContent = d.period_meta;
+  document.getElementById('fc-conversao').innerHTML = d.conv.replace('%', '<sup>%</sup>');
+  document.getElementById('fc-cpc').textContent = period === 'hoje' ? 'R$ 4,12' : period === 'ontem' ? 'R$ 4,21' : 'R$ 4,17';
+  document.getElementById('fc-cpl').textContent = d.cpl;
+  document.getElementById('fc-ticket').textContent = 'R$ 169,71';
+  document.getElementById('fc-lucro').textContent = period === 'hoje' ? '+R$ 49,91' : period === 'ontem' ? '+R$ 31,60' : '+R$ 44,26';
+}
+
+// ===========================================
+// SORTABLE
+// ===========================================
+function applyTableSortable(table) {
+  if (!table) return;
+  // remove listeners antigos pra evitar duplicação
+  const headers = table.querySelectorAll('thead th');
+  headers.forEach((th, idx) => {
+    // clone pra remover listeners
+    const newTh = th.cloneNode(true);
+    th.parentNode.replaceChild(newTh, th);
+  });
+  // re-aplica
+  const newHeaders = table.querySelectorAll('thead th');
+  newHeaders.forEach((th, idx) => {
+    th.addEventListener('click', () => {
+      const tbody = table.querySelector('tbody');
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+      const wasDesc = th.classList.contains('sort-desc');
+      newHeaders.forEach(h => h.classList.remove('sort-asc', 'sort-desc'));
+      let asc;
+      if (wasDesc) { asc = true; th.classList.add('sort-asc'); }
+      else { asc = false; th.classList.add('sort-desc'); }
+      rows.sort((a, b) => {
+        const cellA = a.cells[idx];
+        const cellB = b.cells[idx];
+        if (!cellA || !cellB) return 0;
+        let av = cellA.dataset.sort !== undefined ? cellA.dataset.sort : cellA.textContent.trim();
+        let bv = cellB.dataset.sort !== undefined ? cellB.dataset.sort : cellB.textContent.trim();
+        const an = parseFloat(String(av).replace(/[^\d.,-]/g, '').replace(',', '.'));
+        const bn = parseFloat(String(bv).replace(/[^\d.,-]/g, '').replace(',', '.'));
+        if (!isNaN(an) && !isNaN(bn)) return asc ? an - bn : bn - an;
+        return asc ? String(av).localeCompare(String(bv), 'pt-BR') : String(bv).localeCompare(String(av), 'pt-BR');
+      });
+      rows.forEach(r => tbody.appendChild(r));
+    });
+  });
+}
+
+document.querySelectorAll('table[data-sortable]').forEach(applyTableSortable);
+
+// ===========================================
+// DATE FILTERS
+// ===========================================
+document.querySelectorAll('#ft-date-filter .date-pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#ft-date-filter .date-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const period = btn.dataset.period;
+    renderFunilGeral(period);
+    renderCampaignTable(period);
+  });
+});
+
+document.querySelectorAll('#fc-date-filter .date-pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#fc-date-filter .date-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const period = btn.dataset.period;
+    renderConversaoStats(period);
+    renderCreativeTable(period);
+  });
+});
+
+// ===========================================
+// CLOCK
+// ===========================================
+function tickClock() {
+  const d = new Date();
+  const hh = String(d.getHours()).padStart(2, '0');
+  const mm = String(d.getMinutes()).padStart(2, '0');
+  const ss = String(d.getSeconds()).padStart(2, '0');
+  const el = document.getElementById('liveClock');
+  if (el) el.textContent = `${hh}:${mm}:${ss} BRT`;
+}
+setInterval(tickClock, 1000);
+tickClock();
+
+// ===========================================
+// NAV
+// ===========================================
+const contentArea = document.getElementById('contentArea');
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(x => x.classList.remove('active'));
+    item.classList.add('active');
+    const tab = document.getElementById('tab-' + item.dataset.tab);
+    if (tab) tab.classList.add('active');
+    if (tab && tab.classList.contains('fullbleed')) {
+      contentArea.classList.add('no-pad');
+    } else {
+      contentArea.classList.remove('no-pad');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.innerWidth < 800) closeSidebar();
+  });
+});
+
+// ===========================================
+// EDITABLE
+// ===========================================
+const STORAGE_KEY = 'imdigital_dashboard_v4';
+function loadEdits() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch (e) { return {}; } }
+function saveEdits(data) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) {} }
+
+function initEditables() {
+  const edits = loadEdits();
+  document.querySelectorAll('[data-editable]').forEach(el => {
+    el.contentEditable = 'true';
+    el.spellcheck = false;
+    const key = el.dataset.editable;
+    if (edits[key] !== undefined) el.innerHTML = edits[key];
+    el.addEventListener('blur', () => {
+      const data = loadEdits();
+      data[key] = el.innerHTML;
+      saveEdits(data);
+    });
+    el.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter' && !ev.shiftKey) { ev.preventDefault(); el.blur(); }
+    });
+  });
+}
+
+// ===========================================
+// CHECKLIST
+// ===========================================
+const DEFAULT_CHECKLIST = {
+  hoje: [
+    'Tirar <strong>print das contas Meta</strong> (Emily C6, Emily C7, Tatiane C1) — backup pra rollback',
+    'Subir budget <strong>EMILY C6 · CP0020-RT</strong> de R$ 600 → <code>R$ 1.200/dia</code>',
+    'Confirmar que <strong>EMILY C6 · CP0008 segue pausada</strong>',
+    'Reduzir <strong>EMILY C6 · CP0007</strong> de R$ 2.000 → <code>R$ 700/dia</code>',
+    'Avaliar pausa de 1-2 conjuntos do <strong>ADS35 que tão queimando</strong> (ROI < 0,5)',
+    'Subir <strong>EMILY C6 · CP0022-RT</strong> com R$ 300/dia (novo teste qualidade alta)'
+  ],
+  amanha: [
+    'Subir <strong>4 campanhas novas em TATIANE C1</strong> · estrutura <code>1-50-1</code> · 3× COSTCAP $45 + 1× BIDCAP $60 · total <code>$200/dia</code>',
+    'Investigar <strong>TATIANE C1 · CP0051</strong> — ver se entrega com novas estruturas duplicadas',
+    'Verificar <strong>EMILY C6 · CP0020-RT</strong> manteve ROI > 3× com budget dobrado',
+    'Verificar <strong>EMILY C6 · CP0007</strong> ainda empatando ou afundou',
+    'Puxar dados via extensão (mesmo prompt de hoje) e mandar pro chat às 9h'
+  ]
+};
+const CHECKLIST_KEY = 'imdigital_checklist_v4';
+function loadChecklist() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(CHECKLIST_KEY) || 'null');
+    return saved || {
+      hoje: DEFAULT_CHECKLIST.hoje.map(text => ({ text, done: false })),
+      amanha: DEFAULT_CHECKLIST.amanha.map(text => ({ text, done: false }))
+    };
+  } catch (e) {
+    return { hoje: [], amanha: [] };
+  }
+}
+function saveChecklist(data) { try { localStorage.setItem(CHECKLIST_KEY, JSON.stringify(data)); } catch (e) {} }
+
+function renderChecklist() {
+  const data = loadChecklist();
+  ['hoje', 'amanha'].forEach(list => {
+    const container = document.querySelector(`[data-list="${list}"] .check-items`);
+    if (!container) return;
+    container.innerHTML = '';
+    data[list].forEach((item, idx) => {
+      const div = document.createElement('label');
+      div.className = 'checklist-item' + (item.done ? ' done' : '');
+      div.innerHTML = `
+        <input type="checkbox" ${item.done ? 'checked' : ''}>
+        <span class="check-text" contenteditable="true" spellcheck="false">${item.text}</span>
+        <button class="remove-btn" title="Remover">×</button>
+      `;
+      const cb = div.querySelector('input');
+      const txt = div.querySelector('.check-text');
+      const rm = div.querySelector('.remove-btn');
+      cb.addEventListener('change', () => {
+        const d = loadChecklist();
+        d[list][idx].done = cb.checked;
+        saveChecklist(d);
+        div.classList.toggle('done', cb.checked);
+      });
+      txt.addEventListener('blur', () => {
+        const d = loadChecklist();
+        d[list][idx].text = txt.innerHTML;
+        saveChecklist(d);
+      });
+      txt.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter' && !ev.shiftKey) { ev.preventDefault(); txt.blur(); }
+      });
+      rm.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        const d = loadChecklist();
+        d[list].splice(idx, 1);
+        saveChecklist(d);
+        renderChecklist();
+      });
+      container.appendChild(div);
+    });
+  });
+}
+function addItem(list) {
+  const data = loadChecklist();
+  data[list].push({ text: 'Novo item — clique pra editar', done: false });
+  saveChecklist(data);
+  renderChecklist();
+  setTimeout(() => {
+    const items = document.querySelectorAll(`[data-list="${list}"] .checklist-item`);
+    const last = items[items.length - 1];
+    if (last) {
+      const txt = last.querySelector('.check-text');
+      if (txt) {
+        txt.focus();
+        const range = document.createRange();
+        range.selectNodeContents(txt);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+    }
+  }, 50);
+}
+
+// ===========================================
+// MOBILE
+// ===========================================
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); }
+
+// ===========================================
+// INIT
+// ===========================================
+initEditables();
+renderChecklist();
+renderFunilGeral('7d');
+renderCampaignTable('7d');
+renderCreativeTable('7d');
+</script>
+
+</body>
+</html>

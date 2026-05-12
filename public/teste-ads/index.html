@@ -1,0 +1,2508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IM Digital · Creative Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #0a0a0c;
+  --ink-2: #131318;
+  --ink-3: #1c1c24;
+  --ink-4: #25252e;
+  --paper: #faf8f3;
+  --paper-2: #f3efe5;
+  --rule: rgba(250, 248, 243, 0.08);
+  --rule-soft: rgba(250, 248, 243, 0.04);
+  --rule-strong: rgba(250, 248, 243, 0.18);
+  --text: #faf8f3;
+  --text-2: #b8b4a8;
+  --text-3: #6e6a5e;
+  --gold: #d4a857;
+  --gold-2: #e8c684;
+  --gold-soft: rgba(212, 168, 87, 0.15);
+  --gold-glow: rgba(212, 168, 87, 0.4);
+  --emerald: #6dbe8f;
+  --emerald-soft: rgba(109, 190, 143, 0.12);
+  --rust: #d97757;
+  --rust-soft: rgba(217, 119, 87, 0.12);
+  --crimson: #c5564a;
+  --crimson-soft: rgba(197, 86, 74, 0.12);
+  --azure: #6c9bd1;
+  --azure-soft: rgba(108, 155, 209, 0.12);
+  --violet: #a98cc7;
+  --violet-soft: rgba(169, 140, 199, 0.12);
+
+  /* Facebook authentic palette — deep blue + brand glow */
+  --fb-blue: #1877f2;
+  --fb-blue-deep: #0866ff;
+  --fb-soft: rgba(24, 119, 242, 0.12);
+  --fb-glow: rgba(24, 119, 242, 0.4);
+
+  /* TikTok authentic palette — cyan + magenta glitch */
+  --tt-cyan: #25f4ee;
+  --tt-magenta: #fe2c55;
+  --tt-cyan-soft: rgba(37, 244, 238, 0.12);
+  --tt-magenta-soft: rgba(254, 44, 85, 0.12);
+
+  --serif: 'Fraunces', 'Times New Roman', serif;
+  --mono: 'JetBrains Mono', 'SF Mono', monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--serif);
+  font-weight: 400;
+  font-feature-settings: "ss01", "kern";
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(212, 168, 87, 0.08), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 20%, rgba(108, 155, 209, 0.04), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 10% 80%, rgba(169, 140, 199, 0.04), transparent 60%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+
+/* ============ HEADER ============ */
+header {
+  position: relative;
+  z-index: 10;
+  padding: 28px 40px 24px;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.brand { display: flex; align-items: center; gap: 16px; }
+.brand-logo {
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--gold);
+  letter-spacing: -0.03em;
+  position: relative;
+  background: radial-gradient(circle at 30% 30%, rgba(212, 168, 87, 0.15), transparent 70%);
+}
+.brand-logo::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  opacity: 0.3;
+}
+.brand-text { display: flex; flex-direction: column; gap: 2px; }
+.brand-name {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+  line-height: 1;
+}
+.brand-name em { font-style: italic; color: var(--gold); }
+.brand-meta {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.session-info {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.05em;
+}
+.session-info .pulse {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--emerald);
+  box-shadow: 0 0 0 0 var(--emerald);
+  animation: pulse 2.5s var(--ease) infinite;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(109, 190, 143, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(109, 190, 143, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(109, 190, 143, 0); }
+}
+
+.confirm-toggle {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  text-transform: uppercase;
+}
+.confirm-toggle input { display: none; }
+.confirm-toggle .switch {
+  width: 28px;
+  height: 14px;
+  background: var(--ink-3);
+  border-radius: 999px;
+  position: relative;
+  transition: background 0.2s;
+  border: 1px solid var(--rule);
+}
+.confirm-toggle .switch::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--text-3);
+  transition: all 0.2s var(--ease);
+}
+.confirm-toggle input:checked + .switch { background: var(--gold-soft); border-color: var(--gold); }
+.confirm-toggle input:checked + .switch::after { left: 15px; background: var(--gold); }
+
+/* ============ HERO ============ */
+.hero {
+  position: relative;
+  z-index: 5;
+  padding: 80px 40px 50px;
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+}
+.hero-eyebrow { justify-content: center; }
+.hero-title { margin-left: auto; margin-right: auto; max-width: 1100px; }
+.hero-lead { margin-left: auto; margin-right: auto; }
+.hero-quote {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left; /* o quote em si fica left pra leitura, mas centralizado horizontalmente */
+}
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: "";
+  flex: 0 0 32px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+.hero-eyebrow::after { flex: 1; opacity: 0.2; }
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(44px, 6.5vw, 84px);
+  font-weight: 300;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  margin-bottom: 28px;
+  max-width: 1100px;
+}
+.hero-title em { font-style: italic; font-weight: 500; color: var(--gold); }
+.hero-lead {
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--text-2);
+  max-width: 680px;
+  font-weight: 400;
+}
+.hero-lead em { font-style: italic; color: var(--paper); }
+.hero-quote {
+  margin-top: 36px;
+  padding: 24px 28px;
+  border-left: 2px solid var(--gold);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--text-2);
+  max-width: 640px;
+  background: linear-gradient(90deg, var(--gold-soft), transparent);
+  position: relative;
+}
+.hero-quote::before {
+  content: "❝";
+  position: absolute;
+  top: 4px;
+  left: 18px;
+  font-size: 36px;
+  color: var(--gold);
+  opacity: 0.3;
+  line-height: 1;
+}
+.hero-quote .author {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+
+/* ============ STATS BAND ============ */
+.stats-band {
+  position: relative;
+  z-index: 5;
+  max-width: 1400px;
+  margin: 40px auto 0;
+  padding: 0 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  justify-content: center;
+}
+.stat {
+  flex: 1 1 200px;
+  min-width: 180px;
+  padding: 26px 24px;
+  border-right: 1px solid var(--rule);
+  position: relative;
+  transition: background 0.4s var(--ease);
+  text-align: center;
+}
+.stat:last-child { border-right: none; }
+.stat:hover { background: rgba(250, 248, 243, 0.02); }
+.stat.stat-total {
+  background: linear-gradient(180deg, rgba(212, 168, 87, 0.04), transparent);
+}
+.stat.stat-test {
+  background: linear-gradient(180deg, rgba(255, 215, 87, 0.06), transparent);
+}
+.stat.stat-test .stat-label,
+.stat.stat-test .stat-value {
+  color: #ffd757; /* amarelo destaque */
+}
+.stat.stat-test .stat-emoji {
+  filter: drop-shadow(0 0 8px rgba(255, 215, 87, 0.5));
+}
+.stat-emoji {
+  font-size: 18px;
+  display: inline-block;
+  margin-right: 6px;
+  vertical-align: middle;
+  line-height: 1;
+}
+.stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.stat-value {
+  font-family: var(--serif);
+  font-size: 38px;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--paper);
+}
+.stat-value sup {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-3);
+  font-weight: 500;
+  margin-left: 8px;
+  vertical-align: super;
+  letter-spacing: 0.05em;
+}
+
+/* ============ MAIN TAB BAR ============ */
+.tab-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 10, 12, 0.85);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border-bottom: 1px solid var(--rule);
+  margin-top: 80px;
+}
+.tab-bar-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-bar-inner::-webkit-scrollbar { display: none; }
+.tab {
+  padding: 22px 24px;
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--text-3);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  position: relative;
+  transition: color 0.3s var(--ease);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 400;
+}
+.tab .tab-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-3);
+  font-weight: 500;
+}
+.tab:hover { color: var(--text-2); }
+.tab.active { color: var(--paper); font-style: italic; }
+.tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 24px;
+  right: 24px;
+  height: 1px;
+  background: var(--gold);
+}
+.tab.active .tab-num { color: var(--gold); }
+
+/* ============ MAIN ============ */
+main {
+  position: relative;
+  z-index: 5;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 50px 40px 120px;
+}
+.tab-panel { display: none; animation: fadeUp 0.5s var(--ease-out); }
+.tab-panel.active { display: block; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ PLATFORM SUB-TABS — refined ============ */
+.platform-bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 32px;
+  padding: 6px;
+  background: var(--ink-2);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  width: fit-content;
+}
+.plat-tab {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-3);
+  padding: 9px 22px;
+  border: none;
+  background: transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s var(--ease);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  letter-spacing: 0.01em;
+  position: relative;
+}
+.plat-tab:hover { color: var(--text-2); }
+
+/* Facebook active — deep brand blue with subtle glow */
+.plat-tab.fb.active {
+  background: linear-gradient(135deg, var(--fb-blue) 0%, var(--fb-blue-deep) 100%);
+  color: white;
+  box-shadow: 0 0 0 1px var(--fb-blue), 0 4px 14px var(--fb-glow);
+}
+.plat-tab.fb.active .plat-count { background: rgba(255,255,255,0.22); color: white; }
+
+/* TikTok active — authentic glitch effect with cyan + magenta */
+.plat-tab.tt.active {
+  background: var(--ink);
+  color: white;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 0 24px rgba(254, 44, 85, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+.plat-tab.tt.active::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tt-cyan), transparent 30%, transparent 70%, var(--tt-magenta));
+  opacity: 0.25;
+  pointer-events: none;
+}
+.plat-tab.tt.active .plat-icon {
+  filter: drop-shadow(-1px 0 0 var(--tt-cyan)) drop-shadow(1px 0 0 var(--tt-magenta));
+  animation: ttGlitch 4s var(--ease) infinite;
+}
+@keyframes ttGlitch {
+  0%, 92%, 100% { filter: drop-shadow(-1px 0 0 var(--tt-cyan)) drop-shadow(1px 0 0 var(--tt-magenta)); }
+  93% { filter: drop-shadow(-2px 0 0 var(--tt-cyan)) drop-shadow(2px 0 0 var(--tt-magenta)); transform: translateX(-1px); }
+  94% { filter: drop-shadow(2px 0 0 var(--tt-cyan)) drop-shadow(-2px 0 0 var(--tt-magenta)); transform: translateX(1px); }
+  95% { filter: drop-shadow(-1px 0 0 var(--tt-cyan)) drop-shadow(1px 0 0 var(--tt-magenta)); transform: translateX(0); }
+}
+.plat-tab.tt.active .plat-count { background: rgba(254, 44, 85, 0.3); color: white; border: 1px solid rgba(254, 44, 85, 0.5); }
+
+.plat-tab .plat-icon { width: 14px; height: 14px; flex-shrink: 0; }
+.plat-count {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(250, 248, 243, 0.08);
+  color: var(--text-3);
+  letter-spacing: 0.05em;
+  transition: all 0.25s;
+}
+
+/* ============ TOOLBAR ============ */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.toolbar-left { display: flex; align-items: baseline; gap: 16px; }
+.section-title {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+}
+.section-title em { font-style: italic; color: var(--gold); }
+.section-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.1em;
+}
+.toolbar-right { display: flex; gap: 8px; align-items: center; }
+
+.btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 11px 18px;
+  border: 1px solid var(--rule-strong);
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+  border-radius: 999px;
+  transition: all 0.25s var(--ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-soft); }
+.btn.primary { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+.btn.primary:hover {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--ink);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px var(--gold-glow);
+}
+.btn.danger { color: var(--crimson); border-color: rgba(197, 86, 74, 0.3); }
+.btn.danger:hover { background: var(--crimson-soft); border-color: var(--crimson); color: var(--crimson); }
+.btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+.search { position: relative; }
+.search input {
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 11px 16px 11px 38px;
+  background: var(--ink-2);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--text);
+  width: 240px;
+  transition: all 0.25s var(--ease);
+}
+.search input:focus { outline: none; border-color: var(--gold); background: var(--ink-3); }
+.search::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b8b4a8' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* ============ TABLE ============ */
+.table-wrap {
+  background: var(--ink-2);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.table-head {
+  display: grid;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+  background: rgba(250, 248, 243, 0.015);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.table-head > div { padding: 0 18px; }
+
+.table-row {
+  display: grid;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--rule-soft);
+  align-items: center;
+  transition: background 0.2s var(--ease), border 0.3s var(--ease);
+  position: relative;
+}
+.table-row:hover { background: rgba(250, 248, 243, 0.025); }
+.table-row:last-child { border-bottom: none; }
+.table-row > div { padding: 0 18px; }
+
+/* Pipeline grid — 7 cols (no longer needs separate badge col, status takes that role) */
+.grid-pipeline { grid-template-columns: 34px minmax(200px, 1.4fr) 60px 168px 168px 130px 40px; }
+/* Live grid */
+.grid-live { grid-template-columns: 32px 1fr 70px 80px 90px 100px 100px 80px 130px 50px; }
+
+.row-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-3);
+  font-weight: 500;
+  text-align: center;
+}
+
+.cell-name {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--paper);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.cell-name input {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--paper);
+  background: transparent;
+  border: none;
+  width: 100%;
+  padding: 6px 10px;
+  margin-left: -10px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.cell-name input:hover { background: rgba(250, 248, 243, 0.04); }
+.cell-name input:focus { outline: none; background: var(--ink-3); box-shadow: 0 0 0 1px var(--gold); }
+
+/* ============ SINGLE LINK ICON ============ */
+.link-cell {
+  display: flex;
+  justify-content: center;
+}
+.link-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  color: var(--text-3);
+  background: var(--ink);
+  transition: all 0.25s var(--ease);
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+}
+.link-icon:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(212, 168, 87, 0.2);
+}
+.link-icon svg { width: 16px; height: 16px; }
+.link-icon.empty { opacity: 0.4; }
+.link-icon.empty:hover { opacity: 1; }
+
+/* Tooltip with two-line hint */
+.link-icon::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--ink-4);
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--rule-strong);
+  white-space: pre;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s var(--ease);
+  z-index: 10;
+  line-height: 1.5;
+}
+.link-icon:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+.cell-date {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-2);
+  letter-spacing: 0.02em;
+}
+.cell-date input {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-2);
+  background: transparent;
+  border: none;
+  width: 100%;
+  padding: 6px 10px;
+  margin-left: -10px;
+  border-radius: 6px;
+}
+.cell-date input:hover { background: rgba(250, 248, 243, 0.04); }
+.cell-date input:focus { outline: none; background: var(--ink-3); box-shadow: 0 0 0 1px var(--gold); }
+.cell-date input::-webkit-calendar-picker-indicator { filter: invert(0.6); cursor: pointer; }
+
+.cell-num {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--paper);
+  text-align: right;
+  letter-spacing: -0.01em;
+}
+.cell-num.pos { color: var(--emerald); }
+.cell-num.neg { color: var(--crimson); }
+.cell-num input {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--paper);
+  background: transparent;
+  border: none;
+  width: 100%;
+  padding: 6px 10px;
+  margin-right: -10px;
+  text-align: right;
+  border-radius: 6px;
+}
+.cell-num input:hover { background: rgba(250, 248, 243, 0.04); }
+.cell-num input:focus { outline: none; background: var(--ink-3); box-shadow: 0 0 0 1px var(--gold); }
+.cell-num input::-webkit-outer-spin-button, .cell-num input::-webkit-inner-spin-button { display: none; }
+.cell-num input[type=number] { -moz-appearance: textfield; }
+
+/* ============ STATUS PILLS — conceptual ============ */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  padding: 6px 11px;
+  border-radius: 999px;
+  border: 1px solid;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  white-space: nowrap;
+  position: relative;
+}
+.status-pill .emoji {
+  font-size: 11px;
+  line-height: 1;
+}
+.status-pill:hover { transform: translateY(-1px); }
+
+/* Pipeline statuses */
+.status-pill.fresh {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: linear-gradient(135deg, var(--gold-soft), rgba(232, 198, 132, 0.1));
+  font-weight: 700;
+  animation: freshPulse 1.8s var(--ease) infinite;
+}
+@keyframes freshPulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--gold-glow), 0 0 12px rgba(212, 168, 87, 0); }
+  50% { box-shadow: 0 0 0 4px rgba(212, 168, 87, 0), 0 0 18px var(--gold-glow); }
+}
+
+.status-pill.editing { color: var(--violet); border-color: rgba(169, 140, 199, 0.4); background: var(--violet-soft); }
+.status-pill.ready { color: var(--azure); border-color: rgba(108, 155, 209, 0.4); background: var(--azure-soft); }
+.status-pill.uploaded { color: var(--emerald); border-color: rgba(109, 190, 143, 0.5); background: var(--emerald-soft); font-weight: 700; }
+
+/* Live statuses */
+.status-pill.running {
+  color: var(--emerald);
+  border-color: var(--emerald);
+  background: var(--emerald-soft);
+  font-weight: 700;
+}
+.status-pill.running::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--emerald);
+  animation: liveDot 1.5s var(--ease) infinite;
+}
+@keyframes liveDot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--emerald); }
+  50% { opacity: 0.6; box-shadow: 0 0 0 4px rgba(109, 190, 143, 0); }
+}
+
+.status-pill.champion {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: linear-gradient(135deg, var(--gold-soft), rgba(232, 198, 132, 0.15));
+  font-weight: 700;
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+.status-pill.testing { color: var(--azure); border-color: rgba(108, 155, 209, 0.4); background: var(--azure-soft); }
+.status-pill.paused { color: var(--rust); border-color: rgba(217, 119, 87, 0.4); background: var(--rust-soft); }
+.status-pill.rejected {
+  color: var(--crimson);
+  border-color: rgba(197, 86, 74, 0.5);
+  background: var(--crimson-soft);
+  font-weight: 700;
+}
+.status-pill.archived { color: var(--text-3); border-color: var(--rule-strong); background: var(--ink-3); }
+.status-pill.bad {
+  color: var(--crimson);
+  border-color: rgba(197, 86, 74, 0.3);
+  background: rgba(197, 86, 74, 0.05);
+  text-decoration: line-through;
+  text-decoration-color: var(--crimson);
+  opacity: 0.85;
+}
+
+.row-actions { display: flex; gap: 4px; justify-content: flex-end; }
+.icon-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  border-radius: 6px;
+  color: var(--text-3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.icon-btn:hover { border-color: var(--crimson); color: var(--crimson); background: var(--crimson-soft); }
+.icon-btn svg { width: 12px; height: 12px; }
+
+.empty {
+  text-align: center;
+  padding: 80px 40px;
+  color: var(--text-3);
+}
+.empty-mark {
+  font-family: var(--serif);
+  font-size: 64px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--gold);
+  opacity: 0.4;
+  margin-bottom: 18px;
+  line-height: 1;
+}
+.empty h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text-2);
+  margin-bottom: 8px;
+}
+.empty p {
+  font-family: var(--serif);
+  font-size: 15px;
+  color: var(--text-3);
+  max-width: 400px;
+  margin: 0 auto 24px;
+}
+
+/* ============ KPI CARDS ============ */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0;
+  margin-bottom: 40px;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.kpi {
+  padding: 26px 24px;
+  border-right: 1px solid var(--rule);
+  background: var(--ink-2);
+  position: relative;
+}
+.kpi:last-child { border-right: none; }
+.kpi::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent, var(--gold));
+}
+.kpi.green { --accent: var(--emerald); }
+.kpi.red { --accent: var(--crimson); }
+.kpi.blue { --accent: var(--azure); }
+.kpi.violet { --accent: var(--violet); }
+
+.kpi-label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+.kpi-value {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--paper);
+  margin-bottom: 4px;
+}
+.kpi-value.pos { color: var(--emerald); }
+.kpi-value.neg { color: var(--crimson); }
+.kpi-detail {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-3);
+  letter-spacing: 0.05em;
+}
+
+/* ============ MODALS ============ */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 12, 0.7);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 40px 20px;
+  animation: fadeIn 0.3s var(--ease);
+}
+.modal-backdrop.active { display: flex; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modal {
+  background: var(--ink-2);
+  border: 1px solid var(--rule-strong);
+  border-radius: 16px;
+  padding: 44px;
+  max-width: 560px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+  animation: scaleUp 0.4s var(--ease-out);
+  position: relative;
+}
+@keyframes scaleUp { from { opacity: 0; transform: scale(0.96) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+.modal-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+.modal h2 {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--paper);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.modal h2 em { font-style: italic; color: var(--gold); }
+.modal p.modal-lead {
+  font-family: var(--serif);
+  font-size: 14px;
+  color: var(--text-2);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.field { margin-bottom: 18px; }
+.field label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 8px;
+  display: block;
+  font-weight: 500;
+}
+.field input, .field textarea, .field select {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--paper);
+  background: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 12px 14px;
+  width: 100%;
+  transition: all 0.2s var(--ease);
+}
+.field input:focus, .field textarea:focus, .field select:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: var(--ink-3);
+}
+.field textarea { min-height: 140px; resize: vertical; font-family: var(--mono); line-height: 1.6; }
+.field-hint {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--text-3);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  justify-content: flex-end;
+  align-items: center;
+}
+.modal-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  border-radius: 50%;
+  color: var(--text-2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.modal-close:hover { border-color: var(--paper); color: var(--paper); transform: rotate(90deg); }
+
+.diff-block {
+  background: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+}
+.diff-row { display: flex; flex-direction: column; gap: 8px; }
+.diff-label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  font-weight: 500;
+}
+.diff-from {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--text-3);
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+.diff-to {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--gold);
+  font-style: italic;
+}
+.diff-arrow { color: var(--text-3); font-family: var(--mono); font-size: 12px; }
+
+.dont-ask {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-3);
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-right: auto;
+  user-select: none;
+}
+.dont-ask input { width: auto; margin: 0; accent-color: var(--gold); }
+
+/* ============ STATUS PICKER MODAL ============ */
+.status-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.status-option {
+  border: 1px solid var(--rule);
+  background: var(--ink);
+  border-radius: 10px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  color: var(--text-2);
+  font-family: var(--serif);
+}
+.status-option:hover { border-color: var(--gold); background: var(--ink-3); transform: translateY(-1px); }
+.status-option .opt-emoji { font-size: 20px; line-height: 1; flex-shrink: 0; }
+.status-option .opt-text { flex: 1; min-width: 0; }
+.status-option .opt-name {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--paper);
+  margin-bottom: 2px;
+}
+.status-option .opt-desc {
+  font-family: var(--serif);
+  font-size: 12px;
+  color: var(--text-3);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* ============ INFO PANEL ============ */
+.info-panel {
+  margin-top: 20px;
+  padding: 36px;
+  background: var(--ink-2);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.info-block h4 {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+.info-block p {
+  font-family: var(--serif);
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+.info-block strong { color: var(--paper); font-weight: 500; }
+.info-block code {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  background: var(--ink);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--gold);
+}
+.info-status-list { list-style: none; padding: 0; margin-top: 10px; }
+.info-status-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  font-family: var(--serif);
+  font-size: 13px;
+  color: var(--text-2);
+}
+.info-status-list .ico { font-size: 16px; width: 22px; text-align: center; }
+
+/* ============ TOAST ============ */
+.toast-zone {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.toast {
+  background: var(--ink-2);
+  border: 1px solid var(--rule-strong);
+  border-left: 3px solid var(--gold);
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--paper);
+  letter-spacing: 0.02em;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+  animation: slideIn 0.3s var(--ease-out), fadeOut 0.3s var(--ease) 2.7s forwards;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 240px;
+}
+.toast.success { border-left-color: var(--emerald); }
+.toast.error { border-left-color: var(--crimson); }
+@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes fadeOut { to { opacity: 0; transform: translateX(20px); } }
+
+/* ============ FOOTER ============ */
+footer {
+  position: relative;
+  z-index: 5;
+  padding: 40px;
+  border-top: 1px solid var(--rule);
+  margin-top: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-mark {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text-3);
+}
+.footer-meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+}
+.footer-actions { display: flex; gap: 8px; }
+
+/* Responsive */
+
+/* === FIX v4: status pill com largura controlada e conta destino com truncamento === */
+.grid-pipeline > div:nth-child(6) input {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.grid-pipeline .status-pill {
+  width: 100%;
+  justify-content: center;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  padding: 6px 8px;
+}
+.grid-pipeline .status-pill .emoji { font-size: 12px; }
+.grid-pipeline > div:nth-child(5) {
+  overflow: hidden;
+  min-width: 0;
+}
+
+
+
+
+/* === V6: sub-abas Subir Teste em amarelo === */
+.plat-tab.fb-test, .plat-tab.tt-test {
+  color: rgba(255, 215, 87, 0.85);
+  position: relative;
+}
+.plat-tab.fb-test:hover, .plat-tab.tt-test:hover {
+  color: #ffd757;
+}
+.plat-tab.fb-test.active, .plat-tab.tt-test.active {
+  background: linear-gradient(135deg, rgba(255, 215, 87, 0.15) 0%, rgba(255, 200, 50, 0.08) 100%);
+  color: #ffd757;
+  box-shadow: 0 0 0 1px rgba(255, 215, 87, 0.4), 0 0 14px rgba(255, 215, 87, 0.18);
+}
+.plat-tab.fb-test.active::before, .plat-tab.tt-test.active::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 215, 87, 0.3);
+  pointer-events: none;
+}
+.plat-tab .test-count {
+  background: rgba(255, 215, 87, 0.18);
+  color: #ffd757 !important;
+  border: 1px solid rgba(255, 215, 87, 0.3);
+}
+.plat-tab.fb-test.active .test-count, .plat-tab.tt-test.active .test-count {
+  background: rgba(255, 215, 87, 0.3);
+  color: #fff5cc !important;
+  border-color: rgba(255, 215, 87, 0.5);
+}
+
+/* Aviso visual em readonly nas abas Subir Teste */
+.readonly-banner {
+  background: linear-gradient(90deg, rgba(255, 215, 87, 0.08), rgba(255, 215, 87, 0.02));
+  border: 1px solid rgba(255, 215, 87, 0.2);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--serif);
+  font-size: 14px;
+  color: rgba(255, 215, 87, 0.9);
+  font-style: italic;
+}
+.readonly-banner-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* === V5.1: padding mais enxuto + cell-date confortável === */
+.grid-pipeline > div { padding: 0 12px; }
+.grid-pipeline .cell-date {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+.grid-pipeline .cell-date input[type="date"]::-webkit-calendar-picker-indicator {
+  right: 4px;
+  width: 13px;
+  height: 13px;
+}
+
+/* ============ V5: AJUSTES DA COLUNA ADICIONADO ============ */
+/* Bug fix: calendar icon NÃO sobrepor o texto da data */
+.cell-date input[type="date"] {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-2);
+  background: transparent;
+  border: none;
+  width: 100%;
+  padding: 6px 26px 6px 6px;
+  margin-left: 0;
+  border-radius: 6px;
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  letter-spacing: 0;
+}
+.cell-date input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.55) sepia(0.4) saturate(2);
+  cursor: pointer;
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  width: 14px;
+  height: 14px;
+}
+.cell-date input[type="date"]:hover::-webkit-calendar-picker-indicator {
+  opacity: 0.9;
+}
+
+/* Linha "atualizado há X" abaixo da data */
+.cell-updated {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-3);
+  letter-spacing: 0.02em;
+  margin-top: 4px;
+  margin-left: 0;
+  opacity: 0.78;
+  text-transform: lowercase;
+  white-space: nowrap;
+  padding: 0 2px;
+}
+
+@media (max-width: 1100px) {
+  .grid-pipeline { grid-template-columns: 32px 1fr 60px 130px 90px 50px; }
+  .grid-pipeline > div:nth-child(4),
+  .grid-pipeline > div:nth-child(7) { display: none; }
+  .grid-live { grid-template-columns: 32px 1fr 70px 90px 90px 130px 50px; }
+  .grid-live > div:nth-child(3),
+  .grid-live > div:nth-child(4),
+  .grid-live > div:nth-child(7),
+  .grid-live > div:nth-child(8) { display: none; }
+  .status-picker { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  .hero { padding: 50px 24px 40px; }
+  .stats-band { grid-template-columns: 1fr 1fr; padding: 0 24px; }
+  .stat:nth-child(2) { border-right: none; }
+  .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--rule); }
+  header { padding: 18px 24px; }
+  main { padding: 40px 20px 80px; }
+  .tab-bar-inner { padding: 0 24px; }
+  .tab { padding: 18px 14px; font-size: 15px; }
+  .info-panel { grid-template-columns: 1fr; }
+  .toolbar { flex-direction: column; align-items: stretch; }
+  .search input { width: 100%; }
+  .session-info { font-size: 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="brand">
+    <div class="brand-logo">IM</div>
+    <div class="brand-text">
+      <div class="brand-name">IM Digital · <em>Creative Lab</em></div>
+      
+    </div>
+  </div>
+  <div class="session-info">
+    <label class="confirm-toggle" title="Cada edição abre popup de confirmação. Desligue para editar mais rápido.">
+      <input type="checkbox" id="confirmToggle" checked>
+      <span class="switch"></span>
+      <span>confirmar edições</span>
+    </label>
+    <span><span class="pulse"></span>autosaved</span>
+    <span id="lastSync">—</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Creative Test Lab · IM Digital</div>
+  <h1 class="hero-title">
+    O que não é <em>medido</em><br>
+    nunca vira <em>verdade</em>.
+  </h1>
+  <p class="hero-lead">
+    Aqui dentro mora o <em>controle absoluto</em> de cada criativo da operação — do que ainda é uma ideia até o ad que vendeu mais ontem. <em>Facebook</em> e <em>TikTok</em>, lado a lado, sob o mesmo método.
+  </p>
+  <div class="hero-quote">
+    Disciplina é o que separa quem testa de quem adivinha. Cada criativo, cada link, cada data — tudo registrado com a precisão de um diário de bordo.
+    <span class="author">— IM Digital · Creative Operations</span>
+  </div>
+</section>
+
+<!-- STATS BAND DINÂMICA -->
+<div class="stats-band" id="statsBand">
+  <!-- preenchido dinamicamente por updateStats() -->
+</div>
+
+<!-- TAB BAR -->
+<nav class="tab-bar">
+  <div class="tab-bar-inner">
+    <button class="tab active" data-tab="pipeline">
+      <span class="tab-num">01</span>
+      <span>Pipeline</span>
+    </button>
+
+    <button class="tab" data-tab="info">
+      <span class="tab-num">02</span>
+      <span>Sobre &amp; Status</span>
+    </button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ============ PIPELINE TAB ============ -->
+  <section class="tab-panel active" id="tab-pipeline">
+    <div class="platform-bar" data-bar="pipeline">
+      <button class="plat-tab fb active" data-plat="fb" onclick="setPlatform('pipeline','fb')" title="Acervo completo Facebook">
+        <svg class="plat-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.84c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.91h-2.33V22c4.78-.79 8.44-4.94 8.44-9.94"/></svg>
+        Facebook <span class="plat-count" id="cnt-pipeline-fb">0</span>
+      </button>
+      <button class="plat-tab fb-test" data-plat="fb-test" onclick="setPlatform('pipeline','fb-test')" title="Só os criativos com status Pronto pra Subir">
+        <svg class="plat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        Facebook · Subir Teste <span class="plat-count test-count" id="cnt-pipeline-fb-test">0</span>
+      </button>
+      <button class="plat-tab tt" data-plat="tt" onclick="setPlatform('pipeline','tt')" title="Acervo completo TikTok">
+        <svg class="plat-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.85a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.28z"/></svg>
+        TikTok <span class="plat-count" id="cnt-pipeline-tt">0</span>
+      </button>
+      <button class="plat-tab tt-test" data-plat="tt-test" onclick="setPlatform('pipeline','tt-test')" title="Só os criativos com status Pronto pra Subir">
+        <svg class="plat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        TikTok · Subir Teste <span class="plat-count test-count" id="cnt-pipeline-tt-test">0</span>
+      </button>
+    </div>
+
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <h2 class="section-title">Pipeline de <em>criativos</em></h2>
+        <span class="section-meta" id="pipelineMeta">— itens</span>
+      </div>
+      <div class="toolbar-right">
+        <div class="search">
+          <input type="text" id="searchPipeline" placeholder="buscar nome ou link...">
+        </div>
+        <button class="btn toolbar-readonly-hide" onclick="openImportModal()" title="Cole vários links de uma vez">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Importar lote
+        </button>
+        <button class="btn primary toolbar-readonly-hide" onclick="addRow('pipeline')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Novo criativo
+        </button>
+      </div>
+    </div>
+
+    <div class="readonly-banner" id="readonlyBanner" style="display:none">
+      <span class="readonly-banner-icon">⬆️</span>
+      <div>
+        <strong>Subir Teste</strong> — esses são os criativos com status <strong>Pronto pra Subir</strong> que ainda não foram pro Meta/TikTok. Quando subir um, mude o status pra <strong>📤 Subido</strong> que ele some daqui.
+      </div>
+    </div>
+    <div class="table-wrap" id="pipelineTable">
+      <div class="table-head grid-pipeline">
+        <div></div>
+        <div>Nome do criativo</div>
+        <div style="text-align:center">Link</div>
+        <div>Adicionado</div>
+        <div>Status</div>
+        <div>Conta destino</div>
+        <div></div>
+      </div>
+      <div id="pipelineRows"></div>
+    </div>
+  </section>
+
+  <!-- ============ INFO TAB ============ -->
+  <section class="tab-panel" id="tab-info">
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <h2 class="section-title">Sobre &amp; <em>Status</em></h2>
+      </div>
+    </div>
+
+    <div class="info-panel">
+      <div class="info-block">
+        <h4>Status (10 opções, fluxo natural)</h4>
+        <p>Cada criativo passa por uma jornada — adiciona, edita, sobe, roda, encerra. Os 10 status cobrem todo o ciclo:</p>
+        <ul class="info-status-list">
+          <li><span class="ico">🍞</span><span><strong>SAIU DO FORNO</strong> — recém-adicionado, ainda novo (pisca pra atenção)</span></li>
+          <li><span class="ico">🎬</span><span><strong>EM EDIÇÃO</strong> — sendo finalizado pela equipe</span></li>
+          <li><span class="ico">✅</span><span><strong>PRONTO PRA SUBIR</strong> — finalizado, aguardando upload</span></li>
+          <li><span class="ico">📤</span><span><strong>SUBIDO</strong> — já foi pro Meta/TikTok</span></li>
+          <li><span class="ico">🕐</span><span><strong>AGUARDANDO APROVAÇÃO</strong> — subiu, esperando Meta/TikTok validar</span></li>
+          <li><span class="ico">🟢</span><span><strong>RODANDO</strong> — ativo agora, recebendo gasto</span></li>
+          <li><span class="ico">👑</span><span><strong>CAMPEÃO</strong> — vencedor, candidato a escala</span></li>
+          <li><span class="ico">⏸️</span><span><strong>PAUSADO</strong> — pausado por nós (estratégia ou stand by)</span></li>
+          <li><span class="ico">🚫</span><span><strong>REJEITADO</strong> — Meta ou TikTok rejeitou (anote o motivo na conta destino se quiser)</span></li>
+          <li><span class="ico">💀</span><span><strong>ARQUIVADO</strong> — já rodou, ruim, ou removido do circuito</span></li>
+        </ul>
+      </div>
+      <div class="info-block">
+        <h4>Adicionado &amp; Última atualização</h4>
+        <p>A coluna <strong>Adicionado</strong> mostra a data em que o criativo entrou no Lab.</p>
+        <p>Logo abaixo aparece <strong>quando foi a última edição</strong> da linha — em formato relativo (<code>há 5 min</code>, <code>há 2h</code>, <code>há 3d</code>) ou data fixa (<code>04/05 · 14:32</code>) pra mais antigos.</p>
+        <p>Toda vez que alguém edita qualquer campo (nome, link, status, conta), o timestamp é renovado automaticamente.</p>
+      </div>
+      <div class="info-block">
+        <h4>Como editar links</h4>
+        <p>O ícone <code>↗</code> de cada linha tem dois comportamentos:</p>
+        <p><strong>Clique normal:</strong> abre o link em uma nova aba.</p>
+        <p><strong>Clique direito:</strong> abre o popup pra editar o link.</p>
+        <p>Quando não tem link ainda, o ícone fica esmaecido — clique nele pra colar uma URL pela primeira vez.</p>
+        <p>O link em si nunca aparece na tabela — só o ícone clicável. Visualmente limpo.</p>
+      </div>
+      <div class="info-block">
+        <h4>Atalhos &amp; cuidados</h4>
+        <p><code>Cmd/Ctrl + K</code> foca a busca · <code>Cmd/Ctrl + N</code> nova linha · <code>Esc</code> cancela edição/modal</p>
+        <p>Clique no <strong>status</strong> pra abrir o seletor visual com todas as opções.</p>
+        <p>Toggle <code>confirmar edições</code> no header liga/desliga o popup de confirmação. Útil pra editar rápido em rajada.</p>
+        <p>Pra remover linhas, use o botão lixeira (sempre pede confirmação).</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-mark">— IM Digital · feito para a equipe</div>
+  <div class="footer-meta" id="footerCount">0 itens · localStorage</div>
+  <div class="footer-actions">
+    <button class="btn" onclick="exportAll()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Backup completo
+    </button>
+  </div>
+</footer>
+
+<!-- IMPORT MODAL -->
+<div class="modal-backdrop" id="importModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('importModal')">×</button>
+    <div class="modal-eyebrow">Importação em lote</div>
+    <h2>Cole os <em>links</em></h2>
+    <p class="modal-lead">Um link por linha. Drive, Frame.io, YouTube, qualquer URL. O sistema cria uma linha pra cada link.</p>
+
+    <div class="field">
+      <label>Plataforma destino</label>
+      <select id="batchPlat">
+        <option value="fb">Facebook</option>
+        <option value="tt">TikTok</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Links (um por linha)</label>
+      <textarea id="batchLinks" placeholder="https://drive.google.com/file/d/abc.../view&#10;https://drive.google.com/file/d/xyz.../view"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Conta destino (opcional)</label>
+      <select id="batchAccount">
+        <option value="">— deixar vazio —</option>
+        <option value="Emily C6">Emily C6</option>
+        <option value="Emily C7">Emily C7</option>
+        <option value="Victoria S3">Victoria S3</option>
+        <option value="Tatiane C1">Tatiane C1</option>
+        <option value="Agência">Agência</option>
+      </select>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('importModal')">Cancelar</button>
+      <button class="btn primary" onclick="processBatch()">Importar tudo</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM EDIT MODAL -->
+<div class="modal-backdrop" id="confirmModal">
+  <div class="modal">
+    <button class="modal-close" onclick="cancelEdit()">×</button>
+    <div class="modal-eyebrow">Confirmar alteração</div>
+    <h2>Salvar essa <em>edição</em>?</h2>
+    <p class="modal-lead">Confirme se essa alteração tá correta antes de salvar.</p>
+
+    <div class="diff-block">
+      <div class="diff-row">
+        <div class="diff-label" id="diffField">Campo</div>
+        <div class="diff-from" id="diffFrom">—</div>
+        <div class="diff-arrow">↓ vai virar ↓</div>
+        <div class="diff-to" id="diffTo">—</div>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <label class="dont-ask">
+        <input type="checkbox" id="skipFurther">
+        Não perguntar mais nessa sessão
+      </label>
+      <button class="btn" onclick="cancelEdit()">Cancelar</button>
+      <button class="btn primary" onclick="confirmEdit()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- LINK MODAL -->
+<div class="modal-backdrop" id="linkModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('linkModal')">×</button>
+    <div class="modal-eyebrow">Link do criativo</div>
+    <h2>Cole ou edite o <em>link</em></h2>
+    <p class="modal-lead">Drive, Frame.io, YouTube, qualquer URL. Fica oculto na linha — só o ícone fica visível.</p>
+
+    <div class="field">
+      <label>URL do criativo</label>
+      <input type="text" id="linkInput" placeholder="https://drive.google.com/...">
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn danger" onclick="clearLinkInModal()" id="linkClearBtn" style="margin-right:auto">Remover link</button>
+      <button class="btn" onclick="closeModal('linkModal')">Cancelar</button>
+      <button class="btn primary" onclick="saveLinkFromModal()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- STATUS PICKER MODAL -->
+<div class="modal-backdrop" id="statusModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('statusModal')">×</button>
+    <div class="modal-eyebrow" id="statusModalEyebrow">Alterar status</div>
+    <h2>Selecione o <em>novo status</em></h2>
+    <p class="modal-lead">Cada status reflete um momento diferente do criativo na operação.</p>
+
+    <div class="status-picker" id="statusPicker"></div>
+  </div>
+</div>
+
+<!-- TOAST ZONE -->
+<div class="toast-zone" id="toastZone"></div>
+
+<script>
+// ===================== STATUS DEFINITIONS =====================
+// Status unificados (pré-veiculação + veiculação no mesmo Pipeline)
+const ALL_STATUSES = [
+  { key: 'fresh',    name: 'Saiu do forno',     emoji: '🍞', desc: 'Recém-adicionado · pisca pra atenção' },
+  { key: 'editing',  name: 'Em edição',         emoji: '🎬', desc: 'Sendo finalizado pela equipe' },
+  { key: 'ready',    name: 'Pronto pra subir',  emoji: '✅', desc: 'Finalizado, aguardando upload' },
+  { key: 'uploaded', name: 'Subido',            emoji: '📤', desc: 'Já foi pro Meta/TikTok' },
+  { key: 'pending',  name: 'Aguardando aprovação', emoji: '🕐', desc: 'Subiu, esperando Meta/TikTok aprovar' },
+  { key: 'running',  name: 'Rodando',           emoji: '🟢', desc: 'Ativo, recebendo gasto' },
+  { key: 'champion', name: 'Campeão',           emoji: '👑', desc: 'Vencedor · candidato a escala' },
+  { key: 'paused',   name: 'Pausado',           emoji: '⏸️', desc: 'Pausado por nós (estratégia ou stand by)' },
+  { key: 'rejected', name: 'Rejeitado',         emoji: '🚫', desc: 'Meta ou TikTok rejeitou · pode anotar motivo na conta' },
+  { key: 'archived', name: 'Arquivado',         emoji: '💀', desc: 'Já rodou · ruim · ou removido do circuito' }
+];
+
+// Aliases pra compatibilidade com seedState antigo
+const PIPELINE_STATUSES = ALL_STATUSES;
+const LIVE_STATUSES = ALL_STATUSES;
+
+const STATUS_BY_KEY = {};
+ALL_STATUSES.forEach(s => STATUS_BY_KEY[s.key] = s);
+
+// Mapear status antigos pros novos
+const LEGACY_STATUS_MAP = {
+  'testing': 'running',  // "em teste" virou "rodando"
+  'bad': 'archived'      // "ruim" virou "arquivado"
+};
+function migrateStatus(s) {
+  return LEGACY_STATUS_MAP[s] || s;
+}
+
+// ===================== STATE =====================
+const STORAGE_KEY = 'im_digital_v6_panel';
+let state = loadState();
+let currentPlatform = { pipeline: 'fb', live: 'fb' };
+let pendingEdit = null;
+let editingLinkRow = null;
+let editingStatusRow = null;
+let confirmEnabled = true;
+let skipSession = false;
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      // Migração: adicionar updatedAt em items antigos
+      const tNow = new Date().toISOString();
+      ['fb', 'tt'].forEach(plat => {
+        if (parsed.pipeline && parsed.pipeline[plat]) {
+          parsed.pipeline[plat].forEach(r => {
+            if (!r.updatedAt) r.updatedAt = tNow;
+            if (r.status) r.status = (typeof migrateStatus === 'function') ? migrateStatus(r.status) : r.status;
+          });
+        }
+      });
+      return parsed;
+    }
+  } catch (e) {}
+  return seedState();
+}
+
+function todayISO() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function seedState() {
+  const t = todayISO();
+  const tNow = new Date().toISOString();
+  const y = new Date(); y.setDate(y.getDate() - 1);
+  const yISO = y.toISOString().split('T')[0];
+  const w = new Date(); w.setDate(w.getDate() - 5);
+  const wISO = w.toISOString().split('T')[0];
+
+  return {
+    pipeline: {
+      fb: [
+        { id: id(), name: 'G25 (FACE).mp4', link: 'https://drive.google.com/file/d/1YrrAMm6OMkofz5Ggimu4fib7sPLkUGB_/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G17 FB.mp4', link: 'https://drive.google.com/file/d/1b9M8AqijPcHOME-JTAtMaQXCcL7Erihq/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G16 FB.mp4', link: 'https://drive.google.com/file/d/1h50rdyerADfJBUbO6O2bQyWOD0VDnJHW/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G15 FB (G4).mp4', link: 'https://drive.google.com/file/d/1y4rwHEEt5boQq8EvvLQsLuOHqLAHRBZn/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G15 FB (G4) (QUADRADO).mp4', link: 'https://drive.google.com/file/d/1LjVaDxEmgkE_FjcV6Ma-IUT6NMoYot3H/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G14 FB (A5).mp4', link: 'https://drive.google.com/file/d/1qv3JOwRmknrGhzjU5hq_aL8JlrSFcJlI/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G14 FB (A5) (QUADRADO).mp4', link: 'https://drive.google.com/file/d/1qgsOPukfXYYmWFtI6K7DHAnoxERU_y49/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G13 FB (A4).mp4', link: 'https://drive.google.com/file/d/12n4zMhlpXHwyf8X0KDr3Qe-QoEUq8Syn/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G13 FB (A4) (QUADRADO).mp4', link: 'https://drive.google.com/file/d/1LHscsnYwW8jWCdOEdYiZVimkKeFMgFXF/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G12 FB (A1).mp4', link: 'https://drive.google.com/file/d/1J2jV5MtJL-BH3-tYGSVZFSl_3bM_CcSd/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G12 FB (A1) (QUADRADO).mp4', link: 'https://drive.google.com/file/d/1lKehqE1lDqg_MpVmITReRjdqwPRfMvPH/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G11.mp4', link: 'https://drive.google.com/file/d/1iRTYcsRQhzRqBOCt5f5hqUTpLntNj5uV/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G10.mp4', link: 'https://drive.google.com/file/d/1x4DQqFVYSZEkUmfdJ579gFabTMOUCKqw/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G10 (FB).mp4', link: 'https://drive.google.com/file/d/192ARSalYZEtInNkltN0d3CYFINBMApSi/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G9.mp4', link: 'https://drive.google.com/file/d/1B7CHvTgmMqHu8KNwWd4I1W9dZs7g9tee/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G9 (FB).mp4', link: 'https://drive.google.com/file/d/11PoFCEETk3DEl8FyZbHj3nniCluUsOos/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G8.mp4', link: 'https://drive.google.com/file/d/13okXTfVQEKHQV_nb5lO_L-YuAdlox7tF/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G8 (FB).mp4', link: 'https://drive.google.com/file/d/1pAlVcXyMD-vuNYyEc2bMKVhGIbf26p4E/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G7.mp4', link: 'https://drive.google.com/file/d/163PtVsuqRdTWk8RjrxYLwePNJ8vsL7ic/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G7 (FB).mp4', link: 'https://drive.google.com/file/d/1gFZtMWsphm8qTGDseFf8fh00jDpAMxUx/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G6.mp4', link: 'https://drive.google.com/file/d/1Y6WXg6A7jLS8YJb0oAgbXt1IeR6u1oWj/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G6 (FB).mp4', link: 'https://drive.google.com/file/d/1_dhQoz23eYpfa-rP1QppL-StyDlACtnf/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G5.mp4', link: 'https://drive.google.com/file/d/1-s6UQoCi-GQYVtHeUkcOFFnR0B7V7vtS/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'G5 (FB).mp4', link: 'https://drive.google.com/file/d/192RHA2evNy5xhLYB5Z50ARlJxMGYUJx2/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'G4.mp4', link: 'https://drive.google.com/file/d/1B1Am50keIP8jO3LvH-LAd6lOKZz6Plnt/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'G4 SEM MUSICA.mp4', link: 'https://drive.google.com/file/d/10V47Gx59YHoBT4ZkB-cOWjq0spThg-7x/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'G4 (FB).mp4', link: 'https://drive.google.com/file/d/1uxBMnS08-pIb-7idfTSFOKvoqixp61T7/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'G3.mp4', link: 'https://drive.google.com/file/d/16cTAoSf1Q5jhoswbd1WNn5WEa64EL3OF/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G3 (FB).mp4', link: 'https://drive.google.com/file/d/12X7PphFFIWIwyqaJFdSuICpjcsm940M2/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G2.mp4', link: 'https://drive.google.com/file/d/1pbcIxAhVb93-ccCcVVU8ES7UcdFQNhEn/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G2 (FB).mp4', link: 'https://drive.google.com/file/d/1VTXcFfeLlDjtL7DYoCVPA0NgJUdlkG0c/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G1.mp4', link: 'https://drive.google.com/file/d/1I2a1wu9zQlSpFvTf-wP8DJPBfLCgILXB/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G1 (FB).mp4', link: 'https://drive.google.com/file/d/1Gj-vJkteMB3t0CbtkpOqSHD6G9swveGV/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'Cópia de [A8].mp4', link: 'https://drive.google.com/file/d/1Jvjh2iIOxs57jkDFxSK0C_bWSHW9vWqW/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'Cópia de [A5][A6].mp4', link: 'https://drive.google.com/file/d/1rUOv0HXR_Uw-EXetZvnDFNZcr0HUL5me/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'Cópia de [A5].mp4', link: 'https://drive.google.com/file/d/1348dS2d0AJlvGoijPuGXZS8lgFCAiCZd/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'Cópia de [A4].mp4', link: 'https://drive.google.com/file/d/1gxC8owCag-D-lcsiJu1gIE7Iv4zh06F3/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'Cópia de [A1].mp4', link: 'https://drive.google.com/file/d/1F_SjxXijvFOQmCq6IuW7qbgIbwfyx64j/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'ADS 67.mp4', link: 'https://drive.google.com/file/d/1OTFTsGXKAFI80mzXn4C5wmjhxLJG_HpD/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 66.mp4', link: 'https://drive.google.com/file/d/1PQVepc9B2rfkOyYzvVUw9F35tniwceTv/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 65.mp4', link: 'https://drive.google.com/file/d/1b_x_CDum-PXmJgwCGwCU2TF9WI-rA1ym/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 64.mp4', link: 'https://drive.google.com/file/d/1s6JgXbgpYE8ERMxxLz9R9AsVZqikl6FS/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 63.mp4', link: 'https://drive.google.com/file/d/1S16iCnTfbswIPIVEqK1OAL6OUdomj25C/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 62.mp4', link: 'https://drive.google.com/file/d/1JZnHd1u5zL3Yml45MoiEvV7RfcH0N6bx/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 56.mp4', link: 'https://drive.google.com/file/d/1RbqB9mNWm9vKSHv54kTlJ3n2ZK3aIqe6/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 55.mp4', link: 'https://drive.google.com/file/d/18ku-LWYcjWULfxc0CUXXO0EXJwbcBaCP/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 54.mp4', link: 'https://drive.google.com/file/d/1PBYcLTOBL9ZnXfiJL6l8naPeTwFsYVrd/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 53.mp4', link: 'https://drive.google.com/file/d/11fu2jddoKr5IrBMSADaZJobeG0O-QJ96/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 52.mp4', link: 'https://drive.google.com/file/d/1GHd44l7T4L21_Fo4W3MlidjCz-GJUNv6/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 51.mp4', link: 'https://drive.google.com/file/d/1L9XLwzeL853UOgAnj5uEstJPSKmU5iJa/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 50.mp4', link: 'https://drive.google.com/file/d/1gh8OZorz1HSnCKi_DbuJOuQakI3Q5x8p/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 49.mp4', link: 'https://drive.google.com/file/d/1MRZDtdBPvsnPY10Xuyn3lYT1gywg5h2G/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 48.mp4', link: 'https://drive.google.com/file/d/18mEmb7fK3x4RvoYZ2lcV-kYovuZW9qVi/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 47.mp4', link: 'https://drive.google.com/file/d/1xJqx9rmeZJqnRh6TSKr1CV-hjJ0-OwD7/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 46.mp4', link: 'https://drive.google.com/file/d/1ypLAWykaOQ_6snfMxD81TRRO1NDHzNKi/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 45.mp4', link: 'https://drive.google.com/file/d/1-tdB53NfJdJAqNlZiCL14LinQcxNn4Gp/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 44.mp4', link: 'https://drive.google.com/file/d/1QjXCxiVbjHJlPUliCg4LLaJdXAtOm2zZ/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 43.mp4', link: 'https://drive.google.com/file/d/1FRhjtLu2U92LzxK8161_o8AF3IxrocnF/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 42.mp4', link: 'https://drive.google.com/file/d/1U3rVTOJZhDWrKFhhX8FNCDQtVIYxvTqJ/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 41.mp4', link: 'https://drive.google.com/file/d/1R3Y2ObqJcpBRUM6DYUQlZ0NPvHa58EfZ/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 40.mp4', link: 'https://drive.google.com/file/d/133FoVkWi-mWhid-cUqUiqOUmfKPfiqai/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 39.mp4', link: 'https://drive.google.com/file/d/1tq-8s3L2JN4iKyho1q97BXYykw2_tc61/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 38.mp4', link: 'https://drive.google.com/file/d/1gvx-ZqvJUX8g_8b5vBOHw42eJqj8x3pF/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 37.mp4', link: 'https://drive.google.com/file/d/1uxUWYu6a0iEjymEuSFMso2LeEeq181EH/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 36.mp4', link: 'https://drive.google.com/file/d/1WRK5DKV5ZclfA1wPy5ro-2ojUtTyCxln/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 35.mp4', link: 'https://drive.google.com/file/d/14rlng9tsVPsLAkhY55kxeGuUHQ4t84Bi/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'ADS 34.mp4', link: 'https://drive.google.com/file/d/1HkhzMbzCIit4xUdNNwgzF5njHtaEfbaS/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'ADS 33.mp4', link: 'https://drive.google.com/file/d/1JsFrModLpB7Z4eCE9OvXHD2MK3KVgdJg/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 32.mp4', link: 'https://drive.google.com/file/d/1cxP4YNm4KrxaTi54z-ZdBMyJOIil30vF/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 31.mp4', link: 'https://drive.google.com/file/d/12ts0WvR6uQgoe3d_-rsLW9fhf85H8b0X/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'ADS 30.mp4', link: 'https://drive.google.com/file/d/1oTBE3V8URRuFnDbF9pJkPMEgzeefKvSF/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'ADS 29.mp4', link: 'https://drive.google.com/file/d/1dAYgvtRIONfBCxmSQo8VvjjF6jDCeCjk/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 28.mp4', link: 'https://drive.google.com/file/d/18OIgJDI4xHM7DXempMJj0Mu1YdO8uiyV/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 27.mp4', link: 'https://drive.google.com/file/d/1uXAoCej1p8L6-5vpG9Ci1WF9QLOO1EfX/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 26.mp4', link: 'https://drive.google.com/file/d/1swXn-nEYQv2lrTCJtce2LRORwVvyIeEa/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 25.mp4', link: 'https://drive.google.com/file/d/1DKqI_Fkh7zHrtxduwsADWQwXiGURft0j/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 24.mp4', link: 'https://drive.google.com/file/d/126o4X1ZMjMEMmUEm00NmqrvfAEtPMiLG/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 23.mp4', link: 'https://drive.google.com/file/d/1_GyyTnyQgKZgukcGbS6cr8I7vzrt7YpU/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 22.mp4', link: 'https://drive.google.com/file/d/11szmawPQoGya_EoeIXCm0uEf6ODthNGA/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 21.mp4', link: 'https://drive.google.com/file/d/1X6DN5frD9q-qhsgNryrEAT_ujNPGA7SO/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 20.mp4', link: 'https://drive.google.com/file/d/1D33G1s-sA1LNlB6cMJw7lyll7pj9Ry3Q/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 19.mp4', link: 'https://drive.google.com/file/d/1nEEw3gRUw7RiQ152eSVPyQdiPerDBlRv/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 18.mp4', link: 'https://drive.google.com/file/d/1N-bgGxP9sE_5EiN0wHVIC_LGKv5WpJ0n/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 17.mp4', link: 'https://drive.google.com/file/d/1ItxK_d6X7whlSUmID8s9gDubpeU468rT/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 16.mp4', link: 'https://drive.google.com/file/d/1rl_pIs95-I15CXgtl87u3TR5Y9CH2g7_/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 15.mp4', link: 'https://drive.google.com/file/d/1ZU_uv-jRB2TadP-o6nf1yW8W3Oewu_ix/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 14.mp4', link: 'https://drive.google.com/file/d/1ty0ehL_NNLy5y2Fc3zuk03toTSAUCSJn/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 13.mp4', link: 'https://drive.google.com/file/d/11z7aLdA5KWN_Yk7TLsLEaMcY4_VWgHUX/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 12.mp4', link: 'https://drive.google.com/file/d/1qGvp9zSYDC3FGgTJzDorLGIhGbarGjhp/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 12 (v2).mp4', link: 'https://drive.google.com/file/d/1ev7qD97C4iV338QxAKEEtcTZpi5iIDaQ/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 11.mp4', link: 'https://drive.google.com/file/d/1CglGiG7op-3YqVjf94t_ksAduxY0H_PC/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 10.mp4', link: 'https://drive.google.com/file/d/1nKiiQIuqe_mjWTC4Sk_KfUJ_DEr1aLsF/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'ADS 9.mp4', link: 'https://drive.google.com/file/d/1lskf2UUTHEPMhDZXIAAfTHUK21c4a6_G/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 8.mp4', link: 'https://drive.google.com/file/d/1hESqjSXBGjJczJZTAy3xmSRkWfVY8khW/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'ADS 6.mp4', link: 'https://drive.google.com/file/d/1e7zc5q93Sle0OZw641NRrsaBQjlFB-jd/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 5.mp4', link: 'https://drive.google.com/file/d/1F7pJJn-7hwPxUvwW9LJ7oAd275dq4fxx/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'ADS 4.mp4', link: 'https://drive.google.com/file/d/1yWzDJLHTtdHkpPIyCb9AZ3-ztOa6pUmc/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'ADS 3.mp4', link: 'https://drive.google.com/file/d/1Py5wyIp5n05aY_y3LVXBxKWL-sckk0ko/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 2.mp4', link: 'https://drive.google.com/file/d/1Lm-cPQr2S6atZiELN9CROkSyUMa91HAI/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 1.mp4', link: 'https://drive.google.com/file/d/1vSQJeprAIno7Z-mQ8P6yBcYF8vNuBLtM/view', date: t, updatedAt: tNow, status: 'running', account: '' },
+        { id: id(), name: 'ADS 7.mp4', link: 'https://drive.google.com/file/d/1FNhnbNo5r4X2BltDF2PNEpXw2tVbgHmp/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 61.mp4', link: 'https://drive.google.com/file/d/1mWUkhH614N4_D-zz241gtlwXgvcfUbAY/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 60.mp4', link: 'https://drive.google.com/file/d/1j9WGTJEYDOumJzR9TQmrLLW6R5nFIjAk/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 58.mp4', link: 'https://drive.google.com/file/d/1P-U4pMAB5azEmXCBoRQW6ryyT8qalKWA/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 57.mp4', link: 'https://drive.google.com/file/d/1MFs8CryZrm4yHyAaXp2FriURhrbF_TcS/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'ADS 59.mp4', link: 'https://drive.google.com/file/d/1iULKoHGgRMztYAeWiUGMblxwCrdolkwU/view', date: t, updatedAt: tNow, status: 'ready', account: '' }
+      ],
+      tt: [
+        { id: id(), name: 'G26 TKK.mp4', link: 'https://drive.google.com/file/d/1mrnocgsGqNCj4IopvxSYmikiRYXrPWUb/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G25 TKK.mp4', link: 'https://drive.google.com/file/d/1yQytHjItjgUqPNwPB-ZyKuPa0baqMxkw/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G24 TKK.mp4', link: 'https://drive.google.com/file/d/1KgJYe5U9NICvKbdf32z6l8Wq18lIhInn/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G23 TKK.mp4', link: 'https://drive.google.com/file/d/1_q4N20-TCPjsdGILCq3_f6-51uyXATeU/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G22 TKK.mp4', link: 'https://drive.google.com/file/d/1yWs_4aB3sOWbJRxILMzU9AHlLGulNrv5/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G21 TKK.mp4', link: 'https://drive.google.com/file/d/1qYwZCuikUlpH3a83689Itv_JnE4tZKEq/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G20 TKK.mp4', link: 'https://drive.google.com/file/d/1DQ6RUkUWD-reJuYaP25Obwm08q4Sut-6/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G19 TKK.mp4', link: 'https://drive.google.com/file/d/1loQ-9-Y4qv2-EaSJ9cdaSGM1WQjdxEVr/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G18 TKK.mp4', link: 'https://drive.google.com/file/d/1Xl4TtHtedz7IlwsU1s96yCEtAbBz-3Ir/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G17 TKK.mp4', link: 'https://drive.google.com/file/d/1RC24JP8UnDhDhwU6yXNJDVZZNLkHo5RJ/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G16 TKK.mp4', link: 'https://drive.google.com/file/d/1GKNT3NviOpZnbPXvFuqDrOwhdvou8Ijk/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G15 TKK (G4).mp4', link: 'https://drive.google.com/file/d/1huH0WZjX8J_zfr_AwrE_74i8Djc69vtb/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G14 TKK (A5).mp4', link: 'https://drive.google.com/file/d/1WXcfG8pGxWpKMEKO2SyF0AbT2YnOVu2r/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G13 TKK (A4).mp4', link: 'https://drive.google.com/file/d/1srYqwLzNYnMy35nOiHTe0ZGJug9b8z58/view', date: t, updatedAt: tNow, status: 'ready', account: '' },
+        { id: id(), name: 'G12 TKK (A1).mp4', link: 'https://drive.google.com/file/d/17vxRKg1vMvIdOz0M4E1lVHcYwh3dwb1p/view', date: t, updatedAt: tNow, status: 'ready', account: '' }
+      ]
+    },
+    live: {
+      fb: [
+        { id: id(), name: 'ADS35 · 1-1-5 · Emily C6', link: 'https://drive.google.com/file/d/exemplo-ads35/view', cpm: 18.40, ctr: 1.85, spend: 5103, revenue: 4658, sales: 27, status: 'champion', date: wISO },
+        { id: id(), name: 'ADS30 · 1-1-8 · Emily C6', link: 'https://drive.google.com/file/d/exemplo-ads30/view', cpm: 16.80, ctr: 2.10, spend: 1870, revenue: 2276, sales: 13, status: 'running', date: wISO },
+        { id: id(), name: 'A5 BIDCAP240 · 1-50-1 · Victoria S3', link: '', cpm: 21.20, ctr: 1.42, spend: 1520, revenue: 1563, sales: 9, status: 'running', date: wISO }
+      ],
+      tt: [
+        { id: id(), name: 'A5 TT · Hashtag #prosperidade', link: '', cpm: 12.30, ctr: 2.85, spend: 480, revenue: 612, sales: 4, status: 'running', date: wISO }
+      ]
+    },
+    lastSync: new Date().toISOString()
+  };
+}
+
+function id() { return 'r_' + Math.random().toString(36).slice(2, 9); }
+
+function persist() {
+  state.lastSync = new Date().toISOString();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  updateStats();
+  updateLastSync();
+}
+
+function updateLastSync() {
+  const d = new Date(state.lastSync);
+  const time = d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  document.getElementById('lastSync').textContent = `salvo às ${time}`;
+}
+
+// ===================== STATS =====================
+function updateStats() {
+  const allItems = [...state.pipeline.fb, ...state.pipeline.tt];
+  const total = allItems.length;
+
+  // Conta por status
+  const counts = {};
+  allItems.forEach(r => {
+    const s = r.status || 'ready';
+    counts[s] = (counts[s] || 0) + 1;
+  });
+
+  // "Teste" = status uploaded + ready (criativos prontos pra subir/testar)
+  // Dependendo do critério, vamos usar 'ready' como TESTE (Subir Teste)
+  // No critério atual: o "Subir Teste" filtra por 'ready' apenas
+  // Mas o stat-test mostra a soma de 'ready' (sai pra ser testado)
+
+  // Renderizar a barra
+  const band = document.getElementById('statsBand');
+  if (!band) return;
+
+  let html = '';
+
+  // 1. TOTAL (sempre aparece, fica em destaque dourado)
+  html += `<div class="stat stat-total">
+    <div class="stat-label">total no pipeline</div>
+    <div class="stat-value">${total}</div>
+  </div>`;
+
+  // 2. SUBIR TESTE (em amarelo) — soma de 'ready' (Pronto pra Subir)
+  const testCount = counts['ready'] || 0;
+  if (testCount > 0) {
+    html += `<div class="stat stat-test">
+      <div class="stat-label"><span class="stat-emoji">⬆️</span>subir teste</div>
+      <div class="stat-value">${testCount}</div>
+    </div>`;
+  }
+
+  // 3. Demais status, em ordem do fluxo, só se tiverem >0
+  const statusOrder = ['fresh', 'editing', 'uploaded', 'pending', 'running', 'champion', 'paused', 'rejected', 'archived'];
+  statusOrder.forEach(key => {
+    const c = counts[key] || 0;
+    if (c <= 0) return;
+    const def = STATUS_BY_KEY[key];
+    if (!def) return;
+    html += `<div class="stat">
+      <div class="stat-label"><span class="stat-emoji">${def.emoji}</span>${def.name.toLowerCase()}</div>
+      <div class="stat-value">${c}</div>
+    </div>`;
+  });
+
+  band.innerHTML = html;
+
+  // Atualizar contadores das sub-abas
+  if (document.getElementById('cnt-pipeline-fb')) {
+    document.getElementById('cnt-pipeline-fb').textContent = state.pipeline.fb.length;
+  }
+  if (document.getElementById('cnt-pipeline-tt')) {
+    document.getElementById('cnt-pipeline-tt').textContent = state.pipeline.tt.length;
+  }
+  if (document.getElementById('cnt-pipeline-fb-test')) {
+    const fbTest = state.pipeline.fb.filter(r => r.status === 'ready').length;
+    document.getElementById('cnt-pipeline-fb-test').textContent = fbTest;
+  }
+  if (document.getElementById('cnt-pipeline-tt-test')) {
+    const ttTest = state.pipeline.tt.filter(r => r.status === 'ready').length;
+    document.getElementById('cnt-pipeline-tt-test').textContent = ttTest;
+  }
+
+  // Pipeline meta
+  const curPipe = getCurrentPipelineCount();
+  const platName = (p) => {
+    if (p === 'fb') return 'Facebook · acervo';
+    if (p === 'tt') return 'TikTok · acervo';
+    if (p === 'fb-test') return 'Facebook · subir teste';
+    if (p === 'tt-test') return 'TikTok · subir teste';
+    return p;
+  };
+  if (document.getElementById('pipelineMeta')) {
+    document.getElementById('pipelineMeta').textContent = `${curPipe} ${curPipe === 1 ? 'item' : 'itens'} · ${platName(currentPlatform.pipeline)}`;
+  }
+  if (document.getElementById('footerCount')) {
+    document.getElementById('footerCount').textContent = `${total} itens · localStorage`;
+  }
+}
+
+function getCurrentPipelineCount() {
+  const plat = currentPlatform.pipeline;
+  if (plat === 'fb-test') return state.pipeline.fb.filter(r => r.status === 'ready').length;
+  if (plat === 'tt-test') return state.pipeline.tt.filter(r => r.status === 'ready').length;
+  return state.pipeline[plat] ? state.pipeline[plat].length : 0;
+}
+
+function brl(n, decimals = 2) {
+  if (typeof n !== 'number') n = parseFloat(n) || 0;
+  return 'R$ ' + n.toLocaleString('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+}
+
+// ===================== RENDER =====================
+
+function formatUpdated(iso) {
+  if (!iso) return '—';
+  try {
+    const d = new Date(iso);
+    const now = new Date();
+    const diffMs = now - d;
+    const diffMin = Math.floor(diffMs / 60000);
+    const diffH = Math.floor(diffMin / 60);
+    const diffD = Math.floor(diffH / 24);
+
+    if (diffMin < 1) return 'agora';
+    if (diffMin < 60) return `há ${diffMin} min`;
+    if (diffH < 24) return `há ${diffH}h`;
+    if (diffD < 7) return `há ${diffD}d`;
+
+    // Mais antigo: data + hora
+    const dia = String(d.getDate()).padStart(2, '0');
+    const mes = String(d.getMonth() + 1).padStart(2, '0');
+    const hh = String(d.getHours()).padStart(2, '0');
+    const mm = String(d.getMinutes()).padStart(2, '0');
+    return `${dia}/${mes} · ${hh}:${mm}`;
+  } catch (e) {
+    return '—';
+  }
+}
+
+function renderPipeline() {
+  const plat = currentPlatform.pipeline;
+  const search = (document.getElementById('searchPipeline').value || '').toLowerCase();
+  const isTest = (plat === 'fb-test' || plat === 'tt-test');
+  const sourcePlat = isTest ? plat.split('-')[0] : plat;
+  let all = state.pipeline[sourcePlat] || [];
+  if (isTest) {
+    all = all.filter(r => r.status === 'ready');
+  }
+  const rows = all.filter(r => {
+    if (!search) return true;
+    return (r.name||'').toLowerCase().includes(search) || (r.link||'').toLowerCase().includes(search);
+  });
+
+  const wrap = document.getElementById('pipelineRows');
+  if (rows.length === 0) {
+    let title, msg;
+    if (search) {
+      title = 'Nada encontrado';
+      msg = 'Tente buscar outro termo';
+    } else if (isTest) {
+      const platLabel = sourcePlat === 'fb' ? 'Facebook' : 'TikTok';
+      title = `Nada pra subir no ${platLabel} agora`;
+      msg = 'Marque um criativo como ✅ Pronto pra Subir que ele aparece aqui';
+    } else {
+      const platLabel = plat === 'fb' ? 'Facebook' : 'TikTok';
+      title = `Nenhum criativo no ${platLabel}`;
+      msg = 'Adicione manualmente ou importe um lote';
+    }
+    wrap.innerHTML = `
+      <div class="empty">
+        <div class="empty-mark">∅</div>
+        <h3>${title}</h3>
+        <p>${msg}</p>
+      </div>`;
+    return;
+  }
+
+  wrap.innerHTML = rows.map((r) => {
+    const idx = all.indexOf(r);
+    return `
+    <div class="table-row grid-pipeline" data-id="${r.id}">
+      <div class="row-num">${String(idx+1).padStart(2, '0')}</div>
+      <div class="cell-name">
+        <input type="text" value="${esc(r.name)}" placeholder="Nome do criativo..." data-tab="pipeline" data-id="${r.id}" data-field="name" data-original="${esc(r.name)}" onblur="handleEdit(this)">
+      </div>
+      <div class="link-cell">${linkIconHTML('pipeline', r)}</div>
+      <div class="cell-date">
+        <input type="date" value="${esc(r.date)}" data-tab="pipeline" data-id="${r.id}" data-field="date" data-original="${esc(r.date)}" onblur="handleEdit(this)">
+        <div class="cell-updated">atualizado ${formatUpdated(r.updatedAt)}</div>
+      </div>
+      <div>${pillHTML('pipeline', r)}</div>
+      <div class="cell-name"><input type="text" value="${esc(r.account)}" placeholder="—" data-tab="pipeline" data-id="${r.id}" data-field="account" data-original="${esc(r.account)}" onblur="handleEdit(this)"></div>
+      <div class="row-actions">
+        <button class="icon-btn" onclick="deleteRow('pipeline', '${r.id}')" title="Apagar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// renderLive() removida na v5
+
+// SINGLE LINK ICON — left click = open, right click = edit
+function linkIconHTML(tab, r) {
+  const hasLink = r.link && r.link.trim();
+  const tip = hasLink ? 'clique: abrir\nclique direito: editar' : 'clique: adicionar link';
+  if (hasLink) {
+    return `<a href="${esc(r.link)}" target="_blank" rel="noopener" class="link-icon" data-tip="${tip}" oncontextmenu="event.preventDefault(); openLinkModal('${tab}', '${r.id}'); return false;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>`;
+  } else {
+    return `<button class="link-icon empty" data-tip="${tip}" onclick="openLinkModal('${tab}', '${r.id}')" oncontextmenu="event.preventDefault(); openLinkModal('${tab}', '${r.id}'); return false;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+    </button>`;
+  }
+}
+
+function pillHTML(tab, r) {
+  const status = r.status || (tab === 'pipeline' ? 'fresh' : 'running');
+  const def = STATUS_BY_KEY[status] || PIPELINE_STATUSES[0];
+  return `<button class="status-pill ${status}" onclick="openStatusModal('${tab}', '${r.id}')" title="Clique pra alterar">
+    <span class="emoji">${def.emoji}</span>${def.name}
+  </button>`;
+}
+
+function esc(s) {
+  if (s === null || s === undefined) return '';
+  return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+}
+
+// ===================== EDIT WITH CONFIRM =====================
+function handleEdit(input) {
+  const original = input.dataset.original;
+  const newVal = input.value;
+
+  if (String(original) === String(newVal)) return;
+
+  if (!confirmEnabled || skipSession) {
+    applyEdit(input.dataset.tab, input.dataset.id, input.dataset.field, newVal);
+    input.dataset.original = newVal;
+    return;
+  }
+
+  pendingEdit = {
+    tab: input.dataset.tab,
+    id: input.dataset.id,
+    field: input.dataset.field,
+    from: original,
+    to: newVal,
+    inputEl: input
+  };
+
+  const fieldLabel = {
+    name: 'Nome do criativo', link: 'Link', date: 'Data adicionado',
+    account: 'Conta destino', cpm: 'CPM', ctr: 'CTR',
+    spend: 'Gasto', revenue: 'Faturado'
+  }[input.dataset.field] || input.dataset.field;
+
+  document.getElementById('diffField').textContent = fieldLabel;
+  document.getElementById('diffFrom').textContent = original || '— (vazio) —';
+  document.getElementById('diffTo').textContent = newVal || '— (vazio) —';
+  document.getElementById('skipFurther').checked = false;
+  document.getElementById('confirmModal').classList.add('active');
+}
+
+function confirmEdit() {
+  if (!pendingEdit) return;
+  applyEdit(pendingEdit.tab, pendingEdit.id, pendingEdit.field, pendingEdit.to);
+  if (pendingEdit.inputEl) pendingEdit.inputEl.dataset.original = pendingEdit.to;
+  if (document.getElementById('skipFurther').checked) {
+    skipSession = true;
+    toast('Confirmações desativadas até a página fechar', 'success');
+  }
+  document.getElementById('confirmModal').classList.remove('active');
+  pendingEdit = null;
+}
+
+function cancelEdit() {
+  if (pendingEdit && pendingEdit.inputEl) {
+    pendingEdit.inputEl.value = pendingEdit.from;
+  }
+  document.getElementById('confirmModal').classList.remove('active');
+  pendingEdit = null;
+}
+
+function applyEdit(tab, id, field, value) {
+  const plat = currentPlatform[tab];
+  const row = state[tab][plat].find(r => r.id === id);
+  if (!row) return;
+  if (['cpm', 'ctr', 'spend', 'revenue'].includes(field)) {
+    row[field] = value === '' ? '' : parseFloat(value);
+  } else {
+    row[field] = value;
+  }
+  // Carimba timestamp de última atualização
+  row.updatedAt = new Date().toISOString();
+  persist();
+  if (tab === 'pipeline') renderPipeline();
+}
+
+// ===================== LINK MODAL =====================
+function openLinkModal(tab, id) {
+  const plat = currentPlatform[tab];
+  const row = state[tab][plat].find(r => r.id === id);
+  if (!row) return;
+  editingLinkRow = { tab, id };
+  document.getElementById('linkInput').value = row.link || '';
+  document.getElementById('linkClearBtn').style.display = row.link ? 'inline-flex' : 'none';
+  document.getElementById('linkModal').classList.add('active');
+  setTimeout(() => document.getElementById('linkInput').focus(), 100);
+}
+function saveLinkFromModal() {
+  if (!editingLinkRow) return;
+  const newLink = document.getElementById('linkInput').value.trim();
+  applyEdit(editingLinkRow.tab, editingLinkRow.id, 'link', newLink);
+  closeModal('linkModal');
+  toast(newLink ? 'Link salvo' : 'Link removido', 'success');
+  editingLinkRow = null;
+}
+function clearLinkInModal() {
+  document.getElementById('linkInput').value = '';
+  saveLinkFromModal();
+}
+
+// ===================== STATUS MODAL =====================
+function openStatusModal(tab, id) {
+  const plat = currentPlatform[tab];
+  const row = state[tab][plat].find(r => r.id === id);
+  if (!row) return;
+  editingStatusRow = { tab, id };
+
+  const statuses = tab === 'pipeline' ? PIPELINE_STATUSES : LIVE_STATUSES;
+  const eyebrow = tab === 'pipeline' ? 'Status do pipeline' : 'Status de veiculação';
+  document.getElementById('statusModalEyebrow').textContent = eyebrow;
+
+  const picker = document.getElementById('statusPicker');
+  picker.innerHTML = statuses.map(s => `
+    <button class="status-option" onclick="selectStatus('${s.key}')">
+      <div class="opt-emoji">${s.emoji}</div>
+      <div class="opt-text">
+        <div class="opt-name">${s.name}</div>
+        <div class="opt-desc">${s.desc}</div>
+      </div>
+    </button>
+  `).join('');
+
+  document.getElementById('statusModal').classList.add('active');
+}
+
+function selectStatus(key) {
+  if (!editingStatusRow) return;
+  const { tab, id } = editingStatusRow;
+  const plat = currentPlatform[tab];
+  const row = state[tab][plat].find(r => r.id === id);
+  if (!row) return;
+  row.status = key;
+  row.updatedAt = new Date().toISOString();
+  persist();
+  renderPipeline();
+  closeModal('statusModal');
+  const def = STATUS_BY_KEY[key];
+  toast(`Status: ${def.emoji} ${def.name}`, 'success');
+  editingStatusRow = null;
+}
+
+// ===================== ROW ACTIONS =====================
+function addRow(tab) {
+  const plat = currentPlatform[tab];
+  const t = todayISO();
+  if (tab === 'pipeline') {
+    state.pipeline[plat].unshift({ id: id(), name: '', link: '', date: t, updatedAt: tNow, status: 'ready', account: '' });
+  } else {
+    state.live[plat].unshift({ id: id(), name: '', cpm: '', ctr: '', spend: '', revenue: '', status: 'running', date: t });
+  }
+  persist();
+  renderPipeline();
+  toast('Nova linha criada', 'success');
+  setTimeout(() => {
+    const wrap = document.getElementById(tab + 'Rows');
+    const firstInput = wrap.querySelector('input[type="text"]');
+    if (firstInput) {
+      firstInput.focus();
+      firstInput.dataset.original = '';
+    }
+  }, 50);
+}
+
+function deleteRow(tab, id) {
+  if (!confirm('Apagar essa linha? Não tem volta.')) return;
+  const plat = currentPlatform[tab];
+  state[tab][plat] = state[tab][plat].filter(r => r.id !== id);
+  persist();
+  renderPipeline();
+  toast('Linha removida', 'success');
+}
+
+// ===================== BATCH IMPORT =====================
+function openImportModal() {
+  document.getElementById('batchPlat').value = currentPlatform.pipeline;
+  document.getElementById('importModal').classList.add('active');
+  setTimeout(() => document.getElementById('batchLinks').focus(), 100);
+}
+function closeModal(modalId) {
+  document.getElementById(modalId).classList.remove('active');
+  if (modalId === 'importModal') document.getElementById('batchLinks').value = '';
+}
+function processBatch() {
+  const text = document.getElementById('batchLinks').value.trim();
+  if (!text) { toast('Cole pelo menos um link', 'error'); return; }
+  const account = document.getElementById('batchAccount').value;
+  const plat = document.getElementById('batchPlat').value;
+  const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+  const t = todayISO();
+
+  const newRows = lines.map((link, i) => {
+    let name = `Criativo ${state.pipeline[plat].length + i + 1} — VSL1 — Hook a definir`;
+    return { id: id(), name, link, date: t, updatedAt: tNow, status: 'ready', account: account || '' };
+  });
+
+  state.pipeline[plat] = [...newRows, ...state.pipeline[plat]];
+  persist();
+  if (currentPlatform.pipeline !== plat) {
+    setPlatform('pipeline', plat);
+  } else {
+    renderPipeline();
+  }
+  closeModal('importModal');
+  toast(`${newRows.length} criativo${newRows.length>1?'s':''} importado${newRows.length>1?'s':''} no ${plat === 'fb' ? 'Facebook' : 'TikTok'}`, 'success');
+}
+
+// ===================== EXPORT =====================
+function exportCSV(tab) {
+  const plat = currentPlatform[tab];
+  let csv = '';
+  if (tab === 'pipeline') {
+    csv = 'Nome,Link,Adicionado,Status,Conta\n';
+    csv += state.pipeline[plat].map(r => [r.name, r.link, r.date, r.status, r.account].map(csvEsc).join(',')).join('\n');
+  } else {
+    csv = 'Nome,Link,CPM,CTR,Gasto,Faturado,Status,Data\n';
+    csv += state.live[plat].map(r => [r.name, r.link, r.cpm, r.ctr, r.spend, r.revenue, r.status, r.date].map(csvEsc).join(',')).join('\n');
+  }
+  download(csv, `imdigital-${tab}-${plat}-${todayISO()}.csv`, 'text/csv');
+  toast('CSV exportado', 'success');
+}
+function csvEsc(s) {
+  if (s === null || s === undefined) return '';
+  s = String(s);
+  if (s.includes(',') || s.includes('"') || s.includes('\n')) return '"' + s.replace(/"/g, '""') + '"';
+  return s;
+}
+function download(content, filename, type) {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+function exportAll() {
+  const json = JSON.stringify(state, null, 2);
+  download(json, `imdigital-backup-${todayISO()}.json`, 'application/json');
+  toast('Backup completo gerado', 'success');
+}
+function resetAll() {
+  if (!confirm('Apagar TUDO? Não tem volta. Recomendo fazer backup antes.')) return;
+  if (!confirm('Tem certeza absoluta? Última chance.')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  state = seedState();
+  persist();
+  renderPipeline(); /* renderLive removido */
+  toast('Tudo zerado · dados de exemplo restaurados', 'success');
+}
+
+// ===================== TOAST =====================
+function toast(msg, type = '') {
+  const zone = document.getElementById('toastZone');
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px"><polyline points="20 6 9 17 4 12"/></svg> ${msg}`;
+  zone.appendChild(t);
+  setTimeout(() => t.remove(), 3200);
+}
+
+// ===================== TABS =====================
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('tab-' + t.dataset.tab).classList.add('active');
+  });
+});
+
+function setPlatform(tab, plat) {
+  if (tab !== 'pipeline') return;
+  currentPlatform[tab] = plat;
+  document.querySelectorAll(`.platform-bar[data-bar="${tab}"] .plat-tab`).forEach(b => {
+    b.classList.toggle('active', b.dataset.plat === plat);
+  });
+  // Toolbar: esconder botões de criação nas abas readonly
+  const isReadonly = (plat === 'fb-test' || plat === 'tt-test');
+  document.querySelectorAll('.toolbar-readonly-hide').forEach(el => {
+    el.style.display = isReadonly ? 'none' : '';
+  });
+  // Mostra/esconde banner readonly
+  const banner = document.getElementById('readonlyBanner');
+  if (banner) banner.style.display = isReadonly ? 'flex' : 'none';
+  renderPipeline();
+  updateStats();
+}
+
+// ===================== SEARCH =====================
+document.getElementById('searchPipeline').addEventListener('input', renderPipeline);
+// busca da aba live removida na v5
+
+// ===================== CONFIRM TOGGLE =====================
+document.getElementById('confirmToggle').addEventListener('change', (e) => {
+  confirmEnabled = e.target.checked;
+  toast(confirmEnabled ? 'Confirmações ligadas' : 'Confirmações desligadas', 'success');
+});
+
+// ===================== KEYBOARD =====================
+document.addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    const active = document.querySelector('.tab.active').dataset.tab;
+    const inp = document.getElementById('search' + active.charAt(0).toUpperCase() + active.slice(1));
+    if (inp) inp.focus();
+  }
+  if ((e.metaKey || e.ctrlKey) && e.key === 'n') {
+    e.preventDefault();
+    const active = document.querySelector('.tab.active').dataset.tab;
+    if (active === 'pipeline' || active === 'live') addRow(active);
+  }
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-backdrop.active').forEach(m => m.classList.remove('active'));
+    if (pendingEdit) cancelEdit();
+  }
+});
+
+// ===================== INIT =====================
+renderPipeline();
+/* renderLive removido */
+updateStats();
+updateLastSync();
+</script>
+
+</body>
+</html>
