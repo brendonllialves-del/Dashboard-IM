@@ -1,0 +1,481 @@
+{
+  "em": "2026-09-25T00:05:10.168Z",
+  "dias": [
+    "2026-09-18",
+    "2026-09-19",
+    "2026-09-20",
+    "2026-09-21",
+    "2026-09-22",
+    "2026-09-23",
+    "2026-09-24"
+  ],
+  "total": 41,
+  "falhas": 0,
+  "resultados": [
+    {
+      "id": "1.1",
+      "nome": "ordem dos metadados segue o pedido",
+      "ok": true,
+      "det": [
+        "Conta",
+        "Oferta",
+        "Perfil",
+        "Ads",
+        "Domínio",
+        "Nome da campanha no Cloaker",
+        "Página segura",
+        "Página de oferta",
+        "Link do Cloaker",
+        "UTMs",
+        "Página",
+        "Offer",
+        "VSL · A/B",
+        "Views VSL",
+        "Plays",
+        "Play Rate",
+        "Engajamento",
+        "Ret. Pitch",
+        "Aud. Pitch",
+        "Verificado?"
+      ]
+    },
+    {
+      "id": "1.2",
+      "nome": "Conf e VSL2 não existem mais",
+      "ok": true,
+      "det": [
+        "Conta",
+        "Oferta",
+        "Perfil",
+        "Ads",
+        "Domínio",
+        "Nome da campanha no Cloaker",
+        "Página segura",
+        "Página de oferta",
+        "Link do Cloaker",
+        "UTMs",
+        "Página",
+        "Offer",
+        "VSL · A/B",
+        "Views VSL",
+        "Plays",
+        "Play Rate",
+        "Engajamento",
+        "Ret. Pitch",
+        "Aud. Pitch",
+        "Verificado?"
+      ]
+    },
+    {
+      "id": "1.3",
+      "nome": "área de métricas: VSL · A/B, Views VSL, Plays, Play Rate, Engajamento, Ret. Pitch, Aud. Pitch",
+      "ok": true,
+      "det": [
+        "Página",
+        "Offer",
+        "VSL · A/B",
+        "Views VSL",
+        "Plays",
+        "Play Rate",
+        "Engajamento",
+        "Ret. Pitch",
+        "Aud. Pitch",
+        "Verificado?"
+      ]
+    },
+    {
+      "id": "1.4",
+      "nome": "Prosperità: coluna Página aparece como Card (dados preservados)",
+      "ok": true,
+      "det": {
+        "cab": [
+          "Card"
+        ],
+        "valor": "X"
+      }
+    },
+    {
+      "id": "2.cod",
+      "nome": "BIANCA MOORE 1: métricas VTurb de hoje batem com a regra (1 VSL)",
+      "ok": true,
+      "det": {
+        "vis": "400360 únicasperda até play 45,00%",
+        "pr": "55,00%",
+        "ret": "30,00%",
+        "aud": "6018 cliques botãoperda até clique 70,00%",
+        "vsl": "1 VSLFB COD | VSL FUNIL 2 | HORSEBOOST",
+        "esperado": {
+          "vis": {
+            "principal": "400",
+            "sub": "360 únicas",
+            "perda": "perda até play 45,00%",
+            "formulaPerda": "(1 − plays ÷ visualizações) × 100"
+          },
+          "pr": "55,00%",
+          "ret": "30,00%",
+          "aud": "60"
+        }
+      }
+    },
+    {
+      "id": "2.bul",
+      "nome": "SOFIA JONES C1: métricas VTurb de hoje batem com a regra (2 VSL)",
+      "ok": true,
+      "det": {
+        "vis": "400360 únicasperda até play 42,50%",
+        "pr": "65,00%",
+        "ret": "36,82%",
+        "aud": "7015 cliques botãoperda até clique 78,57%",
+        "vsl": "A/B · 2 VSLsFB COD BG | VSL A · FB COD BG | VSL B",
+        "esperado": {
+          "vis": {
+            "principal": "400",
+            "sub": "360 únicas",
+            "perda": "perda até play 42,50%",
+            "formulaPerda": "(1 − plays ÷ visualizações) × 100"
+          },
+          "pr": "65,00%",
+          "ret": "36,82%",
+          "aud": "70"
+        }
+      }
+    },
+    {
+      "id": "2.us",
+      "nome": "TATIANE SOUZA 1: métricas VTurb de hoje batem com a regra (1 VSL)",
+      "ok": true,
+      "det": {
+        "vis": "500450 únicasperda até play 50,00%",
+        "pr": "50,00%",
+        "ret": "—",
+        "aud": "—",
+        "vsl": "1 VSLFB PROSPERIDADE | VSL SEM PITCH",
+        "esperado": {
+          "vis": {
+            "principal": "500",
+            "sub": "450 únicas",
+            "perda": "perda até play 50,00%",
+            "formulaPerda": "(1 − plays ÷ visualizações) × 100"
+          },
+          "pr": "50,00%",
+          "ret": "—",
+          "aud": "—"
+        }
+      }
+    },
+    {
+      "id": "2.it",
+      "nome": "ALLISON BROOKS 1: métricas VTurb de hoje batem com a regra (3 VSL)",
+      "ok": true,
+      "det": {
+        "vis": "440396 únicasperda até play 50,00%",
+        "pr": "47,78%",
+        "ret": "29,29%",
+        "aud": "55",
+        "vsl": "A/B · 3 VSLsFB PROSPERITA | VSL1 · FB PROSPERITA | VSL2 · FB PROSPERITA | VSL3",
+        "esperado": {
+          "vis": {
+            "principal": "440",
+            "sub": "396 únicas",
+            "perda": "perda até play 50,00%",
+            "formulaPerda": "(1 − plays ÷ visualizações) × 100"
+          },
+          "pr": "47,78%",
+          "ret": "29,29%",
+          "aud": "55"
+        }
+      }
+    },
+    {
+      "id": "2.vitalite",
+      "nome": "JULIA MOORE C3: métricas VTurb de hoje batem com a regra (1 VSL)",
+      "ok": true,
+      "det": {
+        "vis": "8072 únicasperda até play 30,00%",
+        "pr": "69,44%",
+        "ret": "50,00%",
+        "aud": "207 cliques botãoperda até clique 65,00%",
+        "vsl": "1 VSLVITALITE | VSL B PROTOCOLE",
+        "esperado": {
+          "vis": {
+            "principal": "80",
+            "sub": "72 únicas",
+            "perda": "perda até play 30,00%",
+            "formulaPerda": "(1 − plays ÷ visualizações) × 100"
+          },
+          "pr": "69,44%",
+          "ret": "50,00%",
+          "aud": "20"
+        }
+      }
+    },
+    {
+      "id": "2.todas",
+      "nome": "aba Todas agrega as cinco ofertas (linhas de todas visíveis, com métricas)",
+      "ok": true,
+      "det": {
+        "linhas": 51
+      }
+    },
+    {
+      "id": "2.oferta",
+      "nome": "oferta em texto livre vira chip marcado da oferta",
+      "ok": true,
+      "det": "☑ 🐎 ED COD BUL 🇧🇬"
+    },
+    {
+      "id": "2.ads",
+      "nome": "Ads vem das Campanhas Meta (criativos que rodaram na conta), compacto",
+      "ok": true,
+      "det": "2KBED 2 = BKED 2KBED 5 = BKED 5"
+    },
+    {
+      "id": "3.1",
+      "nome": "uma VSL: hoje a Julia Moore C3 mostra só a VSL B",
+      "ok": true,
+      "det": "1 VSLVITALITE | VSL B PROTOCOLE"
+    },
+    {
+      "id": "4.1",
+      "nome": "histórico: em 7 dias a mesma campanha mostra A/B com as duas VSLs e soma as views",
+      "ok": true,
+      "det": {
+        "sem": "A/B · 2 VSLsVITALITE | VSL A PROTOCOLE · VITALITE | VSL B PROTOCOLE",
+        "vis7": "680612 únicasperda até play 40,59%",
+        "pr7": "59,72%",
+        "esperado": {
+          "vis": "680",
+          "pr": "59,72%",
+          "calc": "média aritmética de 2 VSL(s) em A/B"
+        }
+      }
+    },
+    {
+      "id": "5.1",
+      "nome": "Julia Moore C3: domínio, nome, página segura, página de oferta e UTM completa vindos do CloakUp",
+      "ok": true,
+      "det": {
+        "utms": "​utm_source=FB&utm_campaign={{campaign.name}}|{{campaign.id}}&utm_medium={{adset.name}}|{{adset.id}}&utm_content={{ad.name}}|{{ad.id}}&utm_term={{placement}}&Dqsxb16zJh=WDCHkQAEsh",
+        "segura": "​https://drsebastienbeley.online/newpv"
+      }
+    },
+    {
+      "id": "5.2",
+      "nome": "\"Juliamore 1\" casa com a Julia Moore C1 pelo código do link (não pelo nome)",
+      "ok": true,
+      "det": "​[FB] 🟢 JULIAMORE 1 | ED INFO VENDEPAY | drsebastienbeley.online"
+    },
+    {
+      "id": "5.3",
+      "nome": "mesmo código em outro domínio/oferta não contamina (Beatriz Morais 3)",
+      "ok": true,
+      "det": "(vazio)"
+    },
+    {
+      "id": "5.4",
+      "nome": "UTM antiga da Bulgária com o MESMO parâmetro do CloakUp vira a string base",
+      "ok": true,
+      "det": "​utm_source=FB&utm_campaign={{campaign.name}}|{{campaign.id}}&utm_medium={{adset.name}}|{{adset.id}}&utm_content={{ad.name}}|{{ad.id}}&utm_term={{placement}}&6RCpP2DEK4=m4086menbQ"
+    },
+    {
+      "id": "5.5",
+      "nome": "UTM com parâmetro diferente do CloakUp NÃO é sobrescrita",
+      "ok": true,
+      "det": "(mantida a da planilha)"
+    },
+    {
+      "id": "5.6",
+      "nome": "pendências listam divergência de UTM e campanha sem linha, sem palpite",
+      "ok": true,
+      "det": "5 campanhas do CloakUp · 5 ativas (verde) · coletadas em 24/09, 21:04 · 4 linhas casadasCampanha do CloakUp sem linha na Subidas · 1NOVA CONTA C9 · 🕊 Prosperidade 🇺🇸 · nv9nv9nv9n[FB] 🟢 NOVA CONTA C9 | PROSPERIDADE | ANJOS | sacred.onlin"
+    },
+    {
+      "id": "6.1",
+      "nome": "A/B: Play Rate = média aritmética das VSLs (não a razão das somas)",
+      "ok": true,
+      "det": {
+        "painel": "65,00%",
+        "media": 65,
+        "razaoDasSomas": 57.5
+      }
+    },
+    {
+      "id": "6.2",
+      "nome": "A/B: Views, Plays e cliques no botão somados; perdas com fórmula",
+      "ok": true,
+      "det": {
+        "vis": "400360 únicasperda até play 42,50%",
+        "aud": "7015 cliques botãoperda até clique 78,57%"
+      }
+    },
+    {
+      "id": "6.3",
+      "nome": "sem pitch conhecido: Ret. e Aud. Pitch mostram — (nunca zero)",
+      "ok": true,
+      "det": ""
+    },
+    {
+      "id": "6.4",
+      "nome": "engajamento ausente na VTurb mostra —",
+      "ok": true,
+      "det": ""
+    },
+    {
+      "id": "8.1",
+      "nome": "UTM estreita: sem quebra, altura igual, final da string visível (corte à esquerda)",
+      "ok": true,
+      "det": {
+        "alt0": 44,
+        "h": 44,
+        "ws": "nowrap",
+        "dentroDir": true,
+        "cortaEsq": true,
+        "final": "Dqsxb16zJh=WDCHkQAEsh"
+      }
+    },
+    {
+      "id": "8.2",
+      "nome": "outra coluna estreitada: nowrap e a linha não cresce",
+      "ok": true,
+      "det": {
+        "alt0": 44,
+        "alt2": 44
+      }
+    },
+    {
+      "id": "9.1",
+      "nome": "arrastar seleciona células e o rodapé mostra quantidade e soma",
+      "ok": true,
+      "det": {
+        "n": 6,
+        "rod": " · 6 células selecionadas · Soma: 136",
+        "soma": 136
+      }
+    },
+    {
+      "id": "9.2",
+      "nome": "menu da seleção alinha todas ao centro e salva na chave do Brandon",
+      "ok": true,
+      "det": {
+        "alB": "center",
+        "chave": "sub_view_owner_brendon_19i8kit"
+      }
+    },
+    {
+      "id": "7.0",
+      "nome": "separação padrão: Domínio → Link do Cloaker delimitados",
+      "ok": true,
+      "det": {
+        "ads": "rgb(139, 147, 167) -2px 0px 0px 0px inset",
+        "ck": "rgb(139, 147, 167) -2px 0px 0px 0px inset"
+      }
+    },
+    {
+      "id": "7.1",
+      "nome": "usuário cria outra separação pelo menu do cabeçalho (salva só para ele)",
+      "ok": true,
+      "det": ""
+    },
+    {
+      "id": "7.2",
+      "nome": "tema claro: cabeçalhos claros com texto escuro",
+      "ok": true,
+      "det": {
+        "thDark": "rgb(26, 34, 50)",
+        "thLight": {
+          "bg": "rgb(234, 241, 249)",
+          "cor": "rgb(51, 65, 85)"
+        }
+      }
+    },
+    {
+      "id": "7.3",
+      "nome": "histórico no tema claro e botão fechar livre do botão de tema, com área grande",
+      "ok": true,
+      "det": {
+        "bg": "rgb(255, 255, 255)",
+        "xVisivel": true,
+        "sobrepoe": false,
+        "xTam": [
+          34,
+          34
+        ]
+      }
+    },
+    {
+      "id": "7.4",
+      "nome": "botão fechar fecha o histórico",
+      "ok": true,
+      "det": ""
+    },
+    {
+      "id": "7.5",
+      "nome": "volta ao escuro sem estilo preso",
+      "ok": true,
+      "det": "rgb(26, 34, 50)"
+    },
+    {
+      "id": "7.6",
+      "nome": "histórico escuro no tema escuro; Esc fecha",
+      "ok": true,
+      "det": "rgb(11, 18, 32)"
+    },
+    {
+      "id": "1.5",
+      "nome": "dados de Conf/VSL2 vão para backup e saem das células (uma vez)",
+      "ok": true,
+      "det": "subidas_antes_v2_mug789u6"
+    },
+    {
+      "id": "1.6",
+      "nome": "nenhum erro de JavaScript na página do Brandon",
+      "ok": true,
+      "det": []
+    },
+    {
+      "id": "C.1",
+      "nome": "Campanhas Meta: Plays e Engajamento ao lado das colunas VTurb; A/B e sub-linhas iguais à Subidas",
+      "ok": true,
+      "det": {
+        "vis": "400360 únicasperda até play 42,50%",
+        "plays": "230207 únicos",
+        "pr": "65,00%média A/B",
+        "eng": "45,00%média A/B",
+        "aud": "7015 cliques botãoperda até clique 78,57%",
+        "cliques": "162126 views pág."
+      }
+    },
+    {
+      "id": "9.3",
+      "nome": "outro usuário não herda o alinhamento nem as separações do Brandon",
+      "ok": true,
+      "det": {
+        "alM": "right",
+        "divM": "none"
+      }
+    },
+    {
+      "id": "9.4",
+      "nome": "preferência do segundo usuário fica numa chave própria e não mexe na do Brandon",
+      "ok": true,
+      "det": {
+        "kB": "sub_view_owner_brendon_19i8kit",
+        "kM": "sub_view_team_matheus_full_8hsam0",
+        "alM": {
+          "Rmtlwp96v7f|m:retPitch": "left",
+          "Rmtlwp96v7f|m:audPitch": "left"
+        }
+      }
+    },
+    {
+      "id": "9.5",
+      "nome": "Brandon reabre: alinhamento e separação dele voltam; o do outro usuário não aparece",
+      "ok": true,
+      "det": {
+        "vis": "center",
+        "ret": "right",
+        "div": "rgb(255, 92, 92) -2px 0px 0px 0px inset"
+      }
+    }
+  ]
+}

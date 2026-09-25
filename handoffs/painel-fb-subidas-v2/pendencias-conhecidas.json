@@ -1,0 +1,143 @@
+{
+  "geradoEm": "2026-09-25T00:06:00.546Z",
+  "fonte": "linhas da planilha embutidas no index.html (ativas por padrão) + as 3 linhas da Vitalité; sem acesso ao CloakUp nesta análise",
+  "regra": "Nenhum item abaixo é corrigido automaticamente. Com a coleta do CloakUp importada, a Subidas resolve sozinha só o que casa com segurança (mesmo código + mesmo host + mesma oferta, ou vínculo manual).",
+  "codigoRepetidoEmDominiosDiferentes": [
+    {
+      "slug": "wi1lq6rvqm",
+      "linhas": [
+        {
+          "id": "L69",
+          "g": "us",
+          "conta": "Beatriz Morais 3",
+          "host": "ck.frequencyofgod.online"
+        },
+        {
+          "id": "Rmtlwp8yn5y",
+          "g": "vitalite",
+          "conta": "JULIA MOORE C1",
+          "host": "ck.drsebastienbeley.online"
+        }
+      ]
+    }
+  ],
+  "utmForaDaStringBase": {
+    "bul": {
+      "linhas": 7,
+      "exemplos": [
+        {
+          "id": "B01",
+          "conta": "AGENCIA 4303980056531256 BULGARIA",
+          "param": "7zykF4uZSR=Z5k7ro1vUz"
+        },
+        {
+          "id": "B02",
+          "conta": "SOFIA JONES C1 BULGARIA",
+          "param": "6RCpP2DEK4=m4086menbQ"
+        },
+        {
+          "id": "B03",
+          "conta": "SOFIA JONES C2 BULGARIA",
+          "param": "7PeEqqxC1G=3qjqub2JeV"
+        },
+        {
+          "id": "B04",
+          "conta": "AGENCIA 1014452871194013 BULGARIA",
+          "param": "orQFjmRKqe=JktWRfEYt1"
+        },
+        {
+          "id": "B05",
+          "conta": "AGENCIA 1390438916385459 BULGARIA",
+          "param": "HHfNahb1Ic=F8Tz0KbQPw"
+        },
+        {
+          "id": "B06",
+          "conta": "AGENCIA 1339993017678610 BULGARIA",
+          "param": "v89w9RtXcD=7r0HZuBhT2"
+        }
+      ]
+    },
+    "us": {
+      "linhas": 7,
+      "exemplos": [
+        {
+          "id": "L42",
+          "conta": "VICTORIA SCARLETT 3-(RedTrack)",
+          "param": "RuuvMgeyss=GUHkz46z6S"
+        },
+        {
+          "id": "L50",
+          "conta": "TATIANE SOUZA 1-(RedTrack)",
+          "param": "PlOlje6rDy=3EocTgPLnf"
+        },
+        {
+          "id": "L56",
+          "conta": "TATIANE SOUZA 2 - UTM",
+          "param": "MRKl3yeoKd=ifhT1bJYUU"
+        },
+        {
+          "id": "L58",
+          "conta": "TATIANE SOUZA 4 -(RedTrack) UTM",
+          "param": "MRKl3yeoKd=ifhT1bJYUU"
+        },
+        {
+          "id": "L59",
+          "conta": "TATIANE SOUZA 1 TESTE DE PLATAFORMA",
+          "param": "VSgu1fEJbL=iuBrQ8XlM8"
+        },
+        {
+          "id": "L60",
+          "conta": "TATIANE SOUZA 2 TESTE DE PLATAFORMA",
+          "param": "YPCPr5ANw0=FY4fyzbGq5"
+        }
+      ]
+    },
+    "nutra": {
+      "linhas": 2,
+      "exemplos": [
+        {
+          "id": "L82",
+          "conta": "AGENCIA 1235302458164630",
+          "param": "f0nMmuLCH1=qXPNS8RW9d"
+        },
+        {
+          "id": "L84",
+          "conta": "AGENCIA 1428393558700639",
+          "param": "dbRfZXSF4K=Wk1PHHUETb"
+        }
+      ]
+    },
+    "vitalite": {
+      "linhas": 3,
+      "exemplos": [
+        {
+          "id": "Rmtlwp8yn5y",
+          "conta": "JULIA MOORE C1",
+          "param": "XMaER2uHCB=7uKituF43M"
+        },
+        {
+          "id": "Rmtlwp9333w",
+          "conta": "JULIA MOORE C2",
+          "param": "tUL42c6BBm=Qjf4k71jt0"
+        },
+        {
+          "id": "Rmtlwp96v7f",
+          "conta": "JULIA MOORE C3",
+          "param": "Dqsxb16zJh=WDCHkQAEsh"
+        }
+      ]
+    }
+  },
+  "rotulosAConfirmar": [
+    {
+      "pedido": "Julia Mor C3",
+      "linhaNoPainel": "JULIA MOORE C3 (Rmtlwp96v7f)",
+      "comoCasa": "código do link adsa3212dsv; confirmar o nome exato no CloakUp"
+    },
+    {
+      "pedido": "Juliamore 1",
+      "linhaNoPainel": "JULIA MOORE C1 (Rmtlwp8yn5y), se o link do CloakUp for ck.drsebastienbeley.online/wi1lq6rvqm",
+      "comoCasa": "código + host; pelo nome sozinho NÃO casa (JULIAMORE ≠ JULIA MOORE C1), vira pendência para revisão"
+    }
+  ]
+}
